@@ -72,7 +72,7 @@ def source(msg):
 	"""
 	main_log.info("Starting func 'source'")
 
-	reply_text = "Погода в Хабаровске: " + config.source_link
+	reply_text = "<a href=\"https://t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d\">Погода в Хабаровске</a>"
 	bot.send_message(msg.chat.id, reply_text)
 
 
