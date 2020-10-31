@@ -188,7 +188,7 @@ def top_best(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	main_log.info("Starting func 'top_best'")
-
+ user_rang = "🤖 Бот"
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
@@ -202,7 +202,7 @@ def top_best(msg):
 		else:
 			name = user.user_nick.strip()
 			
-		top_mess += f"*{i+1}*. {name}, ({user.karma})\n" +user_rang
+		top_mess += f"*{i+1}*. {name}, ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
