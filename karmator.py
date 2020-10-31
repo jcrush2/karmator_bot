@@ -193,7 +193,7 @@ def top_best(msg):
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
-        user_rang = "🤖 Бот"
+	user_rang = "🤖 Бот"
 	top_mess = "🏆 Топ благодаримых:\n"
 	for i, user in enumerate(selected_user):
 		if user.karma <= 10: user_rang = "🤖 Бот"
