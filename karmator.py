@@ -65,7 +65,7 @@ def helps(msg):
 	\n/topbad Для того, что-бы узнать наиболее ругаемых в этом чате.\
 	\n/freezeme Для заморозки своей кармы.\
 	\n/unfreezeme Для разморозки своей кармы.\
-	\n/source Ссылка на GitHub репозиторий."
+	\n/source Погода."
 	bot.send_message(msg.chat.id, help_mess)
 
 
