@@ -376,8 +376,8 @@ def is_karma_abuse(msg):
 	if len(limitation_request) > 7:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M:%S %d.%m.%Y")
-		reply_text = f"Возможность изменять карму будет доступна с: {timer}"
-		bot.send_message(msg.chat.id, reply_text)
+		#reply_text = f"Возможность изменять карму будет доступна с: {timer}"
+		#bot.send_message(msg.chat.id, reply_text)
 		return True
 	return False
 
