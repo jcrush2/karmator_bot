@@ -63,7 +63,7 @@ def helps(msg):
 	bot.send_message(msg.chat.id, help_mess)
 
 
-@bot.message_handler(commands=["source"], func=is_my_message)
+@bot.message_handler(commands=["weather"], func=is_my_message)
 def source(msg):
 	"""
 	Функция, которая по запросу возвращает ссылку на гитхаб-репозиторий,
