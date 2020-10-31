@@ -59,7 +59,8 @@ def helps(msg):
 	\nКомманды:\
 	\n/mykarm Для просмотра своей кармы.\
 	\n/topbest Узнать наиболее благодаримых в чате. \
-	\n/topbad Узнать наиболее ругаемых в чате."
+	\n/topbad Узнать наиболее ругаемых в чате. \
+	\n/weather Погода."
 	bot.send_message(msg.chat.id, help_mess)
 
 
