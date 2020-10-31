@@ -44,7 +44,7 @@ def start(msg):
 	bot.send_message(msg.chat.id, reply_text)
 
 
-@bot.message_handler(commands=["help"], func=is_my_message)
+@bot.message_handler(commands=["karma"], func=is_my_message)
 def helps(msg):
 	"""
 	Функция для отправки списка общедоступных команд для бота
@@ -202,7 +202,7 @@ def top_best(msg):
 		else:
 			name = user.user_nick.strip()
 			
-		top_mess += f"*{i+1}*. {name}, ({user.karma} раз) {user_rang}\n"
+		top_mess += f"*{i+1}*. {name}, ({user.karma})\n" +user_rang
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
@@ -225,7 +225,7 @@ def top_bad(msg):
 			name = user.user_name.strip()
 		else:
 			name = user.user_nick.strip()
-		top_mess += f"*{i+1}*. {name}, ({user.karma} раз)\n"
+		top_mess += f"*{i+1}*. {name}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
