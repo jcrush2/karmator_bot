@@ -57,9 +57,9 @@ def helps(msg):
 	help_mess = "Выражения похвалы повышают карму, ругательства понижают.\
 	\nОграничения на выдачу кармы: 7 раз в 12 часов.\
 	\nКомманды:\
-	\n/mykarm Для просмотра своей кармы.\
-	\n/topbest Узнать наиболее благодаримых в чате. \
-	\n/topbad Узнать наиболее ругаемых в чате. \
+	\n/my Для просмотра своей кармы.\
+	\n/top Узнать наиболее благодаримых в чате. \
+	\n/pop Узнать наиболее ругаемых в чате. \
 	\n/weather Погода."
 	bot.send_message(msg.chat.id, help_mess)
 
@@ -156,7 +156,7 @@ def change_karma(user, chat, result):
 	update_user.execute()
 
 
-@bot.message_handler(commands=["mykarm"], func=is_my_message)
+@bot.message_handler(commands=["my"], func=is_my_message)
 def my_karma(msg):
 	"""
 	Функция, которая выводит значение кармы для пользователя.
@@ -181,7 +181,7 @@ def my_karma(msg):
 	bot.send_message(msg.chat.id, now_karma, parse_mode="HTML")
 
 
-@bot.message_handler(commands=["topbest"], func=is_my_message)
+@bot.message_handler(commands=["top"], func=is_my_message)
 def top_best(msg):
 	"""
 	Функция которая выводит список пользователей с найбольшим значением кармы
@@ -194,7 +194,7 @@ def top_best(msg):
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
 
-	top_mess = "Топ благодаримых:\n"
+	top_mess = "🏆 Топ благодаримых:\n"
 	for i, user in enumerate(selected_user):
 		if user.user_name:
 			name = user.user_name.strip()
@@ -206,7 +206,7 @@ def top_best(msg):
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
 
 
-@bot.message_handler(commands=["topbad"], func=is_my_message)
+@bot.message_handler(commands=["pop"], func=is_my_message)
 def top_bad(msg):
 	"""
 	Функция которая выводит список пользователей с найменьшим значением кармы
@@ -217,7 +217,7 @@ def top_bad(msg):
 		.order_by(KarmaUser.karma.asc()) \
 		.limit(10)
 
-	top_mess = "Топ ругаемых:\n"
+	top_mess = "💩 Топ ругаемых:\n"
 	for i, user in enumerate(selected_user):
 		if user.user_name:
 			name = user.user_name.strip()
@@ -418,9 +418,9 @@ def reputation(msg, text):
 		change_karma(msg.reply_to_message.from_user, msg.chat, result)
 
 	if result > 0:
-		res = "повышена"
+		res = "повышена ⬆️"
 	elif result < 0:
-		res = "понижена"
+		res = "понижена ⬇️"
 	else:
 		res = "не изменена"
 
