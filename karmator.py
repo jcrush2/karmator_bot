@@ -197,7 +197,7 @@ def top_best(msg):
 	top_mess = "🏆 Топ благодаримых:\n"
 	for i, user in enumerate(selected_user):
 		if user.karma <= 9: user_rang = "🤖 Бот"
-			if 10 <= user.karma <= 20: user_rang = "🤫 Тихоня"
+			if 10 <= user.karma < 20: user_rang = "🤫 Тихоня"
 		if user.user_name:
 			name = user.user_name.strip()
 		else:
