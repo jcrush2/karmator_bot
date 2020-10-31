@@ -71,8 +71,8 @@ def source(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	main_log.info("Starting func 'source'")
-
-	reply_text = "t.me/iv?url=https://khabara.ru/weather.php"+datetime.datetime.now()+"&rhash=c036525856601d"
+now = datetime.datetime.now() 
+	reply_text = "t.me/iv?url=https://khabara.ru/weather.php"+now.strftime("%d-%m-%Y_%H:%M")+"&rhash=c036525856601d"
 	bot.send_message(msg.chat.id, reply_text)
 
 
