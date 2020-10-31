@@ -188,12 +188,12 @@ def top_best(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	main_log.info("Starting func 'top_best'")
- user_rang = "🤖 Бот"
+ 
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
-
+        user_rang = "🤖 Бот"
 	top_mess = "🏆 Топ благодаримых:\n"
 	for i, user in enumerate(selected_user):
 		if user.karma <= 10: user_rang = "🤖 Бот"
