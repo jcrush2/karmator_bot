@@ -93,7 +93,13 @@ def loves(msg):
 	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
 	bot.reply_to(msg, loves_text)
 
-
+@bot.message_handler(content_types=['text'])
+def send_text(message):
+    if message.text.lower() == '/привету':
+        bot.send_message(message.chat.id, 'Привет, мой создатель')
+    elif message.text.lower() == '/покас':
+        bot.send_message(message.chat.id, 'Прощай, создатель')
+	
 def select_user(user, chat):
 	"""
 	Функция для извлечения данных о пользователе
