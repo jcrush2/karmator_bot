@@ -56,7 +56,7 @@ def helps(msg):
 
 	help_mess = "Выражения похвалы повышают карму, ругательства понижают.\
 	\nОграничения на выдачу кармы: 7 раз в 12 часов.\
-	\nКомманды:\
+	\n\nКомманды:\
 	\n/my Для просмотра своей кармы.\
 	\n/top Узнать наиболее благодаримых в чате. \
 	\n/pop Узнать наиболее ругаемых в чате. \
@@ -83,6 +83,15 @@ def nos(msg):
 	main_log.info("Starting func 'nos'") 
 	nos_text = "ℹ️ Здесь Чат общения, для объявлений воспользуйтесь группами: @market27 или @khvjob"
 	bot.send_message(msg.chat.id, nos_text)
+	
+@bot.message_handler(commands=["love"], func=is_my_message)
+def loves(msg):
+	"""
+	Функция, для Знакомства
+	"""
+	main_log.info("Starting func 'loves'") 
+	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
+	bot.send_message(msg.chat.id, loves_text)
 
 
 def select_user(user, chat):
@@ -414,7 +423,7 @@ def is_karma_abuse(msg):
 		(Limitation.userid == msg.from_user.id) &
 		(Limitation.chatid == msg.chat.id))
 
-	if len(limitation_request) > 7:
+	if len(limitation_request) > 10:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M:%S %d.%m.%Y")
 		#reply_text = f"Возможность изменять карму будет доступна с: {timer}"
