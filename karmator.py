@@ -1,6 +1,5 @@
 #!usr/bin/python3
 import datetime
-import random
 import hashlib
 import string
 import os
