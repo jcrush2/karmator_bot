@@ -495,9 +495,9 @@ def changing_karma_text(msg):
 	
 @bot.message_handler(content_types=['text'])	
 def send_text(msg):
-	if message.text.lower() == '/привет':
+	if msg.text.lower() == '/привет':
 		bot.send_message(msg.chat.id, 'Привет, мой создатель')
-	elif message.text.lower() == '/пока':
+	elif msg.text.lower() == '/пока':
 		bot.send_message(msg.chat.id, 'Прощай, создатель')
 
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
