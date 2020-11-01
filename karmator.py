@@ -493,11 +493,12 @@ def reply_exist(msg):
 def changing_karma_text(msg):
 	reputation(msg, msg.text)
 	
-def send_text(message):
-    if message.text.lower() == '/привет':
-        bot.send_message(message.chat.id, 'Привет, мой создатель')
-    elif message.text.lower() == '/пока':
-        bot.send_message(message.chat.id, 'Прощай, создатель')
+@bot.message_handler(content_types=['text'])	
+def send_text(msg):
+	if message.text.lower() == '/привет':
+		bot.send_message(msg.chat.id, 'Привет, мой создатель')
+	elif message.text.lower() == '/пока':
+		bot.send_message(msg.chat.id, 'Прощай, создатель')
 
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
 def changing_karma_sticker(msg):
