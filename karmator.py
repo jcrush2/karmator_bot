@@ -83,7 +83,7 @@ def nos(msg):
 	"""
 	main_log.info("Starting func 'nos'") 
 	nos_text = "ℹ️ Здесь Чат общения, для объявлений воспользуйтесь группами: @market27 или @khvjob"
-	bot.send_message(msg.chat.id nos_text)
+	bot.send_message(msg.chat.id, nos_text)
 	
 @bot.message_handler(commands=["love"], func=is_my_message)
 def loves(msg):
