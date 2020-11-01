@@ -74,7 +74,7 @@ def source(msg):
 	"""
 	main_log.info("Starting func 'source'") 
 	reply_text = "<a href=\"https://t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d\">погода</a>"
-	bot.send_message(msg.chat.id, reply_text, parse_mode="HTML")
+	bot.reply_to(msg, reply_text, parse_mode="HTML")
 	
 @bot.message_handler(commands=["no"], func=is_my_message)
 def nos(msg):
@@ -83,7 +83,7 @@ def nos(msg):
 	"""
 	main_log.info("Starting func 'nos'") 
 	nos_text = "ℹ️ Здесь Чат общения, для объявлений воспользуйтесь группами: @market27 или @khvjob"
-	bot.reply_to(msg, nos_text)
+	bot.send_message(msg.chat.id nos_text)
 	
 @bot.message_handler(commands=["love"], func=is_my_message)
 def loves(msg):
