@@ -75,6 +75,16 @@ def source(msg):
 	reply_text = "<a href=\"https://t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d\">погода</a>"
 	bot.reply_to(msg, reply_text, parse_mode="HTML")
 	
+@bot.message_handler(commands=["report"], func=is_my_message)
+def report(msg):
+	"""
+	Функция, для жалоб админам
+	"""
+	main_log.info("Starting func 'report'") 
+	report_text = "⚠️ Жалоба получена! \
+	\nУведомление админов: @jcrush, @Odmin_khv, @it_was_a_trap, @kroukys_Oo"
+	bot.reply_to(msg, report_text)
+	
 @bot.message_handler(commands=["no"], func=is_my_message)
 def nos(msg):
 	"""
