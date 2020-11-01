@@ -93,13 +93,6 @@ def loves(msg):
 	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
 	bot.reply_to(msg, loves_text)
 
-@bot.message_handler(content_types=['text'])
-def send_text(message):
-    if message.text.lower() == '/привету':
-        bot.send_message(message.chat.id, 'Привет, мой создатель')
-    elif message.text.lower() == '/покас':
-        bot.send_message(message.chat.id, 'Прощай, создатель')
-	
 def select_user(user, chat):
 	"""
 	Функция для извлечения данных о пользователе
@@ -499,12 +492,16 @@ def reply_exist(msg):
 @bot.message_handler(content_types=["text"], func=reply_exist)
 def changing_karma_text(msg):
 	reputation(msg, msg.text)
-
+	
+def send_text(message):
+    if message.text.lower() == '/привет':
+        bot.send_message(message.chat.id, 'Привет, мой создатель')
+    elif message.text.lower() == '/пока':
+        bot.send_message(message.chat.id, 'Прощай, создатель')
 
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
 def changing_karma_sticker(msg):
 	reputation(msg, msg.sticker.emoji)
-
 
 # bot.polling(none_stop=True)
 
