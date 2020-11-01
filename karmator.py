@@ -83,7 +83,7 @@ def nos(msg):
 	"""
 	main_log.info("Starting func 'nos'") 
 	nos_text = "ℹ️ Здесь Чат общения, для объявлений воспользуйтесь группами: @market27 или @khvjob"
-	bot.send_message(msg.chat.id, nos_text)
+	bot.reply_to(msg, nos_text)
 	
 @bot.message_handler(commands=["love"], func=is_my_message)
 def loves(msg):
@@ -92,7 +92,7 @@ def loves(msg):
 	"""
 	main_log.info("Starting func 'loves'") 
 	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
-	bot.send_message(msg.chat.id, loves_text)
+	bot.reply_to(msg, loves_text)
 
 
 def select_user(user, chat):
@@ -198,31 +198,6 @@ def my_karma(msg):
 
 	now_karma = f"Текущая карма для {name}: <b>{user.karma}</b>."
 	bot.send_message(msg.chat.id, now_karma, parse_mode="HTML")
-
-	
-@bot.message_handler(commands=["tinder"], func=is_my_message)
-def user_tinder(msg):
-	"""
-	Функция которая выводит список пользователей рандомной парой
-	"""
-	main_log.info("Starting func 'user_tinder'")
- 
-	selected_user = KarmaUser.select()\
-		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
-		.order_by(KarmaUser.karma.desc())\
-		.limit(10)
-	
-	tinder_mess = "🏆 Топ благодаримых\n\n"
-	for i, user in enumerate(selected_user):
-		if user.user_name:
-			name = user.user_name.strip()
-		else:
-			name = user.user_nick.strip()
-			
-		tinder_mess += " {name}, ({user.karma}) {user_rang}\n", random.choice(i)
-	if not selected_user:
-		tinder_mess = "Никто еще не заслужил быть в этом списке."
-	bot.send_message(msg.chat.id, tinder_mess, parse_mode="Markdown")
 
 @bot.message_handler(commands=["top"], func=is_my_message)
 def top_best(msg):
