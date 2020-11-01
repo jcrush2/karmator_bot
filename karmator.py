@@ -60,7 +60,9 @@ def helps(msg):
 	\n/my Для просмотра своей кармы.\
 	\n/top Узнать наиболее благодаримых в чате. \
 	\n/pop Узнать наиболее ругаемых в чате. \
-	\n/weather Погода."
+	\n/weather Погода. \
+	\n/no - Для объявлений \
+	\n/report - Отправить жалобу"
 	bot.send_message(msg.chat.id, help_mess)
 
 
