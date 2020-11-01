@@ -214,14 +214,12 @@ def user_tinder(msg):
 	
 	tinder_mess = "🏆 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
-		
-		
 		if user.user_name:
 			name = user.user_name.strip()
 		else:
 			name = user.user_nick.strip()
 			
-		tinder_mess += f"*{random.choice(i)}*. {name}, ({user.karma}) {user_rang}\n"
+		tinder_mess += " {name}, ({user.karma}) {user_rang}\n", random.choice(i)
 	if not selected_user:
 		tinder_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, tinder_mess, parse_mode="Markdown")
