@@ -40,7 +40,7 @@ def start(msg):
 
 	reply_text = (
 			"Здравствуйте, я бот, который отвечает за " +
-			" подсчет кармы в групповых чатах.")
+			" подсчет кармы в чате @khvchat.")
 	bot.send_message(msg.chat.id, reply_text)
 
 
@@ -72,8 +72,17 @@ def source(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	main_log.info("Starting func 'source'") 
-	reply_text = "t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d"
-	bot.send_message(msg.chat.id, reply_text)
+	reply_text = "<a href=\"https://t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d\">погода</a>"
+	bot.send_message(msg.chat.id, reply_text, parse_mode="HTML")
+	
+@bot.message_handler(commands=["no"], func=is_my_message)
+def nos(msg):
+	"""
+	Функция, для маркета
+	"""
+	main_log.info("Starting func 'nos'") 
+	nos_text = "ℹ️ Здесь Чат общения, для объявлений воспользуйтесь группами: @market27 или @khvjob"
+	bot.send_message(msg.chat.id, nos_text)
 
 
 def select_user(user, chat):
@@ -465,7 +474,7 @@ def reputation(msg, text):
 	else:
 		name = user.user_nick.strip()
 
-	now_karma = f"Карма {res}.\nТекущая карма для {name}: <b>{user.karma}</b>."
+	now_karma = f"Карма {res}.\n{name}: <b>{user.karma}</b>."
 	bot.send_message(msg.chat.id, now_karma, parse_mode="HTML")
 
 
