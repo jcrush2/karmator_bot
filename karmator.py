@@ -542,6 +542,8 @@ def changing_karma_text(msg):
 @bot.message_handler(content_types=['text'])	
 def send_text(msg):
 	if msg.text.lower() == 'играть':
+		if is_karma_abuse(msg):
+			return
 		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
 		random_karma2 = random.choice(random_karma)
 		change_karma(msg.from_user, msg.chat, random_karma2)
