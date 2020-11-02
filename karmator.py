@@ -99,6 +99,7 @@ def nos(msg):
 	#bot.send_message(msg.reply_to_message.from_user.id, nos_text)
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,nos_text)
+		bot.delete_message(msg.chat.id, msg.reply_to_message)
 	
 @bot.message_handler(commands=["love"], func=is_my_message)
 def loves(msg):
