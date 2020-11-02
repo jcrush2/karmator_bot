@@ -544,7 +544,7 @@ def send_text(msg):
 		bot.send_message(msg.chat.id, 'Привет, мой создатель')
 		random_karma = ("+1", "-1")
 		random_karma2 = random.choice(random_karma)
-		change_karma(msg.reply_to_message.from_user, msg.chat, random_karma2)
+		change_karma(msg.from_user, msg.chat, random_karma2)
 	elif msg.text.lower() == '/пока':
 		bot.send_message(msg.chat.id, 'Прощай, создатель')
 
