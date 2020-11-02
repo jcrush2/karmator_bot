@@ -545,6 +545,10 @@ def send_text(msg):
 		return
 	
 	elif msg.text.lower() == 'играть':
+		Limitation.create(
+			timer=pw.SQL("current_timestamp"),
+			userid=msg.from_user.id,
+			chatid=msg.chat.id)
 		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
 		random_karma2 = random.choice(random_karma)
 		change_karma(msg.from_user, msg.chat, random_karma2)
