@@ -3,6 +3,7 @@ import datetime
 import hashlib
 import string
 import os
+import random
 
 from flask import Flask, request
 import peewee as pw
@@ -541,6 +542,9 @@ def changing_karma_text(msg):
 def send_text(msg):
 	if msg.text.lower() == '/привет':
 		bot.send_message(msg.chat.id, 'Привет, мой создатель')
+		random_karma = ("+1", "-1")
+		random_karma2 = random.choice(random_karma)
+		change_karma(msg.reply_to_message.from_user, msg.chat, random_karma2)
 	elif msg.text.lower() == '/пока':
 		bot.send_message(msg.chat.id, 'Прощай, создатель')
 
