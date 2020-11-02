@@ -545,11 +545,11 @@ def send_text(msg):
 		return
 	
 	elif msg.text.lower() == 'играть':
-	random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
-	random_karma2 = random.choice(random_karma)
-	change_karma(msg.from_user, msg.chat, random_karma2)
-	random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
-	bot.reply_to(msg, random_karma3, parse_mode="HTML")
+		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
+		random_karma2 = random.choice(random_karma)
+		change_karma(msg.from_user, msg.chat, random_karma2)
+		random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
+		bot.reply_to(msg, random_karma3, parse_mode="HTML")
 	
 
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
