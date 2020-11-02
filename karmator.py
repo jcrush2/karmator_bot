@@ -205,9 +205,41 @@ def my_karma(msg):
 		name = user.user_nick.strip()
 
 	main_log.info(f"User {name} check his karma ({user.karma})")
+	user_rang = "🤖 Бот"
+		if user.karma <= 9: user_rang = "🤖 Бот"
+		if 10 <= user.karma < 20: user_rang = "🤫 Тихоня"
+		if 20 <= user.karma < 30: user_rang = "🐛 Личинка"
+		if 30 <= user.karma < 40: user_rang = "👤 Гость"
+		if 40 <= user.karma < 50: user_rang = "🐤 Прохожий"
+		if 50 <= user.karma < 60: user_rang = "🎗 Новичок"
+		if 60 <= user.karma < 70: user_rang = "🔱 Любопытный"
+		if 70 <= user.karma < 80: user_rang = "⚜️ Странник"
+		if 80 <= user.karma < 90: user_rang = "✨ Бывалый"
+		if 90 <= user.karma < 100: user_rang = "🥉 Постоялец"
+		if 100 <= user.karma < 110: user_rang = "🥈 Завсегдатай"
+		if 110 <= user.karma < 120: user_rang = "🥇 Местный житель"
+		if 120 <= user.karma < 130: user_rang = "🎖 Городовой"
+		if 130 <= user.karma < 140: user_rang = "🏅 Хабаровчанин"
+		if 140 <= user.karma < 150: user_rang = "⭐️ ХабАктивист "
+		if 150 <= user.karma < 160: user_rang = "🌟 Дальневосточник"
+		if 160 <= user.karma < 170: user_rang = "🏵 Старожил"
+		if 170 <= user.karma < 180: user_rang = "💫 Сталкер"
+		if 180 <= user.karma < 190: user_rang = "💥 Ветеран"
+		if 190 <= user.karma < 200: user_rang = "🎭 Философ"
+		if 200 <= user.karma < 210: user_rang = "🎓 Мыслитель"
+		if 210 <= user.karma < 220: user_rang = "🛠 Мастер"
+		if 220 <= user.karma < 230: user_rang = "☀️ Спец"
+		if 230 <= user.karma < 240: user_rang = "🔮 Оракул"
+		if 240 <= user.karma < 250: user_rang = "🏆 Гуру"
+		if 250 <= user.karma < 260: user_rang = "👑 Элита"
+		if 260 <= user.karma < 270: user_rang = "🧠 Мудрец"
+		if 270 <= user.karma < 280: user_rang = "👁 Смотритель"
+		if 280 <= user.karma < 290: user_rang = "✝️ Бог"
+		if 290 <= user.karma < 300: user_rang = "⚡️ Верховный Бог"
+		if 300 <= user.karma < 9999: user_rang = "👤 Сломал систему"
 
-	now_karma = f"Текущая карма для {name}: <b>{user.karma}</b>."
-	bot.send_message(msg.chat.id, now_karma, parse_mode="HTML")
+	now_karma = f"Карма у {name}: <b>{user.karma}</b> {user_rang}."
+	bot.reply_to(msg, now_karma, parse_mode="HTML")
 
 @bot.message_handler(commands=["top"], func=is_my_message)
 def top_best(msg):
@@ -260,7 +292,7 @@ def top_best(msg):
 		else:
 			name = user.user_nick.strip()
 			
-		top_mess += f"*{i+1}*. {name}, ({user.karma}) {user_rang}\n"
+		top_mess += f"#*{i+1}*. {name}, ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
