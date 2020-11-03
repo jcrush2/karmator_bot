@@ -1,5 +1,22 @@
-
-var foo = 'bar';
+<!DOCTYPE html>  
+<html>  
+  
+<head>  
+<meta charset="utf-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>{{files.0.name}}</title>  
+<link rel="stylesheet" href="https://stackedit.io/style.css" />  
+</head>  
+  
+{{#if pdf}}  
+<body class="stackedit stackedit--pdf">  
+{{else}}  
+<body class="stackedit">  
+{{/if}}  
+<div class="stackedit__html">{{{files.0.content.html}}}</div>  
+</body>  
+  
+</html>
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTM3MTUwMDIwXX0=
+eyJoaXN0b3J5IjpbLTMzODI1MDE3Ml19
 -->
