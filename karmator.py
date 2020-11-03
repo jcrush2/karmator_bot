@@ -604,7 +604,7 @@ def podarok_text(msg):
 			name = user.user_nick.strip()
 
 				
-		if user.karma > 5:
+		if "+" in user.karma:
 			change_karma(msg.from_user, msg.chat, -5)
 			change_karma(msg.reply_to_message, msg.chat, +5)
 			podarok = f"🎁 Вам отсыпали кармы: <b>+5</b>."
