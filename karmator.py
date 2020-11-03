@@ -73,7 +73,8 @@ def source(msg):
 	в котором хранится исходный код бота
 	:param msg: Объект сообщения-команды
 	"""
-	main_log.info("Starting func 'source'") 
+	main_log.info("Starting func 'source'")
+	bot.send_chat_action(msg.chat.id, "typing")
 	reply_text = "<a href=\"https://t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d\">погода</a>"
 	bot.reply_to(msg, reply_text, parse_mode="HTML")
 	
@@ -104,13 +105,10 @@ def loves(msg):
 	"""
 	Функция, для Знакомства
 	"""
-	main_log.info("Starting func 'loves'") 
+	main_log.info("Starting func 'loves'")
 	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
-	if msg.reply_to_message:
-		bot.reply_to(msg.reply_to_message, loves_text)
-	else:
-		bot.reply_to(msg,"Чтобы подать объявление о Знакомстве напишите /love и осмысленный текст О себе и т.д.")
-
+	bot.reply_to(msg, loves_text)
+	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
 
 def select_user(user, chat):
 	"""
@@ -565,6 +563,7 @@ def send_text(msg):
 		random_karma2 = random.choice(random_karma)
 		change_karma(msg.from_user, msg.chat, random_karma2)
 		random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
+		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, random_karma3, parse_mode="HTML")
 
 	
