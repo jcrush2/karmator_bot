@@ -105,11 +105,12 @@ def loves(msg):
 	Функция, для Знакомства
 	"""
 	main_log.info("Starting func 'loves'") 
-	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
-  loves_text2 = "Чтобы подать объявление о Знакомстве напишите /love и осмысленный текст О себе и т.д."
+
   if msg.reply_to_message:
+    loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
     bot.reply_to(msg, loves_text)
 	else:
+    loves_text2 = "Чтобы подать объявление о Знакомстве напишите /love и осмысленный текст О себе и т.д."
 		bot.reply_to(msg,loves_text2)
 
 def select_user(user, chat):
