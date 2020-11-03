@@ -578,7 +578,7 @@ def send_text(msg):
 		random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, random_karma3, parse_mode="HTML")
-	
+"""	
 @bot.message_handler(content_types=['text'], func=reply_exist)	
 def podarok_text(msg):
 
@@ -616,7 +616,7 @@ def podarok_text(msg):
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg, podarok, parse_mode="HTML")
 	
-
+"""
 # bot.polling(none_stop=True)
 
 
