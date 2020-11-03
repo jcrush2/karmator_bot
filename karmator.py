@@ -1,11 +1,7 @@
 #!usr/bin/python3
 import datetime
 import hashlib
-import strin
-
-## *Heading*
-
-g
+import string
 import os
 import random
 
@@ -69,6 +65,7 @@ def helps(msg):
 	\n/no - Для объявлений \
 	\n/report - Отправить жалобу"
 	bot.send_message(msg.chat.id, help_mess)
+
 
 
 @bot.message_handler(commands=["weather"], func=is_my_message)
@@ -604,6 +601,3 @@ def webhook_rem(password):
 
 
 server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2ODcwOTIzMDddfQ==
--->
