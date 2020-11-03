@@ -110,8 +110,7 @@ def loves(msg):
   if msg.reply_to_message:
     bot.reply_to(msg, loves_text)
 	else:
-      loves_text2 = "Чтобы подать объявление о Знакомстве напишите /love и осмысленный текст О себе и т.д."
-      bot.reply_to(msg,loves_text2)
+    bot.reply_to(msg,"Чтобы подать объявление о Знакомстве напишите /love и осмысленный текст О себе и т.д.")
 
 def select_user(user, chat):
 	"""
