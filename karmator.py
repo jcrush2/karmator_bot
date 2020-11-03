@@ -598,10 +598,10 @@ def podarok_text(msg):
 		user = select_user(msg.from_user, msg.chat)
 		
 		if user.user_name.isspace():
-		name = user.user_name.strip()
+			name = user.user_name.strip()
 		
 		else:
-		name = user.user_nick.strip()
+			name = user.user_nick.strip()
 
 				
 		if user.karma > 5:
