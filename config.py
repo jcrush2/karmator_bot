@@ -10,7 +10,7 @@ url = "https://khabarabot.herokuapp.com/bot"
 bot_name = "khabara_bot"
 
 # Ссылка на Github репозиторий этого бота
-source_link = "https://khabara.ru/weather.php"
+adminschat = "@jcrush, @Odmin_khv, @it_was_a_trap, @kroukys_Oo"
 
 # Слова, на которые реагирует бот
 popular_good_words = ["спс", "ору", "орево"]

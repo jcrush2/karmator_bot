@@ -66,8 +66,6 @@ def helps(msg):
 	\n/report - Отправить жалобу"
 	bot.send_message(msg.chat.id, help_mess)
 
-
-
 @bot.message_handler(commands=["weather"], func=is_my_message)
 def source(msg):
 	"""
@@ -84,9 +82,9 @@ def report(msg):
 	"""
 	Функция, для жалоб админам
 	"""
-	main_log.info("Starting func 'report'") 
+	main_log.info("Starting func 'report'")
 	report_text = "⚠️ Жалоба получена! \
-	\nУведомление админов: @jcrush, @Odmin_khv, @it_was_a_trap, @kroukys_Oo"
+	\nУведомление админов: " + config.adminschat
 	bot.reply_to(msg, report_text)
 	
 @bot.message_handler(commands=["no"], func=is_my_message)
@@ -96,11 +94,8 @@ def nos(msg):
 	"""
 	main_log.info("Starting func 'nos'") 
 	nos_text = "ℹ️ Здесь Чат общения, для объявлений воспользуйтесь группами: @market27 или @khvjob"
-	#bot.send_message(msg.chat.id, nos_text)
-	#bot.send_message(msg.reply_to_message.from_user.id, nos_text)
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,nos_text)
-		#bot.delete_message(msg.chat.id, msg.reply_to_message)
 	else:
 		bot.reply_to(msg,nos_text)
 		
@@ -111,7 +106,11 @@ def loves(msg):
 	"""
 	main_log.info("Starting func 'loves'") 
 	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
-	bot.reply_to(msg, loves_text)
+  loves_text2 = "Чтобы подать объявление о Знакомстве напишите /love и осмысленный текст О себе и т.д."
+  if msg.reply_to_message:
+    bot.reply_to(msg, loves_text)
+	else:
+		bot.reply_to(msg,loves_text2)
 
 def select_user(user, chat):
 	"""
@@ -544,9 +543,16 @@ def reply_exist(msg):
 @bot.message_handler(content_types=["text"], func=reply_exist)
 def changing_karma_text(msg):
 	reputation(msg, msg.text)
+
+@bot.message_handler(content_types=["sticker"], func=reply_exist)
+def changing_karma_sticker(msg):
+	reputation(msg, msg.sticker.emoji)
 	
 @bot.message_handler(content_types=['text'])	
 def send_text(msg):
+	"""
+	Функция играть в карму.
+	"""
 	if is_karma_abuse(msg):
 		return
 	
@@ -555,16 +561,13 @@ def send_text(msg):
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
-		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
+		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3", "+4", "-4", "+5", "-5")
 		random_karma2 = random.choice(random_karma)
 		change_karma(msg.from_user, msg.chat, random_karma2)
 		random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
 		bot.reply_to(msg, random_karma3, parse_mode="HTML")
-	
 
-@bot.message_handler(content_types=["sticker"], func=reply_exist)
-def changing_karma_sticker(msg):
-	reputation(msg, msg.sticker.emoji)
+	
 
 # bot.polling(none_stop=True)
 
