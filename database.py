@@ -72,9 +72,3 @@ class Limitation(BaseModel):
 
 	class Meta:
 		db_table = "limitation"
-
-
-
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NTk2NTIyMDBdfQ==
--->

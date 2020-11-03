@@ -22,6 +22,3 @@ bad_words = ["говно", "пидор", "жопа", "даун", "дурак", "
 
 good_emoji = "❤😂👍🔥😆💋😘😍😜"
 bad_emoji = "😡👎💩"
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQxOTgxMDc3Nl19
--->
