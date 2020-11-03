@@ -377,7 +377,6 @@ def gift_intervention(msg):
 	"""
 	
 	if msg.from_user.id not in config.gods:
-		bot.reply_to(msg, "Ты не имеешь власти.")
 		return
 	change_karma(msg.reply_to_message.from_user, msg.chat, 5)
 	bot.reply_to(msg, "🎁 отсыпал кармы")
