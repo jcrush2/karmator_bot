@@ -351,7 +351,7 @@ def freeze_me(msg):
 	bot.reply_to(msg, result)
 
 
-@bot.message_handler(commands=["gods_intervention"])
+@bot.message_handler(commands=["god"])
 def gods_intervention(msg):
 	"""
 	Небольшая функция, которая позволяет создателю бота 
@@ -368,6 +368,19 @@ def gods_intervention(msg):
 	result = int(msg.text.split()[1])
 	change_karma(msg.reply_to_message.from_user, msg.chat, result)
 
+
+@bot.message_handler(commands=["gift"])
+def gift_intervention(msg):
+	"""
+	Небольшая функция, которая позволяет создателю бота 
+	добавить подарок
+	"""
+	
+	if msg.from_user.id not in config.gods:
+		bot.reply_to(msg, "Ты не имеешь власти.")
+		return
+	change_karma(msg.reply_to_message.from_user, msg.chat, 5)
+	bot.reply_to(msg, "🎁 отсыпал кармы")
 
 @bot.message_handler(commands=["unmute"], func=is_my_message)
 def un_mute(msg):
@@ -559,13 +572,49 @@ def send_text(msg):
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
-		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3", "+4", "-4", "+5", "-5")
+		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
 		random_karma2 = random.choice(random_karma)
 		change_karma(msg.from_user, msg.chat, random_karma2)
 		random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, random_karma3, parse_mode="HTML")
+	
+@bot.message_handler(content_types=['text'], func=reply_exist)	
+def podarok_text(msg):
 
+	if is_karma_abuse(msg):
+		return
+	
+	elif msg.text.lower() == 'подарить карму':
+		Limitation.create(
+			timer=pw.SQL("current_timestamp"),
+			userid=msg.from_user.id,
+			chatid=msg.chat.id)
+		
+
+		if not user:
+			insert_user(msg.from_user, msg.chat)
+			
+		user = select_user(msg.from_user, msg.chat)
+		
+		if user.user_name.isspace():
+		name = user.user_name.strip()
+		
+		else:
+		name = user.user_nick.strip()
+
+				
+		if user.karma > 5:
+			change_karma(msg.from_user, msg.chat, -5)
+			change_karma(msg.reply_to_message, msg.chat, +5)
+			podarok = f"🎁 Вам отсыпали кармы: <b>+5</b>."
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.reply_to(msg, podarok, parse_mode="HTML")
+
+		else:
+			podarok = f"🎁 Нехватает кармы для подарка."
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.reply_to(msg, podarok, parse_mode="HTML")
 	
 
 # bot.polling(none_stop=True)
