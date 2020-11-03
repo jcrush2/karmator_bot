@@ -106,7 +106,7 @@ def loves(msg):
 	"""
 	main_log.info("Starting func 'loves'") 
 	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
-  if msg.reply_to_message:
+	if msg.reply_to_message:
 	bot.reply_to(msg.reply_to_message, loves_text)
 	else:
 	bot.reply_to(msg,"Чтобы подать объявление о Знакомстве напишите /love и осмысленный текст О себе и т.д.")
