@@ -112,7 +112,7 @@ def loves(msg):
 	
 @bot.message_handler(content_types=["new_chat_members"])
 def new_chat_members(msg):
-	change_karma(msg.from_user.id, msg.chat, 10)
+	change_karma(msg.from_user, msg.chat, 10)
 	bot.reply_to(msg, "🎁 Добавил друга в чат +10 кармы")
 
 def select_user(user, chat):
