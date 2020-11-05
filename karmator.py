@@ -63,7 +63,16 @@ def helps(msg):
 	\n/pop Узнать наиболее ругаемых в чате. \
 	\n/weather Погода. \
 	\n/no - Для объявлений \
-	\n/report - Отправить жалобу"
+	\n/report - Отправить жалобу\
+	\nКарма:\
+	\n!играть - рандомномная карма от -1 до +3\
+	\n!вабанк - играть -5 или +5\
+	\n!амнистия - к карме +5, если вы в минусе\
+	\n!подарить - отдаете 5 кармы\
+	\n/gift - подарить карму, работает от админов\
+	\n\nЗа добавление друга в чат +10 кармы"
+	
+	
 	bot.send_message(msg.chat.id, help_mess)
 
 @bot.message_handler(commands=["weather"], func=is_my_message)
@@ -586,7 +595,7 @@ def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
-	if msg.text.lower() == 'играть' or 'вабанк' or 'обнулить карму':
+	if msg.text.lower() == '!играть' or '!вабанк' or '!амнистия' or '!подарить':
 		if is_karma_abuse(msg):
 			return
 		Limitation.create(
@@ -594,7 +603,7 @@ def karma_game(msg):
 		userid=msg.from_user.id,
 		chatid=msg.chat.id)
 	
-		if msg.text.lower() == 'играть':
+		if msg.text.lower() == '!играть':
 			random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
 			random_karma2 = random.choice(random_karma)
 			change_karma(msg.from_user, msg.chat, random_karma2)
@@ -603,7 +612,7 @@ def karma_game(msg):
 			bot.reply_to(msg, random_karma3, parse_mode="HTML")
 		
 	
-		if msg.text.lower() == 'вабанк':
+		if msg.text.lower() == '!вабанк':
 			user = select_user(msg.from_user, msg.chat)
 			if not user:
 				insert_user(msg.from_user, msg.chat)
@@ -620,7 +629,7 @@ def karma_game(msg):
 				bot.send_chat_action(msg.chat.id, "typing")
 				bot.reply_to(msg, podarok, parse_mode="HTML")
 		
-		if msg.text.lower() == 'амнистия':
+		if msg.text.lower() == '!амнистия':
 			user = select_user(msg.from_user, msg.chat)
 			if not user:
 				insert_user(msg.from_user, msg.chat)
@@ -628,7 +637,20 @@ def karma_game(msg):
 			if user.karma < 5:
 				change_karma(msg.from_user, msg.chat, 5)
 				bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
-
+				
+		if msg.text.lower() == '!подарить':
+			user = select_user(msg.from_user, msg.chat)
+			if not user:
+				insert_user(msg.from_user, msg.chat)
+			user = select_user(msg.from_user, msg.chat)
+			if user.karma > 5:
+				change_karma(msg.from_user, msg.chat, -5)
+				change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
+				bot.send_chat_action(msg.chat.id, "typing")
+				bot.reply_to(msg, "🎁 Вам отсыпали кармы: <b>+5</b>.", parse_mode="HTML")
+			else:
+				bot.send_chat_action(msg.chat.id, "typing")
+				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
 
 
 
