@@ -572,9 +572,11 @@ def changing_karma_sticker(msg):
 def send_text(msg):
 	
 	if msg.text.lower() == 'админs':
-		admins = bot.get_chat_administrators(-1001110839896)
-		for admin in admins:
-			bot.reply_to(msg, admin.user.id)
+		admins = bot.get_chat_administrators(message.chat.id)
+		bot.send_message(message.chat.id, "админы группы: {0}".format(admins))
+#		admins = bot.get_chat_administrators(-1001110839896)
+#		for admin in admins:
+#			bot.reply_to(msg, admin.user.id)
 	"""
 	Функция играть в карму.
 	"""
