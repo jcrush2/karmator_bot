@@ -598,7 +598,7 @@ def send_text(msg):
 			random_karma = ("+5", "-5")
 			random_karma2 = random.choice(random_karma)
 			change_karma(msg.from_user, msg.chat, random_karma2)
-			random_karma3 = f"🎲 Сыграл в вабанк: <b>{random_karma2}</b>."
+			random_karma3 = f"🎲 Сыграл вабанк: <b>{random_karma2}</b>."
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg, random_karma3, parse_mode="HTML")
 
@@ -606,7 +606,13 @@ def send_text(msg):
 			podarok = f"🎁 Нехватает кармы для ставки +5."
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg, podarok, parse_mode="HTML")
-		
+			
+	if msg.text.lower() == 'админ':
+		admins = bot.get_chat_administrators(-1001110839896)
+		for admin in admins:
+			admins2 += f"*{admin.user.id}*.оооо\n"
+			bot.reply_to(msg, admins2, parse_mode="HTML")
+
 	
 """
 def podarok_karma_text(msg):
