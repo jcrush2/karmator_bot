@@ -108,7 +108,13 @@ def loves(msg):
 	main_log.info("Starting func 'loves'")
 	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
 	bot.reply_to(msg, loves_text)
-	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
+	
+	
+@bot.message_handler(content_types=["new_chat_members"])
+def new_chat_members(msg):
+	change_karma(msg.new_chat_members[-1].id, msg.chat, 10)
+	bot.reply_to(msg, "🎁 Добавил друга в чат +10 кармы")
+	message.new_chat_members[-1].id
 
 def select_user(user, chat):
 	"""
@@ -371,18 +377,26 @@ def gods_intervention(msg):
 
 
 @bot.message_handler(commands=["gift"])
-def gift_intervention(msg):
+def gift_karma(msg):
+	#	if msg.from_user.id not in config.gods:
 	"""
 	Небольшая функция, которая позволяет создателю бота 
 	добавить подарок
 	"""
-	
-#	if msg.from_user.id not in config.gods:
-	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-	if user.status == 'administrator' or user.status == 'creator':
-		change_karma(msg.reply_to_message.from_user, msg.chat, 5)
-		bot.reply_to(msg, "🎁 отсыпал кармы")
-	
+	if msg.reply_to_message:
+		if msg.from_user.id == msg.reply_to_message.from_user.id:
+			bot.send_message(msg.chat.id, "Нельзя изменять карму самому себе.")
+			return
+		Limitation.create(
+			timer=pw.SQL("current_timestamp"),
+			userid=msg.from_user.id,
+			chatid=msg.chat.id)
+		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+		if user.status == 'administrator' or user.status == 'creator':
+			change_karma(msg.reply_to_message.from_user, msg.chat, 5)
+			bot.reply_to(msg, "🎁 отсыпал кармы")
+	else:
+		return
 	#	admins = bot.get_chat_administrators(-1001110839896)
 #	gift2 =""
 #	for admin in admins:
@@ -570,61 +584,52 @@ def changing_karma_sticker(msg):
 	
 	
 @bot.message_handler(content_types=['text'])	
-def send_text(msg):
-	
-	if msg.text.lower() == 'админы':
-		 user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-		 if user.status == 'administrator' or user.status == 'creator':
-			 bot.send_message(msg.chat.id, "админы группы")
-#		admins = bot.get_chat_administrators(msg.chat.id)
-#		bot.send_message(msg.chat.id, "админы группы: {0}".format(admins))
-#		admins = bot.get_chat_administrators(-1001110839896)
-#		for admin in admins:
-#			bot.reply_to(msg, admin.user.id)
+def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
-	if is_karma_abuse(msg):
-		return
-	
-	if msg.text.lower() == 'играть':
+	if msg.text.lower() == 'играть' or 'вабанк' or 'обнулить карму':
+		if is_karma_abuse(msg):
+			return
 		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
-		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
-		random_karma2 = random.choice(random_karma)
-		change_karma(msg.from_user, msg.chat, random_karma2)
-		random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
-		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg, random_karma3, parse_mode="HTML")
-		
+		timer=pw.SQL("current_timestamp"),
+		userid=msg.from_user.id,
+		chatid=msg.chat.id)
 	
-	if msg.text.lower() == 'вабанк':
-		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
-		user = select_user(msg.from_user, msg.chat)
-		if not user:
-			insert_user(msg.from_user, msg.chat)
-
-		user = select_user(msg.from_user, msg.chat)
-
-		if user.karma > 5:
-			random_karma = ("+5", "-5")
+		if msg.text.lower() == 'играть':
+			random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
 			random_karma2 = random.choice(random_karma)
 			change_karma(msg.from_user, msg.chat, random_karma2)
-			random_karma3 = f"🎲 Сыграл вабанк: <b>{random_karma2}</b>."
+			random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg, random_karma3, parse_mode="HTML")
+		
+	
+		if msg.text.lower() == 'вабанк':
+			user = select_user(msg.from_user, msg.chat)
+			if not user:
+				insert_user(msg.from_user, msg.chat)
+			user = select_user(msg.from_user, msg.chat)
+			if user.karma > 5:
+				random_karma = ("+5", "-5")
+				random_karma2 = random.choice(random_karma)
+				change_karma(msg.from_user, msg.chat, random_karma2)
+				random_karma3 = f"🎲 Сыграл вабанк: <b>{random_karma2}</b>."
+				bot.send_chat_action(msg.chat.id, "typing")
+				bot.reply_to(msg, random_karma3, parse_mode="HTML")
+			else:
+				podarok = f"🎁 Нехватает кармы для ставки +5."
+				bot.send_chat_action(msg.chat.id, "typing")
+				bot.reply_to(msg, podarok, parse_mode="HTML")
+		
+		if msg.text.lower() == 'обнулить карму':
+			if user.karma < 0:
+			change_karma(msg.from_user, msg.chat, 0)
+			bot.reply_to(msg, "Обнулил себе карму", parse_mode="HTML")
 
-		else:
-			podarok = f"🎁 Нехватает кармы для ставки +5."
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg, podarok, parse_mode="HTML")
-			
 
+#@bot.message_handler(content_types=['left_chat_member'])
+#def left_chat_member(message):
 	
 """
 def podarok_karma_text(msg):
