@@ -382,7 +382,7 @@ def gift_intervention(msg):
 	gift2 =""
 	for admin in admins:
 		if msg.from_user.id not in admin.user.id:
-		return
+			return
 	change_karma(msg.reply_to_message.from_user, msg.chat, 5)
 	bot.reply_to(msg, "🎁 отсыпал кармы")
 
