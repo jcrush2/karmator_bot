@@ -112,14 +112,7 @@ def loves(msg):
 	
 @bot.message_handler(content_types=["new_chat_members"])
 def new_chat_members(msg):
-#	change_karma(msg.from_user, msg.chat, 10)
-
-	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-	if user.is_bot == 'True':
-		return
-		
-	hange_karma(msg.from_user, msg.chat, 10)
-	bot.reply_to(msg, "🎁 отсыпал кармы")
+	change_karma(msg.from_user, msg.chat, 10)
 
 def select_user(user, chat):
 	"""
@@ -627,7 +620,11 @@ def karma_game(msg):
 				bot.send_chat_action(msg.chat.id, "typing")
 				bot.reply_to(msg, podarok, parse_mode="HTML")
 		
-		if msg.text.lower() == 'амнистия кармы':
+		if msg.text.lower() == 'амнистия':
+			user = select_user(msg.from_user, msg.chat)
+			if not user:
+				insert_user(msg.from_user, msg.chat)
+			user = select_user(msg.from_user, msg.chat)
 			if user.karma < 5:
 				change_karma(msg.from_user, msg.chat, 5)
 				bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
