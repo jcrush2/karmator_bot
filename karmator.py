@@ -554,6 +554,30 @@ def reply_exist(msg):
 @bot.message_handler(content_types=["text"], func=reply_exist)
 def changing_karma_text(msg):
 	reputation(msg, msg.text)
+	
+def podarok_karma_text(msg):
+	if msg.text.lower() == 'подарить':
+		Limitation.create(
+			timer=pw.SQL("current_timestamp"),
+			userid=msg.from_user.id,
+			chatid=msg.chat.id)
+		user = select_user(msg.from_user, msg.chat)
+		if not user:
+			insert_user(msg.from_user, msg.chat)
+
+		user = select_user(msg.from_user, msg.chat)
+
+		if user.karma > 5:
+			change_karma(msg.from_user, msg.chat, -5)
+			change_karma(msg.reply_to_message, msg.chat, +5)
+			podarok = f"🎁 Вам отсыпали кармы: <b>+5</b>."
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.reply_to(msg, podarok, parse_mode="HTML")
+		else:
+			podarok = f"🎁 Нехватает кармы для подарка."
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.reply_to(msg, podarok, parse_mode="HTML")
+	
 
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
 def changing_karma_sticker(msg):
@@ -582,29 +606,7 @@ def send_text(msg):
 		bot.reply_to(msg, random_karma3, parse_mode="HTML")
 		
 	
-	if msg.text.lower() == 'подарить':
-		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
-		user = select_user(msg.from_user, msg.chat)
-		if not user:
-			insert_user(msg.from_user, msg.chat)
 
-		user = select_user(msg.from_user, msg.chat)
-		bot.reply_to(msg, user.karma)
-
-		if user.karma > 5:
-			change_karma(msg.from_user, msg.chat, -5)
-			change_karma(msg.reply_to_message, msg.chat, +5)
-			podarok = f"🎁 Вам отсыпали кармы: <b>+5</b>."
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg, podarok, parse_mode="HTML")
-		else:
-			podarok = f"🎁 Нехватает кармы для подарка."
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg, podarok, parse_mode="HTML")
-	
 
 
 # bot.polling(none_stop=True)
