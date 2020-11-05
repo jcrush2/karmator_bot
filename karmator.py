@@ -377,10 +377,13 @@ def gift_intervention(msg):
 	добавить подарок
 	"""
 	
-	if msg.from_user.id not in config.gods:
+#	if msg.from_user.id not in config.gods:
+	admins = bot.get_chat_administrators(-1001110839896)
+	for admin in admins:
+		if msg.from_user.id not in admin.user.id
 		return
-	change_karma(msg.reply_to_message.from_user, msg.chat, 5)
-	bot.reply_to(msg, "🎁 отсыпал кармы")
+		change_karma(msg.reply_to_message.from_user, msg.chat, 5)
+		bot.reply_to(msg, "🎁 отсыпал кармы")
 
 @bot.message_handler(commands=["unmute"], func=is_my_message)
 def un_mute(msg):
@@ -565,7 +568,7 @@ def changing_karma_sticker(msg):
 @bot.message_handler(content_types=['text'])	
 def send_text(msg):
 	
-	if msg.text.lower() == 'админ':
+	if msg.text.lower() == 'админs':
 		admins = bot.get_chat_administrators(-1001110839896)
 		for admin in admins:
 			bot.reply_to(msg, admin.user.id)
