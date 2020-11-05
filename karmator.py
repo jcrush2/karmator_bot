@@ -571,7 +571,7 @@ def changing_karma_sticker(msg):
 @bot.message_handler(content_types=['text'])	
 def send_text(msg):
 	
-	if msg.text.lower() == 'админs':
+	if msg.text.lower() == 'админы':
 		admins = bot.get_chat_administrators(msg.chat.id)
 		bot.send_message(message.chat.id, "админы группы: {0}".format(admins))
 #		admins = bot.get_chat_administrators(-1001110839896)
