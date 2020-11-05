@@ -57,22 +57,21 @@ def helps(msg):
 
 	help_mess = "Выражения похвалы повышают карму, ругательства понижают.\
 	\nОграничения на выдачу кармы: 7 раз в 12 часов.\
-	\n\nКомманды:\
-	\n/my Для просмотра своей кармы.\
-	\n/top Узнать наиболее благодаримых в чате. \
-	\n/pop Узнать наиболее ругаемых в чате. \
-	\n/weather Погода. \
+	\n\n<b>Комманды:</b>\
+	\n/my - Для просмотра своей кармы.\
+	\n/top - Узнать наиболее благодаримых в чате. \
+	\n/pop - Узнать наиболее ругаемых в чате. \
+	\n/weather - Погода. \
 	\n/no - Для объявлений \
 	\n/report - Отправить жалобу\
-	\nКарма:\
+	\n<b>Карма:</b>\
 	\n!играть - рандомномная карма от -1 до +3\
 	\n!вабанк - играть -5 или +5\
 	\n!амнистия - к карме +5, если вы в минусе\
-	\n/gift - подарить +5 кармы, отдаете -5\
-	\n\nЗа добавление друга в чат +10 кармы"
+	\n/gift - подарить +5 кармы, отдаете -5"
 	
 	
-	bot.send_message(msg.chat.id, help_mess)
+	bot.send_message(msg.chat.id, help_mess, parse_mode="HTML")
 
 @bot.message_handler(commands=["weather"], func=is_my_message)
 def source(msg):
@@ -118,9 +117,9 @@ def loves(msg):
 	bot.reply_to(msg, loves_text)
 	
 	
-@bot.message_handler(content_types=["new_chat_members"])
-def new_chat_members(msg):
-	change_karma(msg.from_user, msg.chat, 10)
+#@bot.message_handler(content_types=["new_chat_members"])
+#def new_chat_members(msg):
+#	change_karma(msg.from_user, msg.chat, 10)
 
 def select_user(user, chat):
 	"""
@@ -410,10 +409,12 @@ def gift_karma(msg):
 				bot.send_chat_action(msg.chat.id, "typing")
 				change_karma(msg.from_user, msg.chat, -5)
 				change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
-				bot.reply_to(msg, "🎁 Вам подарили карму: <b>+5</b>.", parse_mode="HTML")
+				bot.reply_to(msg.reply_to_message, "🎁 Вам подарили карму: <b>+5</b>.", parse_mode="HTML")
+				
 			else:
 				bot.send_chat_action(msg.chat.id, "typing")
 				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
+				
 	else:
 		return
 	#	admins = bot.get_chat_administrators(-1001110839896)
