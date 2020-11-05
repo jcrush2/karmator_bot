@@ -567,10 +567,8 @@ def send_text(msg):
 	
 	if msg.text.lower() == 'админ':
 		admins = bot.get_chat_administrators(-1001110839896)
-		admins2 = ""
 		for admin in admins:
-			admins2 = "{admin.user.id} оооо\n"
-			bot.reply_to(msg, admins2, parse_mode="HTML")
+			bot.reply_to(msg, admin.user.id)
 	"""
 	Функция играть в карму.
 	"""
