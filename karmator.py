@@ -560,17 +560,37 @@ def changing_karma_sticker(msg):
 	reputation(msg, msg.sticker.emoji)
 	
 	
+	
 @bot.message_handler(content_types=['text'])	
-def podarok_text(msg):
-
+def send_text(msg):
+	"""
+	Функция играть в карму.
+	"""
 	if is_karma_abuse(msg):
 		return
 	
-	elif msg.text.lower() == 'подарить':
+	if msg.text.lower() == 'играть':
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
+		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
+		random_karma2 = random.choice(random_karma)
+		change_karma(msg.from_user, msg.chat, random_karma2)
+		random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.reply_to(msg, random_karma3, parse_mode="HTML")
+		
+	
+	if msg.text.lower() == 'подарить':
+		Limitation.create(
+			timer=pw.SQL("current_timestamp"),
+			userid=msg.from_user.id,
+			chatid=msg.chat.id)
+		user = KarmaUser.select().where(
+		(KarmaUser.userid == msg.reply_to_message.from_user.id) &
+		(KarmaUser.chatid == msg.chat.id)).get()
+
 		if user.karma > 5:
 			change_karma(msg.from_user, msg.chat, -5)
 			change_karma(msg.reply_to_message, msg.chat, +5)
@@ -582,27 +602,6 @@ def podarok_text(msg):
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg, podarok, parse_mode="HTML")
 	
-
-	
-@bot.message_handler(content_types=['text'])	
-def send_text(msg):
-	"""
-	Функция играть в карму.
-	"""
-	if is_karma_abuse(msg):
-		return
-	
-	elif msg.text.lower() == 'играть':
-		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
-		random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
-		random_karma2 = random.choice(random_karma)
-		change_karma(msg.from_user, msg.chat, random_karma2)
-		random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
-		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg, random_karma3, parse_mode="HTML")
 
 
 # bot.polling(none_stop=True)
