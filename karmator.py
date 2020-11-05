@@ -645,8 +645,9 @@ def karma_game(msg):
 			user = select_user(msg.from_user, msg.chat)
 			if user.karma > 5:
 				change_karma(msg.from_user, msg.chat, -5)
-				change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
+			if user.karma > 5:
 				bot.send_chat_action(msg.chat.id, "typing")
+				change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
 				bot.reply_to(msg, "🎁 Вам отсыпали кармы: <b>+5</b>.", parse_mode="HTML")
 			else:
 				bot.send_chat_action(msg.chat.id, "typing")
