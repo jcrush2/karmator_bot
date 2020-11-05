@@ -620,32 +620,12 @@ def karma_game(msg):
 				bot.send_chat_action(msg.chat.id, "typing")
 				bot.reply_to(msg, podarok, parse_mode="HTML")
 		
-		if msg.text.lower() == 'обнулить_карму':
-			change_karma(msg.from_user, msg.chat, 0)
-			bot.reply_to(msg, "Обнулил себе карму", parse_mode="HTML")
+		if msg.text.lower() == 'амнистия кармы':
+			if user.karma < 5:
+				change_karma(msg.from_user, msg.chat, +5)
+				bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
 
-			selected_user = KarmaUser.select().where(
-				(KarmaUser.chatid == chat.id) &
-				(KarmaUser.userid == user.id))
 
-			if not selected_user:
-				insert_user(user, chat)
-
-			user_name = (user.first_name or "") + " " + (user.last_name or "")
-			user_nick = user.username or ""
-
-			main_log.info(f"Updating karma for user with name: {user_name} and " +
-						f"id:{user.id}, and in chat:{chat.title or ''} and " +
-						f"id:{chat.id}. Karma changed at result")
-
-			update_user = KarmaUser.update(
-									karma=(0),
-									user_name=user_name,
-									user_nick=user_nick
-								).where(
-									(KarmaUser.userid == user.id) &
-									(KarmaUser.chatid == chat.id))
-			update_user.execute()
 
 
 #@bot.message_handler(content_types=['left_chat_member'])
