@@ -624,8 +624,8 @@ def karma_game(msg):
 		
 		if msg.text.lower() == 'обнулить карму':
 			if user.karma < 0:
-			change_karma(msg.from_user, msg.chat, 0)
-			bot.reply_to(msg, "Обнулил себе карму", parse_mode="HTML")
+				change_karma(msg.from_user, msg.chat, 0)
+				bot.reply_to(msg, "Обнулил себе карму", parse_mode="HTML")
 
 
 #@bot.message_handler(content_types=['left_chat_member'])
