@@ -113,7 +113,6 @@ def loves(msg):
 @bot.message_handler(content_types=["new_chat_members"])
 def new_chat_members(msg):
 	change_karma(msg.from_user, msg.chat, 10)
-	bot.reply_to(msg, "🎁 Добавил друга в чат +10 кармы")
 
 def select_user(user, chat):
 	"""
@@ -624,6 +623,29 @@ def karma_game(msg):
 		if msg.text.lower() == 'обнулить_карму':
 			change_karma(msg.from_user, msg.chat, 0)
 			bot.reply_to(msg, "Обнулил себе карму", parse_mode="HTML")
+
+			selected_user = KarmaUser.select().where(
+				(KarmaUser.chatid == chat.id) &
+				(KarmaUser.userid == user.id))
+
+			if not selected_user:
+				insert_user(user, chat)
+
+			user_name = (user.first_name or "") + " " + (user.last_name or "")
+			user_nick = user.username or ""
+
+			main_log.info(f"Updating karma for user with name: {user_name} and " +
+						f"id:{user.id}, and in chat:{chat.title or ''} and " +
+						f"id:{chat.id}. Karma changed at result")
+
+			update_user = KarmaUser.update(
+									karma=(0),
+									user_name=user_name,
+									user_nick=user_nick
+								).where(
+									(KarmaUser.userid == user.id) &
+									(KarmaUser.chatid == chat.id))
+			update_user.execute()
 
 
 #@bot.message_handler(content_types=['left_chat_member'])
