@@ -380,7 +380,7 @@ def gift_intervention(msg):
 #	if msg.from_user.id not in config.gods:
 	admins = bot.get_chat_administrators(-1001110839896)
 	for admin in admins:
-		gift2=admin.user.id
+		gift2=print(admin.user.id)
 		
 	if msg.from_user.id not in gift2:
 		return
