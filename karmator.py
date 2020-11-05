@@ -112,7 +112,7 @@ def loves(msg):
 	
 @bot.message_handler(content_types=["new_chat_members"])
 def new_chat_members(msg):
-	change_karma(msg.new_chat_members[-1], msg.chat, 10)
+	change_karma(msg.from_user.id, msg.chat, 10)
 	bot.reply_to(msg, "🎁 Добавил друга в чат +10 кармы")
 
 def select_user(user, chat):
@@ -621,10 +621,9 @@ def karma_game(msg):
 				bot.send_chat_action(msg.chat.id, "typing")
 				bot.reply_to(msg, podarok, parse_mode="HTML")
 		
-		if msg.text.lower() == 'обнулить карму':
-			if user.karma < 0:
-				change_karma(msg.from_user, msg.chat, 0)
-				bot.reply_to(msg, "Обнулил себе карму", parse_mode="HTML")
+		if msg.text.lower() == 'обнулить_карму':
+			change_karma(msg.from_user, msg.chat, 0)
+			bot.reply_to(msg, "Обнулил себе карму", parse_mode="HTML")
 
 
 #@bot.message_handler(content_types=['left_chat_member'])
