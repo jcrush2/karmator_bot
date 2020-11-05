@@ -592,7 +592,7 @@ def send_text(msg):
 			insert_user(msg.from_user, msg.chat)
 
 		user = select_user(msg.from_user, msg.chat)
-		bot.reply_to(msg, podarok, user.karma)
+		bot.reply_to(msg, user.karma)
 
 		if user.karma > 5:
 			change_karma(msg.from_user, msg.chat, -5)
