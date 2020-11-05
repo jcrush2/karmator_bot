@@ -68,8 +68,7 @@ def helps(msg):
 	\n!играть - рандомномная карма от -1 до +3\
 	\n!вабанк - играть -5 или +5\
 	\n!амнистия - к карме +5, если вы в минусе\
-	\n!подарить - отдаете 5 кармы\
-	\n/gift - подарить карму, работает от админов\
+	\n/gift - подарить +5 кармы, отдаете -5\
 	\n\nЗа добавление друга в чат +10 кармы"
 	
 	
@@ -402,6 +401,19 @@ def gift_karma(msg):
 		if user.status == 'administrator' or user.status == 'creator':
 			change_karma(msg.reply_to_message.from_user, msg.chat, 5)
 			bot.reply_to(msg, "🎁 отсыпал кармы")
+		else:
+			user = select_user(msg.from_user, msg.chat)
+			if not user:
+				insert_user(msg.from_user, msg.chat)
+			user = select_user(msg.from_user, msg.chat)
+			if user.karma > 5:
+				bot.send_chat_action(msg.chat.id, "typing")
+				change_karma(msg.from_user, msg.chat, -5)
+				change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
+				bot.reply_to(msg, "🎁 Вам подарили карму: <b>+5</b>.", parse_mode="HTML")
+			else:
+				bot.send_chat_action(msg.chat.id, "typing")
+				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
 	else:
 		return
 	#	admins = bot.get_chat_administrators(-1001110839896)
@@ -638,6 +650,7 @@ def karma_game(msg):
 				change_karma(msg.from_user, msg.chat, 5)
 				bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
 				
+"""
 		if msg.text.lower() == '!подарить':
 			user = select_user(msg.from_user, msg.chat)
 			if not user:
@@ -652,7 +665,7 @@ def karma_game(msg):
 			else:
 				bot.send_chat_action(msg.chat.id, "typing")
 				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
-
+"""
 
 
 #@bot.message_handler(content_types=['left_chat_member'])
