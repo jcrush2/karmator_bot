@@ -380,10 +380,10 @@ def gift_intervention(msg):
 #	if msg.from_user.id not in config.gods:
 	admins = bot.get_chat_administrators(-1001110839896)
 	for admin in admins:
-		if msg.from_user.id not in admin.user.id
-		return
-		change_karma(msg.reply_to_message.from_user, msg.chat, 5)
-		bot.reply_to(msg, "🎁 отсыпал кармы")
+		if msg.from_user.id not in admin.user.id:
+			return
+			change_karma(msg.reply_to_message.from_user, msg.chat, 5)
+			bot.reply_to(msg, "🎁 отсыпал кармы")
 
 @bot.message_handler(commands=["unmute"], func=is_my_message)
 def un_mute(msg):
