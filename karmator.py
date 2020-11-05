@@ -377,7 +377,9 @@ def gift_intervention(msg):
 	добавить подарок
 	"""
 	
-	if msg.from_user.id not in config.gods:
+#	if msg.from_user.id not in config.gods:
+	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+		 if user.status != 'administrator' or user.status != 'creator':
 		return
 	change_karma(msg.reply_to_message.from_user, msg.chat, 5)
 	bot.reply_to(msg, "🎁 отсыпал кармы")
