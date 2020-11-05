@@ -587,9 +587,11 @@ def send_text(msg):
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
-		user = KarmaUser.select().where(
-		(KarmaUser.userid == msg.reply_to_message.from_user.id) &
-		(KarmaUser.chatid == msg.chat.id)).get()
+		user = select_user(msg.from_user, msg.chat)
+		if not user:
+			insert_user(msg.from_user, msg.chat)
+
+		user = select_user(msg.from_user, msg.chat)
 
 		if user.karma > 5:
 			change_karma(msg.from_user, msg.chat, -5)
