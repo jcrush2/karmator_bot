@@ -90,7 +90,17 @@ def report(msg):
 	"""
 	Функция, для жалоб админам
 	"""
-	main_log.info("Starting func 'report'")
+#	main_log.info("Starting func 'report'")
+#	admins = bot.get_chat_administrators(message.chat.id)
+#	bot.send_message(msg.chat.id, "админы группы: {0}".format(admins))
+#	member = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+#	if member.user.is_bot:
+#		return
+    # это бот
+#    else:
+#		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+#		if user.status == 'administrator' or user.status == 'creator':
+    
 	report_text = "⚠️ Жалоба получена! \
 	\nУведомление админов: " + config.adminschat
 	bot.reply_to(msg, report_text)
@@ -482,6 +492,14 @@ def is_karma_changing(text):
 				or text.startswith(word) \
 				or text.endswith(word):
 			result.append(-1)
+
+	for word in config.mat_words:
+		if word in text \
+				or (" "+word+" " in text) \
+				or text.startswith(word) \
+				or text.endswith(word):
+			result.append(-1)
+
 	return result
 
 
@@ -586,7 +604,24 @@ def reputation(msg, text):
 
 	now_karma = f"Карма {res}.\n{name}: <b>{user.karma}</b>."
 	bot.send_message(msg.chat.id, now_karma, parse_mode="HTML")
+	
+	
 
+def reputation_mat(msg, text):
+	""" TODO понижение репутации за маты"""
+	
+	how_much_changed = is_karma_changing(text)
+	if not how_much_changed:
+		return
+	# Если значение кармы все же можно изменить: изменяем
+	result = sum(how_much_changed)
+	if result != 0:
+		Limitation.create(
+			timer=pw.SQL("current_timestamp"),
+			userid=msg.from_user.id,
+			chatid=msg.chat.id)
+		change_karma(msg.from_user, msg.chat, result)
+		
 
 def reply_exist(msg):
 	return msg.reply_to_message
@@ -595,6 +630,7 @@ def reply_exist(msg):
 @bot.message_handler(content_types=["text"], func=reply_exist)
 def changing_karma_text(msg):
 	reputation(msg, msg.text)
+	reputation_mat(msg, msg.text)
 	
 
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
@@ -605,6 +641,7 @@ def changing_karma_sticker(msg):
 	
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
+	reputation_mat(msg, msg.text)
 	"""
 	Функция играть в карму.
 	"""
