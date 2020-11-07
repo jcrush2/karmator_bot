@@ -492,7 +492,11 @@ def is_karma_changing(text):
 				or text.startswith(word) \
 				or text.endswith(word):
 			result.append(-1)
+	return result
 
+
+def is_karma_changing_mat(text):
+	result = []
 	for word in config.mat_words:
 		if word in text \
 				or (" "+word+" " in text) \
@@ -610,16 +614,12 @@ def reputation(msg, text):
 def reputation_mat(msg, text):
 	""" TODO понижение репутации за маты"""
 	
-	how_much_changed = is_karma_changing(text)
+	how_much_changed = is_karma_changing_mat(text)
 	if not how_much_changed:
 		return
 	# Если значение кармы все же можно изменить: изменяем
 	result = sum(how_much_changed)
 	if result != 0:
-		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
 		change_karma(msg.from_user, msg.chat, result)
 		
 
