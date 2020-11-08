@@ -64,7 +64,8 @@ def helps(msg):
 	\n/weather - Погода. \
 	\n/no - Для объявлений \
 	\n/report - Отправить жалобу\
-	\n<b>Карма:</b>\
+	\n!тиндер - Найти пару\
+	\n\n<b>Карма:</b>\
 	\n!играть - рандомномная карма от -1 до +3\
 	\n!вабанк - играть -5 или +5\
 	\n!амнистия - к карме +5, если вы в минусе\
@@ -333,7 +334,7 @@ def tinder(msg):
 	Функция которая выводит пару дня
 	"""
 	main_log.info("Starting func 'tinder'")
- 
+	bot.send_chat_action(msg.chat.id, "typing")
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
