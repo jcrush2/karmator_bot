@@ -700,6 +700,8 @@ def karma_game(msg):
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
 		if is_game_abuse(msg):
+			if '!играть'or '!вабанк'or '!амнистия' or '!тиндер' in msg.text:
+				bot.delete_message(msg.chat.id, msg.message_id)
 			return
 		
 		if msg.text.lower() == '!тиндер':
