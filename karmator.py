@@ -339,7 +339,7 @@ def tinder(msg):
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
 	top_mess = "👫 У нас есть пара:\n\n"
-	selected_user = random.choice(selected_user)+random.choice(selected_user)
+	selected_user = random.choice(selected_user)
 	for i, user in enumerate(selected_user):
 #		user = random.choices(user)
 		if user.user_name:
