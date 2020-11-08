@@ -693,19 +693,18 @@ def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
-#	if msg.text.lower() == '!играть'or '!вабанк'or '!амнистия' or '!тиндер':
-	if "!играть" or "!вабанк" or "!амнистия" or "!тиндер" in msg.text:
+	if msg.text.lower() == '!играть'or '!вабанк'or '!амнистия' or '!тиндер':
+#	if "!играть" or "!вабанк" or "!амнистия" or "!тиндер" in msg.text:
 		
-		Limitation.create(
+
+		
+		if msg.text.lower() == '!тиндер':
+			Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
-		if is_game_abuse(msg):
-#			if '!играть'or '!вабанк'or '!амнистия' or '!тиндер' in msg.text:
-#				bot.delete_message(msg.chat.id, msg.message_id)
-			return
-		
-		if msg.text.lower() == '!тиндер':
+			if is_game_abuse(msg):
+				return
 			tinder(msg)
 		
 		user = select_user(msg.from_user, msg.chat)
