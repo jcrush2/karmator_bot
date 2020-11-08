@@ -447,8 +447,9 @@ def gift_karma(msg):
 				
 			else:
 				bot.send_chat_action(msg.chat.id, "typing")
-				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
 				bot.delete_message(msg.chat.id, msg.from_user.id)
+				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
+				
 				
 	else:
 		return
@@ -578,8 +579,8 @@ def is_game_abuse(msg):
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
 		reply_text = f"Возможность играть появится с: {timer}"
-		bot.send_message(msg.chat.id, reply_text)
 		bot.delete_message(msg.chat.id, msg.from_user.id)
+		bot.send_message(msg.chat.id, reply_text)
 		return True
 	return False
 	
