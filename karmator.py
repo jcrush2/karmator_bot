@@ -338,7 +338,7 @@ def tinder(msg):
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
-#	top_mess = ""
+	top_mess = ""
 	for i, user in enumerate(selected_user):
 		if user.user_name:
 			name = user.user_name.strip()
