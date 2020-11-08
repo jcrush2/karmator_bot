@@ -326,9 +326,6 @@ def top_best(msg):
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
 	
 	
-	
-	
-	
 def tinder(msg):
 	"""
 	Функция которая выводит пару дня
@@ -342,11 +339,7 @@ def tinder(msg):
 	top_mess = "👫 Вы образовали пару с "
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
-#		user = random.choices(user)
-#		if user.user_name:
 			nick = user.user_nick.strip()
-			
-#		else:
 			name = user.user_name.strip()
 	top_mess += f"<b>{name}</b> aka @{nick}"
 	if not selected_user:
@@ -427,6 +420,8 @@ def gift_karma(msg):
 	Небольшая функция, которая позволяет создателю бота 
 	добавить подарок
 	"""
+	if is_game_abuse(msg):
+		return
 	if msg.reply_to_message:
 		if msg.from_user.id == msg.reply_to_message.from_user.id:
 			bot.send_message(msg.chat.id, "Нельзя изменять карму самому себе.")
@@ -453,6 +448,7 @@ def gift_karma(msg):
 			else:
 				bot.send_chat_action(msg.chat.id, "typing")
 				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
+				bot.delete_message(msg.chat.id, msg.from_user.id)
 				
 	else:
 		return
@@ -568,6 +564,25 @@ def is_karma_freezed(msg):
 	return False
 
 
+def is_game_abuse(msg):
+	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+	if user.status == 'administrator' or user.status == 'creator':
+		return
+	hours_ago_12 = pw.SQL("current_timestamp-interval'12 hours'")
+	limitation_request = Limitation.select().where(
+		(Limitation.timer > hours_ago_12) &
+		(Limitation.userid == msg.from_user.id) &
+		(Limitation.chatid == msg.chat.id))
+
+	if len(limitation_request) > 4:
+		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
+		timer = timer.strftime("%H:%M %d.%m.%Y")
+		reply_text = f"Возможность играть появится с: {timer}"
+		bot.send_message(msg.chat.id, reply_text)
+		bot.delete_message(msg.chat.id, msg.from_user.id)
+		return True
+	return False
+	
 def is_karma_abuse(msg):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 	if user.status == 'administrator' or user.status == 'creator':
@@ -578,11 +593,11 @@ def is_karma_abuse(msg):
 		(Limitation.userid == msg.from_user.id) &
 		(Limitation.chatid == msg.chat.id))
 
-	if len(limitation_request) > 17:
+	if len(limitation_request) > 10:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
-		timer = timer.strftime("%H:%M:%S %d.%m.%Y")
-		#reply_text = f"Возможность изменять карму будет доступна с: {timer}"
-		#bot.send_message(msg.chat.id, reply_text)
+		timer = timer.strftime("%H:%M %d.%m.%Y")
+#		reply_text = f"Возможность играть с кармой будет доступна с: {timer}"
+#		bot.send_message(msg.chat.id, reply_text)
 		return True
 	return False
 
@@ -616,10 +631,10 @@ def reputation(msg, text):
 	# Если значение кармы все же можно изменить: изменяем
 	result = sum(how_much_changed)
 	if result != 0:
-		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
+#		Limitation.create(
+#			timer=pw.SQL("current_timestamp"),
+#			userid=msg.from_user.id,
+#			chatid=msg.chat.id)
 		change_karma(msg.reply_to_message.from_user, msg.chat, result)
 
 	if result > 0:
@@ -677,16 +692,17 @@ def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
-	if msg.text.lower() == '!играть'or '!вабанк'or '!амнистия'or '!подарить'or '!тиндер':
-		if msg.text.lower() == '!тиндер':
-			tinder(msg)
+	if msg.text.lower() == '!играть'or '!вабанк'or '!амнистия' or '!тиндер':
 		
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
-		if is_karma_abuse(msg):
+		if is_game_abuse(msg):
 			return
+		
+		if msg.text.lower() == '!тиндер':
+			tinder(msg)
 		
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
