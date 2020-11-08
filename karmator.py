@@ -674,12 +674,13 @@ def karma_game(msg):
 	if msg.text.lower() == '!играть'or '!вабанк'or '!амнистия'or '!подарить'or '!тиндер':
 		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 		if user.status != 'administrator' or 'creator':
-			if is_karma_abuse(msg):
-				return
 			Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
+			if is_karma_abuse(msg):
+				return
+		
 		else:
 					
 			if msg.text.lower() == '!тиндер':
