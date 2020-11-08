@@ -345,7 +345,7 @@ def tinder(msg):
 		else:
 			name = user.user_nick.strip()
 		top_mess += f"\"{name}\", "
-		top_mess2 = [top_mess]
+		top_mess2 = (top_mess)
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	random_tinder = random.choice(top_mess2)
