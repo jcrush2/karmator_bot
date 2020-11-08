@@ -338,18 +338,18 @@ def tinder(msg):
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
-	top_mess = ""
+	top_mess = "dddddd"
+	random_tinder = random.choice(selected_user)
 	for i, user in enumerate(selected_user):
 		if user.user_name:
 			name = user.user_name.strip()
 		else:
 			name = user.user_nick.strip()
-		top_mess += f"\"{name}\", "
-		top_mess2 = (top_mess)
+		top_mess += f"*{i+1}*. {name} ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
-	random_tinder = random.choice(user.user_nick))
-	bot.send_message(msg.chat.id, random_tinder, parse_mode="HTML")
+
+	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
 
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
