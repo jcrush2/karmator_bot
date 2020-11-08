@@ -576,11 +576,11 @@ def is_game_abuse(msg):
 		(Limitation.chatid == msg.chat.id))
 
 	if len(limitation_request) > 4:
-		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
-		timer = timer.strftime("%H:%M %d.%m.%Y")
-		reply_text = f"Возможность играть появится позже."
+#		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
+#		timer = timer.strftime("%H:%M %d.%m.%Y")
+#		reply_text = f"Возможность играть появится позже."
 		bot.delete_message(msg.chat.id, msg.message_id)
-		bot.send_message(msg.chat.id, reply_text)
+#		bot.send_message(msg.chat.id, reply_text)
 		return True
 	return False
 	
@@ -595,8 +595,8 @@ def is_karma_abuse(msg):
 		(Limitation.chatid == msg.chat.id))
 
 	if len(limitation_request) > 10:
-		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
-		timer = timer.strftime("%H:%M %d.%m.%Y")
+#		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
+#		timer = timer.strftime("%H:%M %d.%m.%Y")
 #		reply_text = f"Возможность играть с кармой будет доступна с: {timer}"
 #		bot.send_message(msg.chat.id, reply_text)
 		return True
@@ -700,8 +700,6 @@ def karma_game(msg):
 			chatid=msg.chat.id)
 		if is_game_abuse(msg):
 			return
-#	if "!играть" or "!вабанк" or "!амнистия" or "!тиндер" in msg.text:
-	
 		
 		if msg.text.lower() == '!тиндер':
 			tinder(msg)
