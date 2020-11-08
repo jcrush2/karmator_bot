@@ -338,8 +338,8 @@ def tinder(msg):
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
-	top_mess = "👫 У нас есть пара:\n\n"
-	selected_user = random.choice(selected_user)
+	top_mess = "👫 Вы образовали пару с: "
+	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 #		user = random.choices(user)
 		if user.user_name:
@@ -347,12 +347,11 @@ def tinder(msg):
 			
 		else:
 			name = user.user_name.strip()
-	top_mess += f"*{i+1}*. @{name} ({user.karma})\n"
+	top_mess += f"*@{name}"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 
-	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
-
+	bot.reply_to(msg, top_mess, parse_mode="HTML")
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
 def top_bad(msg):
