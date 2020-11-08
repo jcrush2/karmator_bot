@@ -338,13 +338,13 @@ def tinder(msg):
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
-#	top_mess = "👫 Пара дня\n\n"
+#	top_mess = ""
 	for i, user in enumerate(selected_user):
 		if user.user_name:
 			name = user.user_name.strip()
 		else:
 			name = user.user_nick.strip()
-		top_mess += f""{name}", "
+		top_mess += f"'{name}', "
 		top_mess2 = [top_mess]
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
