@@ -338,7 +338,7 @@ def tinder(msg):
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
-	top_mess = "👫 Вы образовали пару с: "
+	top_mess = "👫 Вы образовали пару с "
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 #		user = random.choices(user)
@@ -347,7 +347,7 @@ def tinder(msg):
 			
 		else:
 			name = user.user_name.strip()
-	top_mess += f"*@{name}"
+	top_mess += f"@{name}"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 
