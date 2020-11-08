@@ -693,7 +693,8 @@ def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
-	if msg.text.lower() == '!играть'or '!вабанк'or '!амнистия' or '!тиндер':
+#	if msg.text.lower() == '!играть'or '!вабанк'or '!амнистия' or '!тиндер':
+	if "!играть" or "!вабанк" or "!амнистия" or "!тиндер" in msg.text:
 		
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
