@@ -675,14 +675,17 @@ def karma_game(msg):
 		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 		if user.status != 'administrator' or 'creator':
 			Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
+				timer=pw.SQL("current_timestamp"),
+				userid=msg.from_user.id,
+				chatid=msg.chat.id)
 			if is_karma_abuse(msg):
 				return
 		
 		else:
-					
+			user = select_user(msg.from_user, msg.chat)
+			if not user:
+				insert_user(msg.from_user, msg.chat)
+			user = select_user(msg.from_user, msg.chat)			
 			if msg.text.lower() == '!тиндер':
 				tinder(msg)
 	
@@ -696,10 +699,7 @@ def karma_game(msg):
 		
 	
 			if msg.text.lower() == '!вабанк':
-				user = select_user(msg.from_user, msg.chat)
-				if not user:
-					insert_user(msg.from_user, msg.chat)
-					user = select_user(msg.from_user, msg.chat)
+
 				if user.karma > 5:
 					random_karma = ("+5", "-5")
 					random_karma2 = random.choice(random_karma)
@@ -713,10 +713,7 @@ def karma_game(msg):
 					bot.reply_to(msg, podarok, parse_mode="HTML")
 		
 			if msg.text.lower() == '!амнистия':
-				user = select_user(msg.from_user, msg.chat)
-				if not user:
-					insert_user(msg.from_user, msg.chat)
-					user = select_user(msg.from_user, msg.chat)
+
 				if user.karma < 5:
 					change_karma(msg.from_user, msg.chat, 5)
 					bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
