@@ -332,7 +332,7 @@ def tinder(msg):
 	"""
 	Функция которая выводит пару дня
 	"""
-	main_log.info("Starting func 'top_best'")
+	main_log.info("Starting func 'tinder'")
  
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
@@ -346,11 +346,11 @@ def tinder(msg):
 			name = user.user_name.strip()
 		else:
 			name = user.user_nick.strip()
-		random_tinder = random.choice(name)
-		top_mess += f"*{i+1}*. {random_tinder} ({user.karma}) {user_rang}\n"
-	if not selected_user:
-		top_mess = "Никто еще не заслужил быть в этом списке."
-	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
+			random_tinder = random.choice(name)
+			top_mess += f"*{i+1}*. {selected_user} ({user.karma}) {user_rang}\n"
+		if not selected_user:
+			top_mess = "Никто еще не заслужил быть в этом списке."
+		bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
 
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
@@ -674,12 +674,15 @@ def karma_game(msg):
 	Функция играть в карму.
 	"""
 	if msg.text.lower() == ['!играть', '!вабанк', '!амнистия', '!подарить', '!тиндер']:
-		if is_karma_abuse(msg):
-			return
-		Limitation.create(
-		timer=pw.SQL("current_timestamp"),
-		userid=msg.from_user.id,
-		chatid=msg.chat.id)
+		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+		if user.status != ['administrator', 'creator']:
+			if is_karma_abuse(msg):
+				return
+			Limitation.create(
+			timer=pw.SQL("current_timestamp"),
+			userid=msg.from_user.id,
+			chatid=msg.chat.id)
+
 		
 		if msg.text.lower() == '!тиндер':
 			tinder(msg)
@@ -697,7 +700,7 @@ def karma_game(msg):
 			user = select_user(msg.from_user, msg.chat)
 			if not user:
 				insert_user(msg.from_user, msg.chat)
-			user = select_user(msg.from_user, msg.chat)
+				user = select_user(msg.from_user, msg.chat)
 			if user.karma > 5:
 				random_karma = ("+5", "-5")
 				random_karma2 = random.choice(random_karma)
@@ -714,7 +717,7 @@ def karma_game(msg):
 			user = select_user(msg.from_user, msg.chat)
 			if not user:
 				insert_user(msg.from_user, msg.chat)
-			user = select_user(msg.from_user, msg.chat)
+				user = select_user(msg.from_user, msg.chat)
 			if user.karma < 5:
 				change_karma(msg.from_user, msg.chat, 5)
 				bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
