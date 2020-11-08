@@ -348,7 +348,7 @@ def tinder(msg):
 		
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
-	random_tinder = random.choice(user)
+	random_tinder = random.choice(len(user))
 	bot.send_message(msg.chat.id, random_tinder, parse_mode="HTML")
 
 
