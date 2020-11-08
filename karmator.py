@@ -673,9 +673,9 @@ def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
-	if msg.text.lower() == ['!играть', '!вабанк', '!амнистия', '!подарить', '!тиндер']:
+	if msg.text.lower() == '!играть'or '!вабанк'or '!амнистия'or '!подарить'or '!тиндер':
 		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-		if user.status != ['administrator', 'creator']:
+		if user.status != 'administrator'or 'creator':
 			if is_karma_abuse(msg):
 				return
 			Limitation.create(
