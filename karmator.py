@@ -343,10 +343,11 @@ def tinder(msg):
 	for i, user in enumerate(selected_user):
 		
 		if user.user_name:
-			name = user.user_name.strip()
-		else:
 			name = user.user_nick.strip()
-		top_mess += f"*{i+1}*. {name} ({user.karma})\n"
+			
+		else:
+			name = user.user_name.strip()
+	top_mess += f"*{i+1}*. {name} ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 
