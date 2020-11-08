@@ -337,7 +337,7 @@ def tinder(msg):
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
-		.limit(10)
+		.limit(50)
 	top_mess = "👫 Вы образовали пару с "
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
@@ -577,7 +577,7 @@ def is_karma_abuse(msg):
 		(Limitation.userid == msg.from_user.id) &
 		(Limitation.chatid == msg.chat.id))
 
-	if len(limitation_request) > 10:
+	if len(limitation_request) > 17:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M:%S %d.%m.%Y")
 		#reply_text = f"Возможность изменять карму будет доступна с: {timer}"
@@ -677,6 +677,9 @@ def karma_game(msg):
 	Функция играть в карму.
 	"""
 	if msg.text.lower() == '!играть'or '!вабанк'or '!амнистия'or '!подарить'or '!тиндер':
+		if msg.text.lower() == '!тиндер':
+		tinder(msg)
+		
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
@@ -688,8 +691,6 @@ def karma_game(msg):
 		if not user:
 			insert_user(msg.from_user, msg.chat)
 		user = select_user(msg.from_user, msg.chat)			
-		if msg.text.lower() == '!тиндер':
-			tinder(msg)
 	
 		if msg.text.lower() == '!играть':
 			random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
