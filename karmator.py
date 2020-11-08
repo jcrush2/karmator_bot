@@ -339,8 +339,9 @@ def tinder(msg):
 		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
 	top_mess = "dddddd"
-	random_tinder = random.choice(selected_user)
+	
 	for i, user in enumerate(selected_user):
+		random_tinder = random.choice(selected_user)
 		if user.user_name:
 			name = user.user_name.strip()
 		else:
