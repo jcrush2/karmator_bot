@@ -567,6 +567,9 @@ def is_karma_freezed(msg):
 
 
 def is_karma_abuse(msg):
+	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+	if user.status == 'administrator' or user.status == 'creator':
+		return
 	hours_ago_12 = pw.SQL("current_timestamp-interval'12 hours'")
 	limitation_request = Limitation.select().where(
 		(Limitation.timer > hours_ago_12) &
