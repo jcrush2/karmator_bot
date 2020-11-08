@@ -579,7 +579,7 @@ def is_game_abuse(msg):
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
 		reply_text = f"Возможность играть появится позже."
-#		bot.delete_message(msg.chat.id, msg.message_id)
+		bot.delete_message(msg.chat.id, msg.message_id)
 		bot.send_message(msg.chat.id, reply_text)
 		return True
 	return False
