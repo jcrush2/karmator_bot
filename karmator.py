@@ -561,8 +561,8 @@ def is_karma_freezed(msg):
 				name = req.user_nick.strip()
 
 			# Сообщение, у кого именно заморожена карма
-			reply_text = f"Юзер: {name}.\nСтатус кармы: Заморожена."
-			bot.send_message(msg.chat.id, reply_text)
+#			reply_text = f"Юзер: {name}.\nСтатус кармы: Заморожена."
+#			bot.send_message(msg.chat.id, reply_text)
 			return True
 	return False
 
