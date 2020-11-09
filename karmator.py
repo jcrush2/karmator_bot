@@ -422,6 +422,8 @@ def gift_karma(msg):
 	"""
 	if is_game_abuse(msg):
 		return
+	if is_karma_freezed(msg):
+		return
 	if msg.reply_to_message:
 		if msg.from_user.id == msg.reply_to_message.from_user.id:
 			bot.send_message(msg.chat.id, "Нельзя изменять карму самому себе.")
@@ -695,13 +697,16 @@ def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
+	if is_game_abuse(msg):
+		return
+	if is_karma_freezed(msg):
+		return
 	if msg.text.lower() in ['!играть', '!вабанк', '!амнистия', '!тиндер']:
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
-		if is_game_abuse(msg):
-			return
+
 			
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
