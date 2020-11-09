@@ -130,7 +130,7 @@ def loves(msg):
 	
 @bot.message_handler(content_types=["left_chat_member"])
 def left_chat_member(msg):
-	change_karma(msg.from_user, msg.chat, -20)
+	change_karma(msg.from_user, msg.chat, -100)
 
 def select_user(user, chat):
 	"""
@@ -699,7 +699,7 @@ def karma_game(msg):
 	"""
 	if is_game_abuse(msg):
 		return
-	if is_karma_freezed(msg):
+#	if is_karma_freezed(msg):
 		return
 	if msg.text.lower() in ['!играть', '!вабанк', '!амнистия', '!тиндер']:
 		Limitation.create(
