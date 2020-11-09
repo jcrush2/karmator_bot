@@ -366,6 +366,8 @@ def top_bad(msg):
 			name = user.user_name.strip()
 		else:
 			name = user.user_nick.strip()
+		if name == "Telegram" or name == "ХабКарма":
+			name =""
 		top_mess += f"*{i+1}*. {name}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
