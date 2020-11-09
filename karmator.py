@@ -315,7 +315,7 @@ def top_best(msg):
 		if 900 <= user.karma < 1000: user_rang = "👁 Смотритель"
 		if 1000 <= user.karma < 1300: user_rang = "✝️ Бог"
 		if 1300 <= user.karma < 2000: user_rang = "⚡️ Верховный Бог"
-		if 2000 <= user.karma < 9999: user_rang = "👤 Сломал систему\n\n"
+		if 2000 <= user.karma < 9999: user_rang = "👤 Сломал систему\n"
 	
 		if user.user_name:
 			name = user.user_name.strip()
