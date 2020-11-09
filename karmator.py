@@ -128,9 +128,9 @@ def loves(msg):
 	bot.reply_to(msg, loves_text)
 	
 	
-#@bot.message_handler(content_types=["new_chat_members"])
-#def new_chat_members(msg):
-#	change_karma(msg.from_user, msg.chat, 10)
+@bot.message_handler(content_types=["left_chat_member"])
+def left_chat_member(msg):
+	change_karma(msg.from_user, msg.chat, -20)
 
 def select_user(user, chat):
 	"""
@@ -567,7 +567,8 @@ def is_karma_freezed(msg):
 
 def is_game_abuse(msg):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-	if user.status == 'administrator' or user.status == 'creator':
+#	if user.status == 'administrator' or user.status == 'creator':
+	if user.status == 'creator':
 		return
 	hours_ago_12 = pw.SQL("current_timestamp-interval'12 hours'")
 	limitation_request = Limitation.select().where(
@@ -586,7 +587,8 @@ def is_game_abuse(msg):
 	
 def is_karma_abuse(msg):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-	if user.status == 'administrator' or user.status == 'creator':
+#	if user.status == 'administrator' or user.status == 'creator':
+	if user.status == 'creator':
 		return
 	hours_ago_12 = pw.SQL("current_timestamp-interval'12 hours'")
 	limitation_request = Limitation.select().where(
@@ -700,43 +702,45 @@ def karma_game(msg):
 			chatid=msg.chat.id)
 		if is_game_abuse(msg):
 			return
-		
-		if msg.text.lower() == '!тиндер':
-			tinder(msg)
-		
-		user = select_user(msg.from_user, msg.chat)
-		if not user:
-			insert_user(msg.from_user, msg.chat)
-		user = select_user(msg.from_user, msg.chat)			
+		if user.karma < 0:
+			bot.delete_message(msg.chat.id, msg.message_id)
+		if user.karma > 0:
+			if msg.text.lower() == '!тиндер':
+				tinder(msg)
+			
+			user = select_user(msg.from_user, msg.chat)
+			if not user:
+				insert_user(msg.from_user, msg.chat)
+			user = select_user(msg.from_user, msg.chat)			
 	
-		if msg.text.lower() == '!играть':
-			random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
-			random_karma2 = random.choice(random_karma)
-			change_karma(msg.from_user, msg.chat, random_karma2)
-			random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg, random_karma3, parse_mode="HTML")
-		
-	
-		if msg.text.lower() == '!вабанк':
-
-			if user.karma > 5:
-				random_karma = ("+5", "-5")
+			if msg.text.lower() == '!играть':
+				random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
 				random_karma2 = random.choice(random_karma)
 				change_karma(msg.from_user, msg.chat, random_karma2)
-				random_karma3 = f"🎲 Сыграл вабанк: <b>{random_karma2}</b>."
+				random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
 				bot.send_chat_action(msg.chat.id, "typing")
 				bot.reply_to(msg, random_karma3, parse_mode="HTML")
-			else:
-				podarok = f"🎁 Нехватает кармы для ставки +5."
-				bot.send_chat_action(msg.chat.id, "typing")
-				bot.reply_to(msg, podarok, parse_mode="HTML")
 		
-		if msg.text.lower() == '!амнистия':
+	
+			if msg.text.lower() == '!вабанк':
 
-			if user.karma < 5:
-				change_karma(msg.from_user, msg.chat, 5)
-				bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
+				if user.karma > 5:
+					random_karma = ("+5", "-5")
+					random_karma2 = random.choice(random_karma)
+					change_karma(msg.from_user, msg.chat, random_karma2)
+					random_karma3 = f"🎲 Сыграл вабанк: <b>{random_karma2}</b>."
+					bot.send_chat_action(msg.chat.id, "typing")
+					bot.reply_to(msg, random_karma3, parse_mode="HTML")
+				else:
+					podarok = f"🎁 Нехватает кармы для ставки +5."
+					bot.send_chat_action(msg.chat.id, "typing")
+					bot.reply_to(msg, podarok, parse_mode="HTML")
+		
+			if msg.text.lower() == '!амнистия':
+
+				if user.karma < 5:
+					change_karma(msg.from_user, msg.chat, 5)
+					bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
 				
 """
 		if msg.text.lower() == '!подарить':
