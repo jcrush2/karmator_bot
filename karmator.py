@@ -702,8 +702,6 @@ def karma_game(msg):
 			chatid=msg.chat.id)
 		if is_game_abuse(msg):
 			return
-		if user.karma < 0:
-			bot.delete_message(msg.chat.id, msg.message_id)
 		if user.karma > 0:
 			if msg.text.lower() == '!тиндер':
 				tinder(msg)
@@ -741,6 +739,8 @@ def karma_game(msg):
 				if user.karma < 5:
 					change_karma(msg.from_user, msg.chat, 5)
 					bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
+		else:
+			bot.delete_message(msg.chat.id, msg.message_id)
 				
 """
 		if msg.text.lower() == '!подарить':
