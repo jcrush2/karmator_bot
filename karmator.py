@@ -702,14 +702,15 @@ def karma_game(msg):
 			chatid=msg.chat.id)
 		if is_game_abuse(msg):
 			return
+			
+		user = select_user(msg.from_user, msg.chat)
+		if not user:
+			insert_user(msg.from_user, msg.chat)
+		user = select_user(msg.from_user, msg.chat)	
 		if user.karma > 0:
 			if msg.text.lower() == '!тиндер':
 				tinder(msg)
-			
-			user = select_user(msg.from_user, msg.chat)
-			if not user:
-				insert_user(msg.from_user, msg.chat)
-			user = select_user(msg.from_user, msg.chat)			
+					
 	
 			if msg.text.lower() == '!играть':
 				random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
