@@ -583,8 +583,8 @@ def is_game_abuse(msg):
 		(Limitation.chatid == msg.chat.id))
 
 	if len(limitation_request) > 4:
-#		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
-#		timer = timer.strftime("%H:%M %d.%m.%Y")
+		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
+		timer = timer.strftime("%H:%M %d.%m.%Y")
 #		reply_text = f"Возможность играть появится позже."
 		bot.delete_message(msg.chat.id, msg.message_id)
 #		bot.send_message(msg.chat.id, reply_text)
@@ -603,8 +603,8 @@ def is_karma_abuse(msg):
 		(Limitation.chatid == msg.chat.id))
 
 	if len(limitation_request) > 10:
-#		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
-#		timer = timer.strftime("%H:%M %d.%m.%Y")
+		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
+		timer = timer.strftime("%H:%M %d.%m.%Y")
 #		reply_text = f"Возможность играть с кармой будет доступна с: {timer}"
 #		bot.send_message(msg.chat.id, reply_text)
 		return True
@@ -640,10 +640,10 @@ def reputation(msg, text):
 	# Если значение кармы все же можно изменить: изменяем
 	result = sum(how_much_changed)
 	if result != 0:
-#		Limitation.create(
-#			timer=pw.SQL("current_timestamp"),
-#			userid=msg.from_user.id,
-#			chatid=msg.chat.id)
+		Limitation.create(
+			timer=pw.SQL("current_timestamp"),
+			userid=msg.from_user.id,
+			chatid=msg.chat.id)
 		change_karma(msg.reply_to_message.from_user, msg.chat, result)
 
 	if result > 0:
@@ -711,6 +711,8 @@ def karma_game(msg):
 			chatid=msg.chat.id)
 
 		if is_game_abuse(msg):
+			return
+		if is_karma_freezed(msg):
 			return
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
