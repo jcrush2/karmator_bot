@@ -585,7 +585,7 @@ def is_game_abuse(msg):
 	if len(limitation_request) > 4:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
-#		reply_text = f"Возможность играть появится позже."
+		reply_text = f"Возможность играть появится позже."
 		bot.delete_message(msg.chat.id, msg.message_id)
 #		bot.send_message(msg.chat.id, reply_text)
 		return True
@@ -605,7 +605,7 @@ def is_karma_abuse(msg):
 	if len(limitation_request) > 10:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
-#		reply_text = f"Возможность играть с кармой будет доступна с: {timer}"
+		reply_text = f"Возможность играть с кармой будет доступна с: {timer}"
 #		bot.send_message(msg.chat.id, reply_text)
 		return True
 	return False
@@ -711,9 +711,9 @@ def karma_game(msg):
 			chatid=msg.chat.id)
 
 		if is_game_abuse(msg):
-#			return
-#		if is_karma_freezed(msg):
 			return
+#		if is_karma_freezed(msg):
+#			return
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
 			insert_user(msg.from_user, msg.chat)
@@ -749,7 +749,7 @@ def karma_game(msg):
 			if msg.text.lower() == '!амнистия':
 
 				if user.karma < 5:
-					change_karma(msg.from_user, msg.chat, 5)
+					change_karma(msg.froma_user, msg.chat, 5)
 					bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
 		else:
 			bot.delete_message(msg.chat.id, msg.message_id)
