@@ -628,7 +628,7 @@ def is_karma_abuse(msg):
 		(Limitation.userid == msg.from_user.id) &
 		(Limitation.chatid == msg.chat.id))
 
-	if len(limitation_request) > 2:
+	if len(limitation_request) > 1:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
 		reply_text = f"Возможность играть с кармой будет доступна с: {timer}"
