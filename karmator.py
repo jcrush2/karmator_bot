@@ -117,8 +117,10 @@ def nos(msg):
 	nos_text = "ℹ️ Здесь Чат общения, для объявлений воспользуйтесь группами: @market27 или @khvjob"
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,nos_text)
+		bot.delete_message(msg.chat.id, msg.message_id)
 	else:
 		bot.reply_to(msg,nos_text)
+		bot.delete_message(msg.chat.id, msg.message_id)
 		
 @bot.message_handler(commands=["love"], func=is_my_message)
 def loves(msg):
@@ -576,7 +578,7 @@ def is_game_abuse(msg):
 #	if user.status == 'administrator' or user.status == 'creator':
 	if user.status == 'creator':
 		return
-	hours_ago_12 = pw.SQL("current_timestamp-interval'12 hours'")
+	hours_ago_12 = pw.SQL("current_timestamp-interval'10 minutes'")
 	limitation_request = Limitation.select().where(
 		(Limitation.timer > hours_ago_12) &
 		(Limitation.userid == msg.from_user.id) &
