@@ -115,6 +115,7 @@ def nos(msg):
 	"""
 	main_log.info("Starting func 'nos'") 
 	nos_text = "ℹ️ Здесь Чат общения, для объявлений воспользуйтесь группами: @market27 или @khvjob"
+	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,nos_text)
 		bot.delete_message(msg.chat.id, msg.message_id)
