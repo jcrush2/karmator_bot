@@ -120,12 +120,12 @@ def nos(msg):
 		bot.reply_to(msg.reply_to_message,nos_text)
 		bot.delete_message(msg.chat.id, msg.message_id)
 		if user.status == 'administrator' or user.status == 'creator':
-			bot.delete_message(msg.chat.id, msg.reply_to_message)
+			bot.delete_message(msg.chat.id, msg.reply_to_message_id)
 	else:
 		bot.reply_to(msg,nos_text)
 		bot.delete_message(msg.chat.id, msg.message_id)
 		if user.status == 'administrator' or user.status == 'creator':
-			bot.delete_message(msg.chat.id, msg.reply_to_message)
+			bot.delete_message(msg.chat.id, msg.reply_to_message_id)
 		
 @bot.message_handler(commands=["love"], func=is_my_message)
 def loves(msg):
