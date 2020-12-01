@@ -531,7 +531,7 @@ def is_karma_changing(text):
 
 def is_karma_changing_mat(text):
 	result = []
-	if len(text)==1:
+	if len(text)<2:
 		result.append(-1)
 		return
 	for word in config.mat_words:
@@ -701,7 +701,6 @@ def changing_karma_text(msg):
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
 def changing_karma_sticker(msg):
 	reputation(msg, msg.sticker.emoji)
-	reputation_mat(msg, msg.sticker.emoji)
 	
 	
 	
