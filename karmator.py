@@ -534,7 +534,7 @@ def is_karma_changing_mat(text):
 		
 	if len(text)==1:
 		result.append(-1)
-	return result
+	
 	
 			# Обработка текста для анализа
 	text = text.lower()
