@@ -324,10 +324,10 @@ def top_best(msg):
 		else:
 			name = user.user_nick.strip()
 			
-		top_mess += f"*{i+1}*. {name} ({user.karma}) {user_rang}\n"
+		top_mess += f"*{i+1}*. <b>{name}</b> ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
-	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
+	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
 	
 	
 def tinder(msg):
@@ -539,13 +539,14 @@ def is_karma_changing_mat(text):
 				or text.startswith(word) \
 				or text.endswith(word):
 			result.append(-1)
+	if len(text.split()) > 3:
+		for word in config.heppy_words:
+			if word == text \
+					or (" "+word+" " in text) \
+					or text.startswith(word) \
+					or text.endswith(word):
+				result.append(1)
 			
-	for word in config.heppy_words:
-		if word == text \
-				or (" "+word+" " in text) \
-				or text.startswith(word) \
-				or text.endswith(word):
-			result.append(1)
 
 	return result
 
