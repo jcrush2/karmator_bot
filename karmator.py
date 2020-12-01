@@ -551,7 +551,8 @@ def is_karma_changing_mat(text):
 			result.append(-1)
 	if len(text.split()) > 2:
 		for word in config.heppy_words:
-			if word == (" "+word+" " in text) \
+			if word in text \
+					or (" "+word+" " in text) \
 					or text.startswith(word) \
 					or text.endswith(word):
 				result.append(1)
