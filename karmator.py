@@ -533,6 +533,7 @@ def is_karma_changing_mat(text):
 	result = []
 	for word in config.mat_words:
 		if word in text \
+				or len(text)<'2' \
 				or (" "+word+" " in text) \
 				or text.startswith(word) \
 				or text.endswith(word):
@@ -578,7 +579,9 @@ def is_game_abuse(msg):
 #	if user.status == 'administrator' or user.status == 'creator':
 	if user.status == 'creator':
 		return
-	hours_ago_12 = pw.SQL("current_timestamp-interval'10 minutes'")
+	random_karma = ("1", "2", "3", "4", "5", "6", "7")
+	random_karma2 = random.choice(random_karma)
+	hours_ago_12 = pw.SQL(f"current_timestamp-interval'{random_karma2} minutes'")
 	limitation_request = Limitation.select().where(
 		(Limitation.timer > hours_ago_12) &
 		(Limitation.userid == msg.from_user.id) &
@@ -694,6 +697,7 @@ def changing_karma_text(msg):
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
 def changing_karma_sticker(msg):
 	reputation(msg, msg.sticker.emoji)
+	
 	
 	
 	
