@@ -531,18 +531,27 @@ def is_karma_changing(text):
 
 def is_karma_changing_mat(text):
 	result = []
+		
 	if len(text)==1:
 		result.append(-1)
+	return result
+	
+			# Обработка текста для анализа
+	text = text.lower()
+	for punc in string.punctuation:
+		text = text.replace(punc, "")
+	for white in string.whitespace[1:]:
+		text = text.replace(white, "")
+		
 	for word in config.mat_words:
 		if word in text \
 				or (" "+word+" " in text) \
 				or text.startswith(word) \
 				or text.endswith(word):
 			result.append(-1)
-	if len(text.split()) > 1:
+	if len(text.split()) > 2:
 		for word in config.heppy_words:
-			if word == text \
-					or (" "+word+" " in text) \
+			if word == (" "+word+" " in text) \
 					or text.startswith(word) \
 					or text.endswith(word):
 				result.append(1)
