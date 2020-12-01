@@ -533,7 +533,7 @@ def is_karma_changing_mat(text):
 	result = []
 	for word in config.mat_words:
 		if word in text \
-				or len(text)<'2' \
+				or len(text)<2 \
 				or (" "+word+" " in text) \
 				or text.startswith(word) \
 				or text.endswith(word):
