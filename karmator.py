@@ -531,9 +531,11 @@ def is_karma_changing(text):
 
 def is_karma_changing_mat(text):
 	result = []
+	if len(text)==1:
+		result.append(-1)
+		return
 	for word in config.mat_words:
 		if word in text \
-				or len(text)<2 \
 				or (" "+word+" " in text) \
 				or text.startswith(word) \
 				or text.endswith(word):
@@ -579,7 +581,7 @@ def is_game_abuse(msg):
 #	if user.status == 'administrator' or user.status == 'creator':
 	if user.status == 'creator':
 		return
-	random_karma = ("1", "2", "3", "4", "5", "6", "7")
+	random_karma = ("5", "10", "20", "30", "30", "50", "60")
 	random_karma2 = random.choice(random_karma)
 	hours_ago_12 = pw.SQL(f"current_timestamp-interval'{random_karma2} minutes'")
 	limitation_request = Limitation.select().where(
@@ -587,7 +589,7 @@ def is_game_abuse(msg):
 		(Limitation.userid == msg.from_user.id) &
 		(Limitation.chatid == msg.chat.id))
 
-	if len(limitation_request) > 4:
+	if len(limitation_request) > 1:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
 		reply_text = f"Возможность играть появится позже."
@@ -601,13 +603,15 @@ def is_karma_abuse(msg):
 #	if user.status == 'administrator' or user.status == 'creator':
 	if user.status == 'creator':
 		return
-	hours_ago_12 = pw.SQL("current_timestamp-interval'12 hours'")
+	random_karma = ("5", "10", "20", "30", "30", "50", "60")
+	random_karma2 = random.choice(random_karma)
+	hours_ago_12 = pw.SQL(f"current_timestamp-interval'{random_karma2} minutes'")
 	limitation_request = Limitation.select().where(
 		(Limitation.timer > hours_ago_12) &
 		(Limitation.userid == msg.from_user.id) &
 		(Limitation.chatid == msg.chat.id))
 
-	if len(limitation_request) > 10:
+	if len(limitation_request) > 2:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
 		reply_text = f"Возможность играть с кармой будет доступна с: {timer}"
@@ -697,7 +701,7 @@ def changing_karma_text(msg):
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
 def changing_karma_sticker(msg):
 	reputation(msg, msg.sticker.emoji)
-	
+	reputation_mat(msg, msg.sticker.emoji)
 	
 	
 	
