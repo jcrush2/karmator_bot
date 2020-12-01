@@ -539,6 +539,13 @@ def is_karma_changing_mat(text):
 				or text.startswith(word) \
 				or text.endswith(word):
 			result.append(-1)
+			
+	for word in config.heppy_words:
+		if word == text \
+				or (" "+word+" " in text) \
+				or text.startswith(word) \
+				or text.endswith(word):
+			result.append(1)
 
 	return result
 
@@ -669,6 +676,9 @@ def reputation(msg, text):
 		name = user.user_name.strip()
 	else:
 		name = user.user_nick.strip()
+		
+	if name == "Telegram" or name == "ХабКарма":
+		return
 
 	now_karma = f"Карма {res}.\n{name}: <b>{user.karma}</b>."
 	bot.send_message(msg.chat.id, now_karma, parse_mode="HTML")
