@@ -406,7 +406,7 @@ def freeze_me(msg):
 
 
 @bot.message_handler(commands=["god"])
-def gods_intervention(msg):
+def gods(msg):
 	"""
 	Небольшая функция, которая позволяет создателю бота 
 	добавить кому и сколько угодно очков кармы в обход 
@@ -421,6 +421,7 @@ def gods_intervention(msg):
 		return
 	result = int(msg.text.split()[1])
 	change_karma(msg.reply_to_message.from_user, msg.chat, result)
+	bot.delete_message(msg.chat.id, msg.message_id)
 
 
 @bot.message_handler(commands=["gift"])
