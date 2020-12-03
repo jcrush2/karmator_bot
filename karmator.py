@@ -283,6 +283,7 @@ def top_best(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	main_log.info("Starting func 'top_best'")
+	
  
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
@@ -291,6 +292,10 @@ def top_best(msg):
 	user_rang = "🤖 Бот"
 	top_mess = "🏆 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
+#		userdel = KarmaUser.chatid
+#		if userdel.status != 'member':
+#			change_karma(msg.from_user, msg.chat, random_karma2)
+			
 		if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
 		if 10 <= user.karma < 20: user_rang = "🤫\n      <code>Тихоня</code>"
 		if 20 <= user.karma < 30: user_rang = "🐛\n      <code>Личинка</code>"
@@ -368,6 +373,9 @@ def top_bad(msg):
 
 	top_mess = "💩 Топ ругаемых:\n"
 	for i, user in enumerate(selected_user):
+		userdel = KarmaUser.chatid
+		if userdel.status != 'member':
+			change_karma(userdel, msg.chat, -10)
 		if user.user_name:
 			name = user.user_name.strip()
 		else:
