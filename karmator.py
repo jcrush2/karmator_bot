@@ -373,7 +373,7 @@ def top_bad(msg):
 
 	top_mess = "💩 Топ ругаемых:\n"
 	for i, user in enumerate(selected_user):
-		userdel = KarmaUser.chatid
+		userdel = selected_user
 		if userdel.status != 'member':
 			change_karma(userdel, msg.chat, -10)
 		if user.user_name:
