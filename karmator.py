@@ -376,7 +376,7 @@ def top_bad(msg):
 		userdel = selected_user
 		bot.send_message(msg.chat.id, user, parse_mode="Markdown")
 		if user.status != 'member':
-			change_karma(userdel, msg.chat, -10)
+			change_karma(user, msg.chat, -10)
 		if user.user_name:
 			name = user.user_name.strip()
 		else:
