@@ -388,7 +388,9 @@ def tinder(msg):
 	for i, user in enumerate(selected_user):
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
-	top_mess += f"<b>{name}</b> aka @{nick}"
+	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+	if userstatus.status != 'left' :
+		top_mess += f"<b>{name}</b> aka @{nick}"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 
