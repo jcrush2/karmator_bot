@@ -421,7 +421,7 @@ def top_bad(msg):
 #			nameids = 'вышел'
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 		if userstatus.status == 'left':
-			delete_karma(user, msg.chat, 0)
+			delete_karma(user.user_name, msg.chat, 0)
 #		for word in userstatus.status():
 #			if left" in userstatus:
 #				useriddd ='Yes'
