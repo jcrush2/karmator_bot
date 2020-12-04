@@ -381,12 +381,12 @@ def top_bad(msg):
 
 		if user.user_name:
 			name = user.user_name.strip()
-			nameid = user
+			nameid = user.strip()
 		else:
 			name = user.user_nick.strip()
 		if name == "Telegram" or name == "ХабКарма":
 			name =""
-		top_mess += f"*{i+1}*. {name} {user.split(',')[0]}, ({user.karma})\n"
+		top_mess += f"*{i+1}*. {name} {nameid.split(',')[0]}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
