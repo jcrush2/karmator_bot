@@ -387,7 +387,7 @@ def top_bad(msg):
 			name = user.user_nick.strip()
 		if name == "Telegram" or name == "ХабКарма":
 			name =""
-		if user.status != 'member':
+		if user.userid.status == 'left':
 			nameids = 'вышел'
 #		for "Yes" in bot.get_chat_member(msg.chat.id,user.userid):
 #			useriddd=='Yes'
