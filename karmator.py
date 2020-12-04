@@ -420,14 +420,8 @@ def top_bad(msg):
 		
 #			nameids = 'вышел'
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status == 'left':
-			delete_karma(user.userid.user_name, msg.chat, 0)
-#		for word in userstatus.status():
-#			if left" in userstatus:
-#				useriddd ='Yes'
-
-	
-		top_mess += f"*{i+1}*. {name} {userstatus}, ({user.karma})\n"
+		if userstatus.status != 'left':
+			top_mess += f"*{i+1}*. {name}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
