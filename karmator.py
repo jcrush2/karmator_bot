@@ -380,7 +380,7 @@ def top_bad(msg):
 
 		if user.user_name:
 			name = user.user_name.strip()
-			nameid = user.id.strip()
+			nameid = user.id
 		else:
 			name = user.user_nick.strip()
 		if name == "Telegram" or name == "ХабКарма":
