@@ -395,7 +395,7 @@ def top_bad(msg):
 #				useriddd ='Yes'
 
 	
-		top_mess += f"*{i+1}*. {name} {str(userstatus.status())}, ({user.karma})\n"
+		top_mess += f"*{i+1}*. {name} {userstatus.status}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
