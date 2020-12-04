@@ -313,7 +313,7 @@ def top_best(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	main_log.info("Starting func 'top_best'")
-	if len(msg.text.split()) == '':
+	if len(msg.text.split()) == 1:
 		result==10
 	result = int(msg.text.split()[1])
 	selected_user = KarmaUser.select()\
