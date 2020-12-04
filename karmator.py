@@ -315,7 +315,7 @@ def top_best(msg):
 	main_log.info("Starting func 'top_best'")
 
 	if len(msg.text.split()) == 1:
-		result==10
+		result=10
 	else:
 		result = int(msg.text.split()[1])	
 	selected_user = KarmaUser.select()\
