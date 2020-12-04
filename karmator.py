@@ -373,9 +373,9 @@ def top_bad(msg):
 
 	top_mess = "💩 Топ ругаемых:\n"
 	for i, user in enumerate(selected_user):
-		userdel==enumerate(selected_user)
-		bot.send_message(msg.chat.id, userdel, parse_mode="Markdown")
-		if userdel.status != 'member':
+	
+		bot.send_message(msg.chat.id, user.user_id, parse_mode="Markdown")
+		if user.user_id.status != 'member':
 			change_karma(userdel, msg.chat, -10)
 		if user.user_name:
 			name = user.user_name.strip()
