@@ -377,15 +377,16 @@ def top_bad(msg):
 #		bot.send_message(msg.chat.id, user_id, parse_mode="Markdown")
 #		if user_id.status != 'member':
 #			change_karma(userdel, msg.chat, -10)
+		
 
 		if user.user_name:
 			name = user.user_name.strip()
-			nameid = user.id
+			nameid = user
 		else:
 			name = user.user_nick.strip()
 		if name == "Telegram" or name == "ХабКарма":
 			name =""
-		top_mess += f"*{i+1}*. {name} {user}, ({user.karma})\n"
+		top_mess += f"*{i+1}*. {name} {user.split(',')[0]}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
