@@ -315,7 +315,7 @@ def top_best(msg):
 	main_log.info("Starting func 'top_best'")
 
 	result = int(msg.text.split()[1])
-	if result == '':
+	if result != 10:
 		result==10
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
