@@ -218,6 +218,36 @@ def change_karma(user, chat, result):
 							(KarmaUser.userid == user.id) &
 							(KarmaUser.chatid == chat.id))
 	update_user.execute()
+	
+	
+	
+	
+def delete_karma(user, chat, result):
+	"""
+	Функция для изменения значения кармы пользователя
+	:param user: пользователь, которому нужно изменить карму
+	:param chat: чат, в котором находится пользователь
+	:param result: на сколько нужно изменить карму
+	"""
+	selected_user = KarmaUser.select().where(
+		(KarmaUser.chatid == chat.id) &
+		(KarmaUser.userid == user.id))
+
+	user_name = (user.first_name or "") + " " + (user.last_name or "")
+	user_nick = user.username or ""
+
+	main_log.info(f"Updating karma for user with name: {user_name} and " +
+				f"id:{user.id}, and in chat:{chat.title or ''} and " +
+				f"id:{chat.id}. Karma changed at result")
+
+	update_user = KarmaUser.update(
+							karma=(0),
+							user_name=user_name,
+							user_nick=user_nick
+						).where(
+							(KarmaUser.userid == user.id) &
+							(KarmaUser.chatid == chat.id))
+	update_user.execute()
 
 
 @bot.message_handler(commands=["my"], func=is_my_message)
@@ -391,7 +421,7 @@ def top_bad(msg):
 #			nameids = 'вышел'
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 		if userstatus.status == 'left':
-			userstatus ="dfd"
+			delete_karma(user, msg.chat, 0)
 #		for word in userstatus.status():
 #			if left" in userstatus:
 #				useriddd ='Yes'
