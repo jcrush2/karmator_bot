@@ -222,32 +222,12 @@ def change_karma(user, chat, result):
 	
 	
 	
-def delete_karma(user, chat, result):
-	"""
-	Функция для изменения значения кармы пользователя
-	:param user: пользователь, которому нужно изменить карму
-	:param chat: чат, в котором находится пользователь
-	:param result: на сколько нужно изменить карму
-	"""
-	selected_user = KarmaUser.select().where(
-		(KarmaUser.chatid == chat.id) &
-		(KarmaUser.userid == user.id))
+def citata_random(msg):
+	citata = random.choice(config.citata_words)
+	bot.send_chat_action(msg.chat.id, "typing")
+	bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 
-	user_name = (user.first_name or "") + " " + (user.last_name or "")
-	user_nick = user.username or ""
 
-	main_log.info(f"Updating karma for user with name: {user_name} and " +
-				f"id:{user.id}, and in chat:{chat.title or ''} and " +
-				f"id:{chat.id}. Karma changed at result")
-
-	update_user = KarmaUser.update(
-							karma=(0),
-							user_name=user_name,
-							user_nick=user_nick
-						).where(
-							(KarmaUser.userid == user.id) &
-							(KarmaUser.chatid == chat.id))
-	update_user.execute()
 
 
 @bot.message_handler(commands=["my"], func=is_my_message)
@@ -383,18 +363,21 @@ def tinder(msg):
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(100)
-	top_mess = "👫 Вы образовали пару с "
+#	top_mess = "👫 Вы образовали пару с "
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
-		top_mess += f"<b>{name}</b> aka @{nick}"
+		top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick}"
+	else:
+		top_mess = f"Сегодня вечер самопознания🤚"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 
 	bot.reply_to(msg, top_mess, parse_mode="HTML")
+	
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
 def top_bad(msg):
@@ -791,7 +774,7 @@ def karma_game(msg):
 
 #	if is_karma_freezed(msg):
 #		return
-	if msg.text.lower() in ['!играть', '!вабанк', '!амнистия', '!тиндер']:
+	if msg.text.lower() in ['!играть', '!вабанк', '!цитата', '!тиндер']:
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
@@ -833,11 +816,8 @@ def karma_game(msg):
 					bot.send_chat_action(msg.chat.id, "typing")
 					bot.reply_to(msg, podarok, parse_mode="HTML")
 		
-			if msg.text.lower() == '!амнистия':
-
-				if user.karma < 5:
-					change_karma(msg.froma_user, msg.chat, 5)
-					bot.reply_to(msg, "Добавил себе +5", parse_mode="HTML")
+			if msg.text.lower() == '!цитата':
+				citata_random
 		else:
 			bot.delete_message(msg.chat.id, msg.message_id)
 				
