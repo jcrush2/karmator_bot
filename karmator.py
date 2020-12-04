@@ -415,12 +415,11 @@ def top_bad(msg):
 #			nameid = nameids.split(',')[0]
 		else:
 			name = user.user_nick.strip()
-		if name == "Telegram" or name == "ХабКарма":
-			name =""
+
 		
 #			nameids = 'вышел'
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status != 'left':
+		if userstatus.status != 'left' or userstatus.isbot == False :
 			top_mess += f"*{i+1}*. {name}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
