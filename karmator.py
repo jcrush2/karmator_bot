@@ -362,8 +362,9 @@ def top_best(msg):
 			name = user.user_name.strip()
 		else:
 			name = user.user_nick.strip()
-			
-		top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
+		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+		if userstatus.status != 'left' :
+			top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
@@ -415,11 +416,12 @@ def top_bad(msg):
 #			nameid = nameids.split(',')[0]
 		else:
 			name = user.user_nick.strip()
-
+		if name == "Telegram" or name == "ХабКарма":
+			name =""
 		
 #			nameids = 'вышел'
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status != 'left' or int(userstatus.isbot == 'False') :
+		if userstatus.status != 'left':
 			top_mess += f"*{i+1}*. {name}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
