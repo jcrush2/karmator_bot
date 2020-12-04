@@ -387,8 +387,11 @@ def top_bad(msg):
 			name = user.user_nick.strip()
 		if name == "Telegram" or name == "ХабКарма":
 			name =""
-		
-		top_mess += f"*{i+1}*. {name} {user.userid}, ({user.karma})\n"
+#		for "Yes" in bot.get_chat_member(msg.chat.id,user.userid):
+#			useriddd=='Yes'
+
+	
+		top_mess += f"*{i+1}*. {name} {bot.get_chat_member(msg.chat.id,user.userid)}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
