@@ -419,7 +419,7 @@ def top_bad(msg):
 		
 #			nameids = 'вышел'
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status != 'left' or userstatus.isbot == 'False' :
+		if userstatus.status != 'left' or int(userstatus.isbot == 'False') :
 			top_mess += f"*{i+1}*. {name}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
