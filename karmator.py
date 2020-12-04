@@ -313,9 +313,10 @@ def top_best(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	main_log.info("Starting func 'top_best'")
+
+	result = int(msg.text.split()[1])
 	if len(msg.text.split()) == 1:
 		result==10
-	result = int(msg.text.split()[1])
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
