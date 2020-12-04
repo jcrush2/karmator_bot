@@ -222,10 +222,6 @@ def change_karma(user, chat, result):
 	
 	
 	
-def citata_random(msg):
-	citata = random.choice(config.citata_words)
-	bot.send_chat_action(msg.chat.id, "typing")
-	bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 
 
 
@@ -817,7 +813,9 @@ def karma_game(msg):
 					bot.reply_to(msg, podarok, parse_mode="HTML")
 		
 			if msg.text.lower() == '!цитата':
-				citata_random
+				citata = random.choice(config.citata_words)
+				bot.send_chat_action(msg.chat.id, "typing")
+				bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 		else:
 			bot.delete_message(msg.chat.id, msg.message_id)
 				
