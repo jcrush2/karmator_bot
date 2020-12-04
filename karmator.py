@@ -389,7 +389,7 @@ def top_bad(msg):
 			name =""
 #		if user.userid.status == 'left':
 #			nameids = 'вышел'
-		userstatus = out(bot.get_chat_member(msg.chat.id,user.userid))
+		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 		for word in userstatus:
 			if "left" in userstatus:
 				useriddd ='Yes'
