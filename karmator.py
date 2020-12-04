@@ -389,9 +389,10 @@ def top_bad(msg):
 			name =""
 #		if user.userid.status == 'left':
 #			nameids = 'вышел'
-		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if "left" in userstatus:
-			useriddd ='Yes'
+			userstatus = out(bot.get_chat_member(msg.chat.id,user.userid))
+		for word in userstatus:
+			if "left" in userstatus:
+				useriddd ='Yes'
 
 	
 		top_mess += f"*{i+1}*. {name} {useriddd}, ({user.karma})\n"
