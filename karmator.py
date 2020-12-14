@@ -6,6 +6,7 @@ import os
 import random
 
 from flask import Flask, request
+from telebot.apihelper import ApiTelegramException
 import peewee as pw
 import telebot
 
@@ -364,6 +365,12 @@ def tinder(msg):
 	for i, user in enumerate(selected_user):
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
+	try:
+		bot.get_chat_member(msg.chat.id, user.userid)
+		return True
+	except ApiTelegramException as e:
+		if e.result_json['description'] == 'Bad Request: user not found':
+			return False
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
 		top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick}"
