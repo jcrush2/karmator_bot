@@ -365,15 +365,13 @@ def tinder(msg):
 	for i, user in enumerate(selected_user):
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
-	try:
-		bot.get_chat_member(msg.chat.id, user.userid)
-		return True
-	except ApiTelegramException as e:
-		if e.result_json['description'] == 'Bad Request: user not found':
-			return False
-	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-	if userstatus.status != 'left' :
-		top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick}"
+	if is_subscribed(msg.chat.id,user.userid):
+		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+		if userstatus.status != 'left' :
+			top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick}"
+		else:
+			top_mess = f"Сегодня вечер самопознания🤚"
+	
 	else:
 		top_mess = f"Сегодня вечер самопознания🤚"
 	if not selected_user:
@@ -381,6 +379,13 @@ def tinder(msg):
 
 	bot.reply_to(msg, top_mess, parse_mode="HTML")
 	
+def is_subscribed(msg):
+	try:
+		bot.get_chat_member(msg.chat.id, user.userid)
+		return True
+	except ApiTelegramException as e:
+		if e.result_json['description'] == 'Bad Request: user not found':
+			return False
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
 def top_bad(msg):
