@@ -705,7 +705,7 @@ def commands(msg, text):
 			return
 			
 	if msg.text.lower() in ['бана']:
-		bot.send_poll(message.chat.id, 'Забанить пользователя?', options=['1', '2', '3'])
+		bot.send_poll(msg.chat.id, 'Забанить пользователя?', options=['1', '2', '3'])
 
 	
 def reputation(msg, text):
