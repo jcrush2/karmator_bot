@@ -765,6 +765,7 @@ def reply_exist(msg):
 def changing_karma_text(msg):
 	reputation(msg, msg.text)
 	reputation_mat(msg, msg.text)
+	commands(msg, msg.text)
 	
 
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
