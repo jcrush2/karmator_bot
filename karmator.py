@@ -132,8 +132,8 @@ def loves(msg):
 	Функция, для Знакомства
 	"""
 	main_log.info("Starting func 'loves'")
-	loves_text = "❤️ Ваше объявление будет размещено в Знакомствах @love_khv \n\n@jcrush"
-	bot.reply_to(msg, loves_text)
+	loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах @love_khv"
+	bot.reply_to(msg, loves_text, parse_mode="HTML")
 	
 	
 @bot.message_handler(content_types=["left_chat_member"])
@@ -299,7 +299,7 @@ def top_best(msg):
 		.order_by(KarmaUser.karma.desc())\
 		.limit(result)
 	user_rang = "🤖 Бот"
-	top_mess = "🏆 Топ благодаримых\n\n"
+	top_mess = "📈 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
 #		userdel = KarmaUser.chatid
 #		if userdel.status != 'member':
@@ -674,6 +674,11 @@ def is_karma_abuse(msg):
 	return False
 
 
+
+def commands(msg, text):
+	if msg.text.lower() in ['!тест']:
+		bot.send_message(msg.chat.id, "fdfdf", parse_mode="HTML")
+	
 def reputation(msg, text):
 	""" TODO """
 
@@ -764,6 +769,7 @@ def changing_karma_sticker(msg):
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
 	reputation_mat(msg, msg.text)
+	commands(msg, msg.text)
 	"""
 	Функция играть в карму.
 	"""
