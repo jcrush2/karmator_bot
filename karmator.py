@@ -61,14 +61,14 @@ def helps(msg):
 	\n/weather - Погода. \
 	\n/no - Для объявлений. \
 	\n/report - Отправить жалобу.\
-	\n!тиндер - Найти пару.\
-	\n\nцитата - дня.\
-	\nревед, фсб, фото - в ответ.\
+	\n\n<b>тиндер</b> - Найти пару.\
+	\n\<b>цитата</b> - дня.\
+	\n<b>превед</b>, фсб, фото - в ответ.\
 	\n\n<b>Карма:</b>\
 	\n/my - Для просмотра своей кармы.\
 	\n/top - Узнать наиболее благодаримых в чате.\
-	\n!играть - рандомномная карма от -1 до +3.\
-	\n!вабанк - играть -5 или +5.\
+	\n<b>играть</b> - рандомномная карма от -1 до +3.\
+	\n<b>вабанк</b> - играть -5 или +5.\
 	\n/gift - подарить +5 кармы, отдаете -5."
 	
 	
@@ -797,7 +797,7 @@ def karma_game(msg):
 
 #	if is_karma_freezed(msg):
 #		return
-	if msg.text.lower() in ['!играть', '!вабанк', '!цитата', '!тиндер']:
+	if msg.text.lower() in ['играть', 'вабанк', 'цитата', 'тиндер']:
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
@@ -812,11 +812,11 @@ def karma_game(msg):
 			insert_user(msg.from_user, msg.chat)
 		user = select_user(msg.from_user, msg.chat)	
 		if user.karma > 0:
-			if msg.text.lower() == '!тиндер':
+			if msg.text.lower() == 'тиндер':
 				tinder(msg)
 					
 	
-			if msg.text.lower() == '!играть':
+			if msg.text.lower() == 'играть':
 				random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
 				random_karma2 = random.choice(random_karma)
 				change_karma(msg.from_user, msg.chat, random_karma2)
@@ -825,7 +825,7 @@ def karma_game(msg):
 				bot.reply_to(msg, random_karma3, parse_mode="HTML")
 		
 	
-			if msg.text.lower() == '!вабанк':
+			if msg.text.lower() == 'вабанк':
 
 				if user.karma > 5:
 					random_karma = ("+5", "-5")
