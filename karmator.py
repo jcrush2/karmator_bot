@@ -126,7 +126,7 @@ def nos(msg):
 		bot.delete_message(msg.chat.id, msg.message_id)
 
 		
-@bot.message_handler(commands=["love"], func=is_my_message)
+@bot.message_handler(commands=["del_love"], func=is_my_message)
 def loves(msg):
 	"""
 	Функция, для Знакомства
@@ -676,8 +676,15 @@ def is_karma_abuse(msg):
 
 
 def commands(msg, text):
-	if msg.text.lower() in ['!тест']:
-		bot.send_message(msg.chat.id, "fdfdf", parse_mode="HTML")
+	if msg.text.lower() in ['love']:
+		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
+		bot.reply_to(msg, loves_text, parse_mode="HTML")
+	if msg.text.lower() in ['превед']:
+		if msg.reply_to_message:
+			bot.reply_to(msg.reply_to_message,f"✌{msg.reply_to_message.from_user} ️приветствуем тебя в чате! По доброй традиции, желательно представиться и рассказать немного о себе.")
+		else:
+			return
+
 	
 def reputation(msg, text):
 	""" TODO """
