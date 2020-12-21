@@ -703,6 +703,9 @@ def commands(msg, text):
 			bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> За вами уже выехали!", parse_mode="HTML")
 		else:
 			return
+			
+	if msg.text.lower() in ['бана']:
+		bot.send_poll(message.chat.id, 'Забанить пользователя?', options=['1', '2', '3'])
 
 	
 def reputation(msg, text):
