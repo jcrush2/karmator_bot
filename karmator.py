@@ -126,7 +126,7 @@ def nos(msg):
 		bot.delete_message(msg.chat.id, msg.message_id)
 
 		
-@bot.message_handler(commands=["del_love"], func=is_my_message)
+@bot.message_handler(commands=["love"], func=is_my_message)
 def loves(msg):
 	"""
 	Функция, для Знакомства
@@ -676,12 +676,27 @@ def is_karma_abuse(msg):
 
 
 def commands(msg, text):
-	if msg.text.lower() in ['love']:
-		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
-		bot.reply_to(msg, loves_text, parse_mode="HTML")
+	if msg.text.lower() in ['цитата']:
+		citata = random.choice(config.citata_words)
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
+
 	if msg.text.lower() in ['превед']:
 		if msg.reply_to_message:
-			bot.reply_to(msg.reply_to_message,f"✌{msg.reply_to_message.from_user} ️приветствуем тебя в чате! По доброй традиции, желательно представиться и рассказать немного о себе.")
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
+		else:
+			return
+	if msg.text.lower() in ['фото']:
+		if msg.reply_to_message:
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
+		else:
+			return
+	if msg.text.lower() in ['фсб']:
+		if msg.reply_to_message:
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> За вами уже выехали!", parse_mode="HTML")
 		else:
 			return
 
