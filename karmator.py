@@ -641,7 +641,7 @@ def is_game_abuse(msg):
 		(Limitation.userid == msg.from_user.id) &
 		(Limitation.chatid == msg.chat.id))
 
-	if len(limitation_request) > 3:
+	if len(limitation_request) > 2:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
 		reply_text = f"Возможность играть появится позже."
