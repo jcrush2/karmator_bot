@@ -62,8 +62,8 @@ def helps(msg):
 	\n/no - Для объявлений. \
 	\n/report - Отправить жалобу.\
 	\n\n<b>тиндер</b> - Найти пару.\
-	\n<b>цитата</b> - дня.\
-	\n<b>превед</b>, фсб, фото - в ответ.\
+	\n<b>утра, цитата</b> - дня.\
+	\n<b>превед, фсб, фото</b> - в ответ на сообщение.\
 	\n\n<b>Карма:</b>\
 	\n/my - Для просмотра своей кармы.\
 	\n/top - Узнать наиболее благодаримых в чате.\
@@ -678,6 +678,12 @@ def commands(msg, text):
 		citata = random.choice(config.citata_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
+		
+	if msg.text.lower() in ['утра']:
+		citata = random.choice(config.citata_words)
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
+		
 
 	if msg.text.lower() in ['превед']:
 		if msg.reply_to_message:
