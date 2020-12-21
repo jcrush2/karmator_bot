@@ -45,7 +45,7 @@ def start(msg):
 	bot.send_message(msg.chat.id, reply_text)
 
 
-@bot.message_handler(commands=["/karma"], func=is_my_message)
+@bot.message_handler(commands=["h"], func=is_my_message)
 def helps(msg):
 	"""
 	Функция для отправки списка общедоступных команд для бота
