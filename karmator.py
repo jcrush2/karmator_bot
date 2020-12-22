@@ -378,7 +378,7 @@ def krasavchik(msg):
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
 		top_mess = f"🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick} 🎁 +5 кармы."
-		change_karma(msg.chat.id,user.userid, msg.chat, +5)
+		change_karma(user.userid, msg.chat, +5)
 	else:
 		return
 	if not selected_user:
@@ -663,7 +663,7 @@ def is_karma_abuse(msg):
 def commands(msg, text):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 	if user.status == 'creator':
-		if msg.text.lower() in ['!красава']:
+		if msg.text.lower() in ['!красавчик']:
 			bot.delete_message(msg.chat.id, msg.message_id)
 			krasavchik(msg)
 		
