@@ -662,10 +662,11 @@ def is_karma_abuse(msg):
 
 
 def commands(msg, text):
-	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-	if user.status == 'creator':
-		if msg.text.lower() in ['!красавчик']:
-			bot.delete_message(msg.chat.id, msg.message_id)
+	
+	if msg.text.lower() in ['!к']:
+		bot.delete_message(msg.chat.id, msg.message_id)
+		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+		if user.status == 'creator':
 			krasavchik(msg)
 		
 		
