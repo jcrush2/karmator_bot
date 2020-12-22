@@ -386,7 +386,7 @@ def krasavchik(msg):
 
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
 
-	
+
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
 def top_bad(msg):
@@ -659,9 +659,16 @@ def is_karma_abuse(msg):
 		return True
 	return False
 
+@bot.poll_answer_handler()
+def pola(polle):
 
+	bot.send_message(msg, polle, parse_mode="HTML")
+    
 
 def commands(msg, text):
+	
+	if msg.text.lower() in ['опрос']:
+		bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
 	
 	if msg.text.lower() in ['!к']:
 		bot.delete_message(msg.chat.id, msg.message_id)
