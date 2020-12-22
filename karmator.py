@@ -667,7 +667,7 @@ def is_karma_abuse(msg):
 
 def commands(msg, text):
 	
-	if msg.text.lower() in ['язабан']:
+	if msg.text.lower() in ['язабан222']:
 		if msg.reply_to_message:
 			bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
 			bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
@@ -851,6 +851,21 @@ def karma_game(msg):
 					podarok = f"🎁 Нехватает кармы для ставки +5."
 					bot.send_chat_action(msg.chat.id, "typing")
 					bot.reply_to(msg, podarok, parse_mode="HTML")
+					
+			if msg.text.lower() in ['язабан']:
+				if user.karma > 10:
+					if msg.reply_to_message:
+						bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
+						bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
+					else:
+						return
+					
+				else:
+					podarok = f"Нехватает кармы для бана."
+					bot.send_chat_action(msg.chat.id, "typing")
+					bot.reply_to(msg, podarok, parse_mode="HTML")
+			
+			
 		
 			if msg.text.lower() == '!цитата':
 				citata = random.choice(config.citata_words)
