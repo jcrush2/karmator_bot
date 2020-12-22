@@ -705,7 +705,7 @@ def commands(msg, text):
 		else:
 			return
 			
-	if re.search(r'\bvs\b', msg.text.lower()):
+	if re.search(r'\bvs\b', msg.text):
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
 
