@@ -4,7 +4,6 @@ import hashlib
 import string
 import os
 import random
-import re
 
 from flask import Flask, request
 import peewee as pw
@@ -56,7 +55,7 @@ def helps(msg):
 
 	bot.send_chat_action(msg.chat.id, "typing")
 
-	help_mess = "Выражения похвалы и общение в положительном ключе повышают карму, ругательства понижают.\
+	help_mess = "ℹ️ Выражения похвалы и общение в положительном ключе повышают карму, ругательства понижают.\
 	\n\n<b>Команды:</b>\
 	\n/h - Справка. \
 	\n/weather - Погода. \
@@ -91,18 +90,7 @@ def source(msg):
 def report(msg):
 	"""
 	Функция, для жалоб админам
-	"""
-#	main_log.info("Starting func 'report'")
-#	admins = bot.get_chat_administrators(message.chat.id)
-#	bot.send_message(msg.chat.id, "админы группы: {0}".format(admins))
-#	member = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-#	if member.user.is_bot:
-#		return
-    # это бот
-#    else:
-#		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-#		if user.status == 'administrator' or user.status == 'creator':
-    
+	"""    
 	report_text = "⚠️ Жалоба получена! \
 	\nУведомление админов: " + config.adminschat
 	bot.reply_to(msg, report_text)
@@ -134,10 +122,6 @@ def loves(msg):
 	loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
 	bot.reply_to(msg, loves_text, parse_mode="HTML")
 	
-	
-@bot.message_handler(content_types=["left_chat_member"])
-def left_chat_member(msg):
-	change_karma(msg.from_user, msg.chat, -100)
 
 def select_user(user, chat):
 	"""
@@ -358,7 +342,6 @@ def tinder(msg):
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(100)
-#	top_mess = "👫 Вы образовали пару с "
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 			nick = user.user_nick.strip()
@@ -388,21 +371,14 @@ def top_bad(msg):
 	top_mess = "💩 Топ ругаемых:\n"
 	for i, user in enumerate(selected_user):
 	
-#		bot.send_message(msg.chat.id, user_id, parse_mode="Markdown")
-#		if user_id.status != 'member':
-#			change_karma(userdel, msg.chat, -10)
-		
 
 		if user.user_name:
 			name = user.user_name.strip()
-#			nameids = user
-#			nameid = nameids.split(',')[0]
 		else:
 			name = user.user_nick.strip()
 		if name == "Telegram" or name == "ХабКарма":
 			name =""
 		
-#			nameids = 'вышел'
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 		if userstatus.status != 'left':
 			top_mess += f"*{i+1}*. {name}, ({user.karma})\n"
@@ -457,7 +433,6 @@ def gods(msg):
 
 @bot.message_handler(commands=["gift"])
 def gift_karma(msg):
-	#	if msg.from_user.id not in config.gods:
 	"""
 	Небольшая функция, которая позволяет создателю бота 
 	добавить подарок
@@ -491,17 +466,11 @@ def gift_karma(msg):
 				
 			else:
 				bot.send_chat_action(msg.chat.id, "typing")
-#				bot.delete_message(msg.chat.id, msg.message_id)
 				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
 				
 				
 	else:
 		return
-	#	admins = bot.get_chat_administrators(-1001110839896)
-#	gift2 =""
-#	for admin in admins:
-#		if msg.from_user.id not in admin.user.id:
-#			return
 
 @bot.message_handler(commands=["unmute"], func=is_my_message)
 def un_mute(msg):
@@ -517,18 +486,6 @@ def un_mute(msg):
 		(Limitation.chatid == msg.chat.id)).execute()
 
 	bot.send_message(msg.chat.id, "Возможность менять карму возвращена.")
-
-
-@bot.message_handler(commands=["the_gods_says"])
-def the_gods_says(message):
-	"""
-	Если от лица создателя чата нужно что-то сказать во 
-	все чаты, где используется бот.
-	TODO Или дописать, или удалить.
-	"""
-	if message.from_user.id not in config.gods:
-		return
-
 
 def is_karma_changing(text):
 	result = []
@@ -570,8 +527,7 @@ def is_karma_changing_mat(text):
 		
 	if len(text)==1:
 		result.append(-1)
-	
-	
+
 			# Обработка текста для анализа
 	text = text.lower()
 	for punc in string.punctuation:
@@ -705,9 +661,6 @@ def commands(msg, text):
 		else:
 			return
 			
-	if re.search(r'\bvs\b', msg.text):
-		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
 
 	
 def reputation(msg, text):
@@ -805,9 +758,6 @@ def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
-
-#	if is_karma_freezed(msg):
-#		return
 	if msg.text.lower() in ['играть', 'вабанк', '!цитата', 'тиндер']:
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
@@ -816,8 +766,6 @@ def karma_game(msg):
 
 		if is_game_abuse(msg):
 			return
-#		if is_karma_freezed(msg):
-#			return
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
 			insert_user(msg.from_user, msg.chat)
@@ -857,51 +805,6 @@ def karma_game(msg):
 		else:
 			bot.delete_message(msg.chat.id, msg.message_id)
 				
-"""
-		if msg.text.lower() == '!подарить':
-			user = select_user(msg.from_user, msg.chat)
-			if not user:
-				insert_user(msg.from_user, msg.chat)
-			user = select_user(msg.from_user, msg.chat)
-			if user.karma > 5:
-				change_karma(msg.from_user, msg.chat, -5)
-			if user.karma > 5:
-				bot.send_chat_action(msg.chat.id, "typing")
-				change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
-				bot.reply_to(msg, "🎁 Вам отсыпали кармы: <b>+5</b>.", parse_mode="HTML")
-			else:
-				bot.send_chat_action(msg.chat.id, "typing")
-				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
-"""
-
-
-#@bot.message_handler(content_types=['left_chat_member'])
-#def left_chat_member(message):
-	
-"""
-def podarok_karma_text(msg):
-	if msg.text.lower() == 'подарить':
-		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
-		user = select_user(msg.from_user, msg.chat)
-		if not user:
-			insert_user(msg.from_user, msg.chat)
-
-		user = select_user(msg.from_user, msg.chat)
-
-		if user.karma > 5:
-			change_karma(msg.from_user, msg.chat, -5)
-			change_karma(msg.reply_to_message, msg.chat, +5)
-			podarok = f"🎁 Вам отсыпали кармы: <b>+5</b>."
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg, podarok, parse_mode="HTML")
-		else:
-			podarok = f"🎁 Нехватает кармы для подарка."
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg, podarok, parse_mode="HTML")
-	"""
 
 # bot.polling(none_stop=True)
 
