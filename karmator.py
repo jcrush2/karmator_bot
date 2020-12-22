@@ -661,14 +661,14 @@ def is_karma_abuse(msg):
 
 @bot.poll_answer_handler()
 def pola(polle):
-
+	bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
 	bot.send_message(msg, polle, parse_mode="HTML")
     
 
 def commands(msg, text):
 	
 	if msg.text.lower() in ['опрос']:
-		bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
+		pola(polle)
 	
 	if msg.text.lower() in ['!к']:
 		bot.delete_message(msg.chat.id, msg.message_id)
