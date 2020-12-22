@@ -852,7 +852,7 @@ def karma_game(msg):
 					bot.send_chat_action(msg.chat.id, "typing")
 					bot.reply_to(msg, podarok, parse_mode="HTML")
 					
-			if msg.text.lower() in ['язабан']:
+			if msg.text.lower() =='язабан' :
 				if user.karma > 10:
 					if msg.reply_to_message:
 						bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
