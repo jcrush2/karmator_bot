@@ -659,16 +659,23 @@ def is_karma_abuse(msg):
 		return True
 	return False
 
-@bot.poll_answer_handler()
-def pola(polle):
-	bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
-	bot.send_message(msg, polle, parse_mode="HTML")
+#@bot.poll_answer_handler()
+#def pola(polle):
+#	bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
+#	bot.send_message(msg, polle, parse_mode="HTML")
     
 
 def commands(msg, text):
 	
+	if msg.text.lower() in ['язабан']:
+		if msg.reply_to_message:
+			bot.send_poll(msg.chat.id, f'{msg.reply_to_message.from_user} Это опрос?', ['Да', 'Нет', 'Не знаю'])
+		else:
+			return
+	
 	if msg.text.lower() in ['опрос']:
-		pola(polle)
+		
+		bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
 	
 	if msg.text.lower() in ['!к']:
 		bot.delete_message(msg.chat.id, msg.message_id)
