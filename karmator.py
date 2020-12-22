@@ -337,7 +337,7 @@ def tinder(msg):
 	Функция которая выводит пару дня
 	"""
 	main_log.info("Starting func 'tinder'")
-	bot.send_message(msg.chat.id, "Анализируем параметры совместимости...", parse_mode="HTML")
+	bot.send_message(msg.chat.id, "Анализирую параметры совместимости...", parse_mode="HTML")
 	main_log.info("Starting func 'tinder'")
 	bot.send_chat_action(msg.chat.id, "typing")
 	selected_user = KarmaUser.select()\
@@ -378,7 +378,7 @@ def krasavchik(msg):
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
 		top_mess = f"🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}."
-		change_karma(msg.reply_to_message.user.userid, msg.chat, +5)
+		change_karma(select_user(user.userid, msg.chat), msg.chat, +5)
 	else:
 		return
 	if not selected_user:
