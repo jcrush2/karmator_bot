@@ -378,7 +378,7 @@ def krasavchik(msg):
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
 		top_mess = f"🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}."
-		change_karma(msg.reply_to_message.user, msg.chat, +5)
+		change_karma(msg.reply_to_message.user.userid, msg.chat, +5)
 	else:
 		return
 	if not selected_user:
