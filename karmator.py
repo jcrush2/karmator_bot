@@ -337,6 +337,8 @@ def tinder(msg):
 	Функция которая выводит пару дня
 	"""
 	main_log.info("Starting func 'tinder'")
+	bot.send_message(msg.chat.id, "Анализируем параметры совместимости...", parse_mode="HTML")
+	main_log.info("Starting func 'tinder'")
 	bot.send_chat_action(msg.chat.id, "typing")
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
