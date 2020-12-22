@@ -384,7 +384,8 @@ def krasavchik(msg):
 	if not selected_user:
 		return
 
-	bot.send_message(msg, top_mess, parse_mode="HTML")
+	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
+
 	
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
