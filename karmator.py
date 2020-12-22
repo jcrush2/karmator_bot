@@ -665,6 +665,17 @@ def is_karma_abuse(msg):
 #	bot.send_message(msg, polle, parse_mode="HTML")
     
 
+def zaban(msg):
+	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+	if user.status == 'administrator' or user.status == 'creator':
+		return
+	else:
+		if msg.reply_to_message:
+			bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
+			bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
+		else:
+			return
+			
 def commands(msg, text):
 	
 	if msg.text.lower() in ['язабан222']:
@@ -854,11 +865,8 @@ def karma_game(msg):
 					
 			if msg.text.lower() =='язабан' :
 				if user.karma > 10:
-					if msg.reply_to_message:
-						bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
-						bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
-					else:
-						return
+
+						zaban(msg)
 					
 				else:
 					podarok = f"Нехватает кармы для бана."
