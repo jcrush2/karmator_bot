@@ -4,6 +4,7 @@ import hashlib
 import string
 import os
 import random
+import re
 
 from flask import Flask, request
 import peewee as pw
@@ -704,7 +705,7 @@ def commands(msg, text):
 		else:
 			return
 			
-	if "тест " in msg.text.lower():
+	if re.search(r'\bvs\b', msg.text.lower()):
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
 
