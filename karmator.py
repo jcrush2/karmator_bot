@@ -130,7 +130,7 @@ def loves(msg):
 	Функция, для Знакомства
 	"""
 	main_log.info("Starting func 'loves'")
-	loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах @love_khv"
+	loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
 	bot.reply_to(msg, loves_text, parse_mode="HTML")
 	
 	
@@ -704,8 +704,9 @@ def commands(msg, text):
 		else:
 			return
 			
-	if msg.text.lower() in ['бана']:
-		bot.send_poll(msg.chat.id, 'Забанить пользователя?', options=['1', '2', '3'])
+	if "тест " in msg.text.lower():
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
 
 	
 def reputation(msg, text):
@@ -806,7 +807,7 @@ def karma_game(msg):
 
 #	if is_karma_freezed(msg):
 #		return
-	if msg.text.lower() in ['играть', 'вабанк', 'цитата', 'тиндер']:
+	if msg.text.lower() in ['играть', 'вабанк', '!цитата', 'тиндер']:
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
