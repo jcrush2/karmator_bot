@@ -812,7 +812,7 @@ def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
-	if msg.text.lower() in ['играть', 'вабанк', '!цитата', 'тиндер']:
+	if msg.text.lower() in ['играть', 'вабанк', 'язабан', 'тиндер']:
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
@@ -864,13 +864,8 @@ def karma_game(msg):
 					podarok = f"Нехватает кармы для бана."
 					bot.send_chat_action(msg.chat.id, "typing")
 					bot.reply_to(msg, podarok, parse_mode="HTML")
-			
-			
-		
-			if msg.text.lower() == '!цитата':
-				citata = random.choice(config.citata_words)
-				bot.send_chat_action(msg.chat.id, "typing")
-				bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
+
+
 		else:
 			bot.delete_message(msg.chat.id, msg.message_id)
 				
