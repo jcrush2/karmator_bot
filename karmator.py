@@ -358,6 +358,34 @@ def tinder(msg):
 
 	bot.reply_to(msg, top_mess, parse_mode="HTML")
 	
+	
+def krasavchik(msg):
+	"""
+	Функция которая красавчика дня
+	"""
+	main_log.info("Starting func 'krasavchik'")
+	bot.send_message(msg.chat.id, "Крутим барабан <b>ХабЧата</b>...", parse_mode="HTML")
+	main_log.info("Starting func 'krasavchik'")
+	bot.send_chat_action(msg.chat.id, "typing")
+	selected_user = KarmaUser.select()\
+		.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
+		.order_by(KarmaUser.karma.desc())\
+		.limit(100)
+	selected_user = random.choices(selected_user)
+	for i, user in enumerate(selected_user):
+			nick = user.user_nick.strip()
+			name = user.user_name.strip()
+	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+	if userstatus.status != 'left' :
+		top_mess = f"🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick} 🎁 +5 кармы."
+		change_karma(msg.chat.id,user.userid, msg.chat, +5)
+	else:
+		return
+	if not selected_user:
+		return
+
+	bot.reply_to(msg, top_mess, parse_mode="HTML")
+	
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
 def top_bad(msg):
@@ -633,6 +661,13 @@ def is_karma_abuse(msg):
 
 
 def commands(msg, text):
+	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+	if user.status == 'creator':
+		if msg.text.lower() in ['!красава']:
+			bot.delete_message(msg.chat.id, msg.message_id)
+			krasavchik(msg)
+		
+		
 	if msg.text.lower() in ['цитата']:
 		citata = random.choice(config.citata_words)
 		bot.send_chat_action(msg.chat.id, "typing")
