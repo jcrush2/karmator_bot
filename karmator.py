@@ -353,7 +353,7 @@ def tinder(msg):
 		random_karma = ("+1", "+2", "+3")
 		random_karma2 = random.choice(random_karma)
 		change_karma(userstatus.user, msg.chat, random_karma2)
-		top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💫 {random_karma2} кармы."
+		top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
 	else:
 		top_mess = f"Сегодня вечер самопознания🤚"
 	if not selected_user:
