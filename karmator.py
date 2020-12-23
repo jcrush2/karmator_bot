@@ -350,7 +350,10 @@ def tinder(msg):
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
-		top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick}"
+		random_karma = ("+1", "+2", "+3")
+		random_karma2 = random.choice(random_karma)
+		change_karma(userstatus.user, msg.chat, random_karma2)
+		top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💫 {random_karma2} кармы."
 	else:
 		top_mess = f"Сегодня вечер самопознания🤚"
 	if not selected_user:
@@ -377,7 +380,7 @@ def krasavchik(msg):
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
-		top_mess = f"{userstatus.user}🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}. 🎁 +5 кармы."
+		top_mess = f"🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}. 🎁 +5 кармы."
 		change_karma(userstatus.user, msg.chat, 5)
 	else:
 		return
