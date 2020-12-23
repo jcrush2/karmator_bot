@@ -341,7 +341,7 @@ def tinder(msg):
 	main_log.info("Starting func 'tinder'")
 	bot.send_chat_action(msg.chat.id, "typing")
 	selected_user = KarmaUser.select()\
-		.where((KarmaUser.karma > 0) & (KarmaUser.chatid == msg.chat.id))\
+		.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(100)
 	selected_user = random.choices(selected_user)
@@ -377,7 +377,7 @@ def krasavchik(msg):
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
-		top_mess = f"🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}."
+		top_mess = f"{msg.from_user}🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}."
 #		change_karma(select_user(user.userid, msg.chat), msg.chat, +5)
 	else:
 		return
