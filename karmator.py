@@ -377,7 +377,7 @@ def krasavchik(msg):
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
-		top_mess = f"{msg.from_user}🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}."
+		top_mess = f"{userstatus}🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}."
 #		change_karma(select_user(user.userid, msg.chat), msg.chat, +5)
 	else:
 		return
