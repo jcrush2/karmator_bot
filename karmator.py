@@ -815,7 +815,6 @@ def changing_karma_sticker(msg):
 	
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
-	bot.unpinChatMessage(chat.id)
 	reputation_mat(msg, msg.text)
 	commands(msg, msg.text)
 	"""
