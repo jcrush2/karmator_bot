@@ -725,14 +725,14 @@ def commands(msg, text):
 	if msg.text.lower() in ['войс']:
 		if msg.reply_to_message:
 			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg.reply_to_message,f" 🔔🔔🔔🔔🔔🔔🔔🔔\
-\n🗣Погнали в Войс Чат!👂\
-\n🔔🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
+			bot.reply_to(msg.reply_to_message,f"🔔🔔🔔🔔🔔🔔🔔\
+\n🗣Го в Войс Чат!👂\
+\n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 		else:
 			bot.send_chat_action(msg.chat.id, "typing")
-			bot.send_message(msg.chat.id, f" 🔔🔔🔔🔔🔔🔔🔔🔔\
-\n🗣Погнали в Войс Чат!👂\
-\n🔔🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
+			bot.send_message(msg.chat.id, f"🔔🔔🔔🔔🔔🔔🔔\
+\n🗣Го в Войс Чат!👂\
+\n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 			
 
 	
