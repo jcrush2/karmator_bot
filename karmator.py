@@ -902,7 +902,7 @@ def send_dice(msg):
 			if user.karma > 50:
 
 				
-				random_karma = ("2", "3", "4", "5", "6", "1")
+				random_karma = (2, 3, 4, 5, 6, 1)
 				random_karma2 = random.choice(random_karma)
 				change_karma(msg.from_user, msg.chat, msg.dice.value-random_karma2)
 				bot.reply_to(msg, f"🎰 Сыграл в карму +{msg.dice.value-random_karma2}", parse_mode="HTML")
