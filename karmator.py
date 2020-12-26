@@ -347,7 +347,7 @@ def tinder(msg):
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 		if user.is_freezed:
-			bot.send_message(msg.chat.id, f"Сегодня вечер самопознания✊, parse_mode="HTML")
+			bot.send_message(msg.chat.id, f"Сегодня вечер самопознания✊", parse_mode="HTML")
 		else:
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
