@@ -348,6 +348,9 @@ def tinder(msg):
 	for i, user in enumerate(selected_user):
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
+	if i.is_freezed:
+		return
+			
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
 		random_karma = ("+1", "+2", "+3")
