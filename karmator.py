@@ -863,7 +863,7 @@ def karma_game(msg):
 					random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
 					random_karma2 = random.choice(random_karma)
 					change_karma(msg.from_user, msg.chat, random_karma2)
-					random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
+					random_karma3 = f"🎲 Сыграл в карму <b>{random_karma2}</b>."
 					bot.send_chat_action(msg.chat.id, "typing")
 					bot.reply_to(msg, random_karma3, parse_mode="HTML")
 		
@@ -874,7 +874,7 @@ def karma_game(msg):
 						random_karma = ("+5", "-5")
 						random_karma2 = random.choice(random_karma)
 						change_karma(msg.from_user, msg.chat, random_karma2)
-						random_karma3 = f"🎰 Сыграл вабанк: <b>{random_karma2}</b>."
+						random_karma3 = f"🎰 Сыграл вабанк <b>{random_karma2}</b>."
 						bot.send_chat_action(msg.chat.id, "typing")
 						bot.reply_to(msg, random_karma3, parse_mode="HTML")
 					else:
@@ -900,11 +900,12 @@ def send_dice(msg):
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
 			if user.karma > 50:
-				bot.reply_to(msg, f"📍 Сыграл в карму: +{msg.dice.value}", parse_mode="HTML")
-				change_karma(msg.from_user, msg.chat, msg.dice.value)
-				random_karma = ("-2", "-3", "-4", "-5", "-6", "-1")
+
+				
+				random_karma = ("2", "3", "4", "5", "6", "1")
 				random_karma2 = random.choice(random_karma)
 				change_karma(msg.from_user, msg.chat, msg.dice.value-random_karma2)
+				bot.reply_to(msg, f"🎰 Сыграл в карму +{msg.dice.value-random_karma2}", parse_mode="HTML")
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 
