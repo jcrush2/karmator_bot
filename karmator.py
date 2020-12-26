@@ -348,9 +348,9 @@ def tinder(msg):
 	for i, user in enumerate(selected_user):
 		if user.is_freezed:
 			top_mess = f"Сегодня вечер самопознания✊"
-			return
-		nick = user.user_nick.strip()
-		name = user.user_name.strip()
+		else:
+			nick = user.user_nick.strip()
+			name = user.user_name.strip()
 	
 			
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
