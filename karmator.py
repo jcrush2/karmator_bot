@@ -832,15 +832,15 @@ def karma_game(msg):
 	Функция играть в карму.
 	"""
 	if msg.text.lower() in ['играть', 'вабанк', 'тиндер']:
-		if is_karma_freezed(msg):
-			return
-		else:
+		
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
 
 		if is_game_abuse(msg):
+			return
+		if is_karma_freezed(msg):
 			return
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
