@@ -421,7 +421,7 @@ def top_bad(msg):
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
 
 
-@bot.message_handler(commands=["freezeme", "unfreezeme"], func=is_my_message)
+@bot.message_handler(commands=["freez", "unfreez"], func=is_my_message)
 def freeze_me(msg):
 	"""
 	Функция, которая используется для заморозки значения кармы.
@@ -431,7 +431,7 @@ def freeze_me(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	user = select_user(msg.from_user, msg.chat)
-	freeze = True if msg.text[1:9] == "freezeme" else False
+	freeze = True if msg.text[1:9] == "freez" else False
 
 	result = ""
 	if not user:
