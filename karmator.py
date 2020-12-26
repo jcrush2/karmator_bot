@@ -11,7 +11,6 @@ import telebot
 
 from database import KarmaUser, Limitation
 from logger import main_log
-from typing import List
 import config
 
 main_log.info("Program starting")
@@ -674,21 +673,7 @@ def is_karma_abuse(msg):
 #	bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
 #	bot.send_message(msg, polle, parse_mode="HTML")
     
-def get_casino_values(dice_value) -> List:
-    """
-    Возвращает то, что было на конкретном дайсе-казино
-    :param dice_value: Число, которое вернул Bot API
-    :return: строку, содержащую все выпавшие элементы
-    
-    Альтернативный вариант (ещё раз спасибо t.me/svinerus):
-        return [casino[(dice_value - 1) // i % 4]for i in (1, 4, 16)]
-    """
-    dice_value -= 1
-    result = []
-    for _ in range(3):
-        result.append(casino[dice_value % 4])
-        dice_value //= 4
-    return result
+
 			
 def commands(msg, text):
 	
@@ -718,12 +703,6 @@ def commands(msg, text):
 		citata = random.choice(config.citata_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
-		
-	if msg.text.lower() in ['🎰']:
-		for i in range(1, 65):
-			bot.send_chat_action(msg.chat.id, "typing")
-			mess_otv = i, get_casino_values(i)
-			bot.reply_to(msg, mess_otv, parse_mode="HTML")
 		
 	if msg.text.lower() in ['утра']:
 		citata = random.choice(config.citata_words)
