@@ -346,7 +346,7 @@ def tinder(msg):
 		.limit(100)
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
-		if i.is_freezed:
+		if user.is_freezed:
 			return
 		nick = user.user_nick.strip()
 		name = user.user_name.strip()
