@@ -904,7 +904,7 @@ def send_dice(msg):
 				change_karma(msg.from_user, msg.chat, msg.dice.value)
 				random_karma = ("-2", "-3", "-4", "-5", "-6", "-1")
 				random_karma2 = random.choice(random_karma)
-				change_karma(msg.from_user, msg.chat, random_karma2)
+				change_karma(msg.from_user, msg.chat, msg.dice.value-random_karma2)
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 
