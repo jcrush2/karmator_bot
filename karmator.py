@@ -904,8 +904,12 @@ def send_dice(msg):
 				
 				random_karma = (2, 3, 4, 5, 6, 1)
 				random_karma2 = random.choice(random_karma)
+				user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
+								
+				bot.reply_to(msg, f"🎰 Сыграл в карму {msg.dice.value-random_karma2}", parse_mode="HTML")
+				if user.status == 'creator':
+					return
 				change_karma(msg.from_user, msg.chat, msg.dice.value-random_karma2)
-				bot.reply_to(msg, f"🎰 Сыграл в карму +{msg.dice.value-random_karma2}", parse_mode="HTML")
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 
