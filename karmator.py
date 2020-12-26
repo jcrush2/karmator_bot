@@ -834,6 +834,7 @@ def karma_game(msg):
 	if msg.text.lower() in ['играть', 'вабанк', 'тиндер']:
 		if is_karma_freezed(msg):
 			return
+		else:
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
