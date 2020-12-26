@@ -674,11 +674,6 @@ def is_karma_abuse(msg):
 #	bot.send_message(msg, polle, parse_mode="HTML")
     
 
-@bot.message_handler(content_types=['dice'])
-def send_dice(msg):
-    message1 = msg.dice.value
-    bot.send_dice(msg.chat.id,'')
-    bot.reply_to(msg, f"📍 Цитата: {message1}", parse_mode="HTML")
 			
 def commands(msg, text):
 	
@@ -846,16 +841,12 @@ def karma_game(msg):
 	Функция играть в карму.
 	"""
 	if msg.text.lower() in ['играть', 'вабанк', 'тиндер']:
-		
+		if is_game_abuse(msg):
+			return
 		Limitation.create(
 			timer=pw.SQL("current_timestamp"),
 			userid=msg.from_user.id,
 			chatid=msg.chat.id)
-
-		if is_game_abuse(msg):
-			return
-#		if is_karma_freezed(msg):
-#			return
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
 			insert_user(msg.from_user, msg.chat)
@@ -893,6 +884,27 @@ def karma_game(msg):
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 				
+@bot.message_handler(content_types=['dice'])
+def send_dice(msg):
+		if is_game_abuse(msg):
+			return
+		Limitation.create(
+			timer=pw.SQL("current_timestamp"),
+			userid=msg.from_user.id,
+			chatid=msg.chat.id)
+		user = select_user(msg.from_user, msg.chat)
+		if not user:
+			insert_user(msg.from_user, msg.chat)
+		user = select_user(msg.from_user, msg.chat)	
+		if user.is_freezed:
+			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
+		else:
+			if user.karma > 50:
+				bot.reply_to(msg, f"📍 Сыграл в карму: {msg.dice.value}", parse_mode="HTML")
+				change_karma(msg.from_user, msg.chat, msg.dice.value)
+				change_karma(msg.from_user, msg.chat, -1)
+			else:
+				bot.delete_message(msg.chat.id, msg.message_id)
 
 # bot.polling(none_stop=True)
 
