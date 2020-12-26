@@ -840,8 +840,8 @@ def karma_game(msg):
 
 		if is_game_abuse(msg):
 			return
-		if is_karma_freezed(msg):
-			return
+#		if is_karma_freezed(msg):
+#			return
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
 			insert_user(msg.from_user, msg.chat)
