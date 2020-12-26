@@ -674,6 +674,14 @@ def is_karma_abuse(msg):
 #	bot.send_message(msg, polle, parse_mode="HTML")
     
 
+@bot.message_handler(content_types=['dice'])
+def send_dice(message):
+    ids = message.chat.id
+    message1 = message.dice.value
+    message2 = message.dice.emoji
+    bot.send_dice(ids,'')
+    print(message1)
+    print(message2)
 			
 def commands(msg, text):
 	
@@ -691,6 +699,9 @@ def commands(msg, text):
 	if msg.text.lower() in ['опрос']:
 		
 		bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
+	
+#	if msg.text.lower() in ['кости']:
+#		bot.send_dice(msg.chat.id
 	
 	if msg.text.lower() in ['!к']:
 		bot.delete_message(msg.chat.id, msg.message_id)
@@ -875,7 +886,7 @@ def karma_game(msg):
 						random_karma = ("+5", "-5")
 						random_karma2 = random.choice(random_karma)
 						change_karma(msg.from_user, msg.chat, random_karma2)
-						random_karma3 = f"🎲 Сыграл вабанк: <b>{random_karma2}</b>."
+						random_karma3 = f"🎰 Сыграл вабанк: <b>{random_karma2}</b>."
 						bot.send_chat_action(msg.chat.id, "typing")
 						bot.reply_to(msg, random_karma3, parse_mode="HTML")
 					else:
