@@ -851,39 +851,38 @@ def karma_game(msg):
 		if not user:
 			insert_user(msg.from_user, msg.chat)
 		user = select_user(msg.from_user, msg.chat)	
-		if user.karma > 0:
-			if msg.text.lower() == 'тиндер':
-				tinder(msg)
+		if user.is_freezed:
+			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
+		else:
+			if user.karma > 0:
+				if msg.text.lower() == 'тиндер':
+					tinder(msg)
 					
 	
-			if msg.text.lower() == 'играть':
-				random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
-				random_karma2 = random.choice(random_karma)
-				change_karma(msg.from_user, msg.chat, random_karma2)
-				random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
-				bot.send_chat_action(msg.chat.id, "typing")
-				bot.reply_to(msg, random_karma3, parse_mode="HTML")
-		
-	
-			if msg.text.lower() == 'вабанк':
-
-				if user.karma > 5:
-					random_karma = ("+5", "-5")
+				if msg.text.lower() == 'играть':
+					random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
 					random_karma2 = random.choice(random_karma)
 					change_karma(msg.from_user, msg.chat, random_karma2)
-					random_karma3 = f"🎲 Сыграл вабанк: <b>{random_karma2}</b>."
+					random_karma3 = f"🎲 Сыграл в карму: <b>{random_karma2}</b>."
 					bot.send_chat_action(msg.chat.id, "typing")
 					bot.reply_to(msg, random_karma3, parse_mode="HTML")
-				else:
-					podarok = f"🎁 Нехватает кармы для ставки +5."
-					bot.send_chat_action(msg.chat.id, "typing")
-					bot.reply_to(msg, podarok, parse_mode="HTML")
-					
+		
+	
+				if msg.text.lower() == 'вабанк':
 
-
-
-		else:
-			bot.delete_message(msg.chat.id, msg.message_id)
+					if user.karma > 5:
+						random_karma = ("+5", "-5")
+						random_karma2 = random.choice(random_karma)
+						change_karma(msg.from_user, msg.chat, random_karma2)
+						random_karma3 = f"🎲 Сыграл вабанк: <b>{random_karma2}</b>."
+						bot.send_chat_action(msg.chat.id, "typing")
+						bot.reply_to(msg, random_karma3, parse_mode="HTML")
+					else:
+						podarok = f"🎁 Нехватает кармы для ставки +5."
+						bot.send_chat_action(msg.chat.id, "typing")
+						bot.reply_to(msg, podarok, parse_mode="HTML")
+			else:
+				bot.delete_message(msg.chat.id, msg.message_id)
 				
 
 # bot.polling(none_stop=True)
