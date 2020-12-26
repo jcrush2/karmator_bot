@@ -325,7 +325,7 @@ def top_best(msg):
 		else:
 			name = user.user_nick.strip()
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status == 'member' :
+		if userstatus.status != 'left' :
 			top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
@@ -414,7 +414,7 @@ def top_bad(msg):
 			name =""
 		
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status == 'member':
+		if userstatus.status != 'left':
 			top_mess += f"*{i+1}*. {name}, ({user.karma})\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
