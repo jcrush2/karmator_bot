@@ -900,9 +900,11 @@ def send_dice(msg):
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
 			if user.karma > 50:
-				bot.reply_to(msg, f"📍 Сыграл в карму: {msg.dice.value}", parse_mode="HTML")
+				bot.reply_to(msg, f"📍 Сыграл в карму: +{msg.dice.value}", parse_mode="HTML")
 				change_karma(msg.from_user, msg.chat, msg.dice.value)
-				change_karma(msg.from_user, msg.chat, -1)
+				random_karma = ("-2", "-3", "-4", "-5", "-6", "-1")
+				random_karma2 = random.choice(random_karma)
+				change_karma(msg.from_user, msg.chat, random_karma2)
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 
