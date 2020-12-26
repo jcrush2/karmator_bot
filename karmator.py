@@ -675,13 +675,15 @@ def is_karma_abuse(msg):
     
 
 @bot.message_handler(content_types=['dice'])
-def send_dice(message):
-    ids = message.chat.id
-    message1 = message.dice.value
-    message2 = message.dice.emoji
+def send_dice(msg):
+    ids = msg.chat.id
+    message1 = msg.dice.value
+    message2 = msg.dice.emoji
     bot.send_dice(ids,'')
-    print(message1)
-    print(message2)
+ #   print(message1)
+#    print(message2)
+    bot.reply_to(msg, f"📍 Цитата: {message2}", parse_mode="HTML")
+    bot.reply_to(msg, f"📍 Цитата: {message1}", parse_mode="HTML")
 			
 def commands(msg, text):
 	
