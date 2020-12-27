@@ -754,11 +754,11 @@ def commands(msg, text):
 	if msg.text.lower() in ['крокодил']:
 		markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 		markup.add('1', '2') #Имена кнопок
-		msg = bot.reply_to(message, 'Test text', reply_markup=markup)
+		msg = bot.reply_to(msg.chat.id, 'Test text', reply_markup=markup)
 		bot.register_next_step_handler(msg, process_step)
 
 def process_step(message):
-	chat_id = message.chat.id
+	chat_id = msg.chat.id
 	if message.text=='1':
 		bot.send_message(msg.chat.id, f"1", parse_mode="HTML")
 	else:
