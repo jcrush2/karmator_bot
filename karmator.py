@@ -18,7 +18,7 @@ main_log.info("Program starting")
 TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
-
+savedata = {}
 
 def is_my_message(msg):
 	"""
@@ -706,6 +706,9 @@ def is_karma_abuse(msg):
 def commands(msg, text):
 	if 'hello' in msg.text:
 		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
+		savedata[str(msg.chet.id) + 'slovo'] = '0'
+	if 'test' in msg.text:
+		bot.reply_to(msg, f"{savedata[str(message.chet.id) + 'slovo']}", parse_mode="HTML")
     
 	if msg.text.lower() in ['язабан']:
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
