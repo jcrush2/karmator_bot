@@ -760,7 +760,7 @@ def commands(msg, text):
 			),
 		]
 		markup.add(*buttons)
-		bot.send_message(message.from_user.id, 'Текст персонажа', reply_markup=markup)
+		bot.send_message(msg.from_user.id, 'Текст персонажа', reply_markup=markup)
  
 
 def reputation(msg, text):
