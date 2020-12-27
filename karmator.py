@@ -695,7 +695,7 @@ def is_karma_abuse(msg):
 
 			
 def commands(msg, text):
-	if msg.text.lower() in croko:
+	if msg.text.lower() in [croko]:
 		bot.reply_to(msg, f"📍 Да", parse_mode="HTML")
 		
 		
