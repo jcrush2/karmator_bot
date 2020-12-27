@@ -757,6 +757,7 @@ def commands(msg, text):
 		but_2 = types.InlineKeyboardButton(text="Челентано", callback_data="Челентано")
 		key.add(but_1, but_2)
 		bot.send_message(msg.chat.id, "Кто же твой кумир?", reply_markup=key)
+		bot.answer_callback_query(call.id, show_alert=True, text="Дата выбрана")
 
 			
 
