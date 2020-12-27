@@ -753,16 +753,10 @@ def commands(msg, text):
 
 	if msg.text.lower() in ['крокодил']:
 		keyboard = types.InlineKeyboardMarkup()
-		url_button = types.InlineKeyboardButton(text="Перейти на Яндекс", url="https://ya.ru")
-		keyboard.add(url_button)
-		bot.send_message(msg.chat.id, "Привет! Нажми на кнопку и перейди в поисковик.", reply_markup=keyboard)
+		callback_button = types.InlineKeyboardButton(text="Нажми меня", callback_data="test")
+		keyboard.add(callback_button)
+		bot.send_message(msg.chat.id, "Я – сообщение из обычного режима", reply_markup=keyboard)
 
-def process_step(msg):
-	chat_id = msg.chat.id
-	if message.text=='1':
-		bot.send_message(msg.chat.id, f"1", parse_mode="HTML")
-	else:
-		bot.send_message(msg.chat.id, f"2", parse_mode="HTML")
 	
 def reputation(msg, text):
 	""" TODO """
