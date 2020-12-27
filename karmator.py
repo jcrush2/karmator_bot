@@ -752,7 +752,7 @@ def commands(msg, text):
 
 	if msg.text.lower() in ['крокодил']:
 		now = datetime.datetime.now()  # Текущая дата.
-		chat_id = message.chat.id
+		chat_id = msg.chat.id
 		date = (now.year,now.month)
 
     # Добавлено создание словаря.
@@ -760,7 +760,7 @@ def commands(msg, text):
 
 		current_shown_dates[chat_id] = date  # Сохраним текущую дату в словарь.
 		markup = create_calendar(now.year,now.month)
-		bot.send_message(message.chat.id, "Пожалуйста, выберите дату", reply_markup=markup)
+		bot.send_message(msg.chat.id, "Пожалуйста, выберите дату", reply_markup=markup)
 
 			
 
