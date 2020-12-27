@@ -712,6 +712,7 @@ def commands(msg, text):
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"💰 Вы можете купить карму, оплатив по <a href='https://khabara.ru/informer.html'>➡️ ссылке</a> за 1 единицу кармы 1р.", parse_mode="HTML")
 		
+		
 	if msg.text.lower() in ['утра']:
 		citata = random.choice(config.citata_words)
 		bot.send_chat_action(msg.chat.id, "typing")
@@ -747,6 +748,15 @@ def commands(msg, text):
 			bot.send_message(msg.chat.id, f"🔔🔔🔔🔔🔔🔔🔔\
 \n🗣Го в Войс Чат!👂\
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
+
+	if msg.text.lower() in ['крокодил']:
+		now = datetime.datetime.now() #Текущая дата
+		chat_id = msg.chat.id
+		date = (now.year,now.month)
+		current_shown_dates[chat_id] = date #Сохраним текущую дату в словарь
+		markup = create_calendar(now.year,now.month)
+		bot.send_message(msg.chat.id, "Пожалйста, выберите дату", reply_markup=markup)
+		bot.answer_callback_query(call.id, show_alert=True, text="Дата выбрана")
 			
 
 	
