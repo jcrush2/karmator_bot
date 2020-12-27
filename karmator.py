@@ -754,7 +754,7 @@ def commands(msg, text):
 	if msg.text.lower() in ['крокодил']:
 		markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 		markup.add('1', '2') #Имена кнопок
-		msg = bot.reply_to(msg.chat.id, 'Test text', reply_markup=markup)
+		msg = bot.reply_to(msg, 'Test text', reply_markup=markup)
 		bot.register_next_step_handler(msg, process_step)
 
 def process_step(message):
