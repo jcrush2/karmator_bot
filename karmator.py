@@ -755,7 +755,7 @@ def commands(msg, text):
 		keyboard = types.InlineKeyboardMarkup()
 		callback_button = types.InlineKeyboardButton(text="Нажми меня", callback_data="test")
 		keyboard.add(callback_button)
-		bot.send_message(msg.chat.id, "sdfsd", reply_markup=keyboard)
+		bot.send_message(msg.chat.id, "sdfsd", parse_mode="HTML")
 	
 def reputation(msg, text):
 	""" TODO """
