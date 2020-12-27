@@ -752,19 +752,16 @@ def commands(msg, text):
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if msg.text.lower() in ['крокодил']:
-		keyboard = types.InlineKeyboardMarkup()
-		callback_button = types.InlineKeyboardButton(text="Нажми меня", callback_data="test")
-		keyboard.add(callback_button)
-		bot.send_message(msg.chat.id, "Я – сообщение из обычного режима", reply_markup=keyboard)
-
-@bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
-    # Если сообщение из чата с ботом
-	if call.msg:
-		if call.data == "test":
-			bot.send_message(msg.chat.id, f"🔔🔔🔔🔔🔔🔔🔔\
-\n🗣Го в Войс Чат!👂\
-\n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")  
+		markup = types.InlineKeyboardMarkup(row_width=3)
+		buttons = [
+			types.InlineKeyboardButton(
+				text='Хочу стати учасницею клуба мам',
+				callback_data='your_callback_data'
+			),
+		]
+		markup.add(*buttons)
+		bot.send_message(message.from_user.id, 'Текст персонажа', reply_markup=markup)
+ 
 
 def reputation(msg, text):
 	""" TODO """
