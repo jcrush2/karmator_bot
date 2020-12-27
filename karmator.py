@@ -18,7 +18,7 @@ main_log.info("Program starting")
 TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
-idchatme ={}
+croko ={}
 
 def is_my_message(msg):
 	"""
@@ -472,6 +472,22 @@ def gods(msg):
 	result = int(msg.text.split()[1])
 	change_karma(msg.reply_to_message.from_user, msg.chat, result)
 	bot.delete_message(msg.chat.id, msg.message_id)
+	
+@bot.message_handler(commands=["c"])
+def croc(msg):
+	"""
+	Небольшая функция, которая позволяет создателю бота 
+	добавить кому и сколько угодно очков кармы в обход 
+	всех ограничений.
+	:param msg: Объект сообщения-команды
+	"""
+	if len(msg.text.split()) == 1:
+		return
+
+	croko = msg.text.split()[1]
+	bot.reply_to(msg, "🎁 croko", parse_mode="HTML")
+#	change_karma(msg.reply_to_message.from_user, msg.chat, result)
+#	bot.delete_message(msg.chat.id, msg.message_id)
 
 
 @bot.message_handler(commands=["gift"])
@@ -679,7 +695,10 @@ def is_karma_abuse(msg):
 
 			
 def commands(msg, text):
-	
+	if msg.text.lower() in croko:
+		bot.reply_to(msg, f"📍 Да", parse_mode="HTML")
+		
+		
 	if msg.text.lower() in ['язабан']:
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
 		if user.status == 'administrator' or user.status == 'creator':
