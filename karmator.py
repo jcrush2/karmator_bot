@@ -899,14 +899,14 @@ def send_dice(msg):
 		if user.is_freezed:
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
-			if user.karma > 50:
+			if user.karma > 65:
 
 				
 				random_karma = ("-","+")
 				random_karma2 = random.choice(random_karma)
 				
 								
-				bot.reply_to(msg, f"Сыграл в кости {random_karma2}{msg.dice.value}", parse_mode="HTML")
+				bot.reply_to(msg, f"Сыграл в карму {random_karma2}{msg.dice.value}", parse_mode="HTML")
 				user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 				if user.status == 'creator':
 					return
