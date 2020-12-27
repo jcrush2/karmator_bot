@@ -751,16 +751,9 @@ def commands(msg, text):
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if msg.text.lower() in ['крокодил']:
-		now = datetime.datetime.now()  # Текущая дата.
-		chat_id = msg.chat.id
-		date = (now.year,now.month)
-
-    # Добавлено создание словаря.
-		current_shown_dates = {}
-
-		current_shown_dates[chat_id] = date  # Сохраним текущую дату в словарь.
-		markup = create_calendar(now.year,now.month)
-		bot.send_message(msg.chat.id, "Пожалуйста, выберите дату", reply_markup=markup)
+		markup = types.InlineKeyboardMarkup()
+		switch_button = types.InlineKeyboardButton(text='Try', switch_inline_query="Telegram")
+		markup.add(switch_button)
 
 			
 
