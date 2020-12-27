@@ -755,7 +755,7 @@ def commands(msg, text):
 		button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data='add')
 		markup.add(button)
 		bot.send_message(msg.chat.id, text='Some text', reply_markup=markup)
-		bot.answer_callback_query(call.id, show_alert=True, text="Дата выбрана")
+
 			
 
 	
@@ -914,9 +914,7 @@ def send_dice(msg):
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
 			if user.karma > 65:
-				if msg.forward_from_chat != "":
-		
-					return
+				
 
 				bot.send_chat_action(msg.chat.id, "typing")
 				random_karma = ("-","+")
