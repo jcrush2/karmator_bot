@@ -752,10 +752,10 @@ def commands(msg, text):
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if msg.text.lower() in ['крокодил']:
-		markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
-		markup.add('1', '2') #Имена кнопок
-		msg = bot.reply_to(msg, 'Test text', reply_markup=markup)
-		bot.register_next_step_handler(msg, process_step)
+		keyboard = types.InlineKeyboardMarkup()
+		url_button = types.InlineKeyboardButton(text="Перейти на Яндекс", url="https://ya.ru")
+		keyboard.add(url_button)
+		bot.send_message(msg.chat.id, "Привет! Нажми на кнопку и перейди в поисковик.", reply_markup=keyboard)
 
 def process_step(msg):
 	chat_id = msg.chat.id
