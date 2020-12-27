@@ -752,14 +752,25 @@ def commands(msg, text):
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if msg.text.lower() in ['крокодил']:
-		key = types.InlineKeyboardMarkup()
-		but_1 = types.InlineKeyboardButton(text="Альфредо", callback_data="Альфредо")
-		but_2 = types.InlineKeyboardButton(text="Челентано", callback_data="Челентано")
-		key.add(but_1, but_2)
-		bot.send_message(msg.chat.id, "Кто же твой кумир?", reply_markup=key)
-		bot.answer_callback_query(call.id, show_alert=True, text="Дата выбрана")
+    # создаем клавиатуру
+		keyboard = types.InlineKeyboardMarkup()
 
-			
+    # добавляем на нее две кнопки
+		button1 = types.InlineKeyboardButton(text="Кнопка 1", callback_data="button1")
+		button2 = types.InlineKeyboardButton(text="Кнопка 2", callback_data="button2")
+		keyboard.add(button1)
+		keyboard.add(button2)
+
+    # отправляем сообщение пользователю
+		bot.send_message(message.chat.id, "Нажмите кнопку!", reply_markup=keyboard)
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_inline(call):
+	if call.message:
+		if call.data == "button1":
+			bot.send_message(call.message.chat.id, "Вы нажали на первую кнопку.")
+		if call.data == "button2":
+			bot.send_message(call.message.chat.id, "Вы нажали на вторую кнопку.")
 
 	
 def reputation(msg, text):
