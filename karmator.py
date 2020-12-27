@@ -756,19 +756,16 @@ def commands(msg, text):
 
 @bot.message_handler(commands=['croco'], func=is_my_message)
 def keyboard(msg):
-	markup = types.InlineKeyboardMarkup(row_width=3)
-	buttons = [
-		types.InlineKeyboardButton(
-			text='Хочу стати учасницею клуба мам',
-			callback_data='your_callback_data'
-		),
-		types.InlineKeyboardButton(
-			text='Хочу стати партнером',
-			callback_data='your_callback_data'
-		),
-	]
-	markup.add(*buttons)
-	bot.send_message(msg.chat.id, 'Текст персонажа', reply_markup=markup)
+	markup = telebot.types.InlineKeyboardMarkup()
+	button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data='add')
+	markup.add(button)
+	bot.send_message(chat_id=msg.chat.id, text='Some text', reply_markup=markup)
+
+@bot.callback_query_handler(func=lambda call: True)
+def query_handler(call):
+	if call.data == 'add':
+		bot.answer_callback_query(callback_query_id=call.id, text='Hello world')
+  
 def reputation(msg, text):
 	""" TODO """
 
