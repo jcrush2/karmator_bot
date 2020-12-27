@@ -707,6 +707,10 @@ def commands(msg, text):
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 		
+	if msg.text.lower() in ['купить']:
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.reply_to(msg, f"💰 Вы можете купить карму, оплатив по <a href='https://khabara.ru/informer.html'>➡️ ссылке</a> за 1 единицу кармы - 1р.", parse_mode="HTML")
+		
 	if msg.text.lower() in ['утра']:
 		citata = random.choice(config.citata_words)
 		bot.send_chat_action(msg.chat.id, "typing")
@@ -901,10 +905,10 @@ def send_dice(msg):
 		else:
 			if user.karma > 65:
 
-				
+				bot.send_chat_action(msg.chat.id, "typing")
 				random_karma = ("-","+")
 				random_karma2 = random.choice(random_karma)
-				
+				bot.send_chat_action(msg.chat.id, "typing")
 								
 				bot.reply_to(msg, f"Сыграл в карму {random_karma2}{msg.dice.value}", parse_mode="HTML")
 				user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
