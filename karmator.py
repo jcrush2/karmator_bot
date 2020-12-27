@@ -914,7 +914,7 @@ def send_dice(msg):
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
 			if user.karma > 65:
-				if msg.forward_message:
+				if msg.forward_from_chat:
 					return
 
 				bot.send_chat_action(msg.chat.id, "typing")
