@@ -704,7 +704,7 @@ def is_karma_abuse(msg):
 
 			
 def commands(msg, text):
-	if 'hello' in message.text:
+	if 'hello' in msg.text:
 		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
     
 	if msg.text.lower() in ['язабан']:
