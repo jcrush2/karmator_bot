@@ -18,7 +18,7 @@ main_log.info("Program starting")
 TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
-croko ={}
+
 
 def is_my_message(msg):
 	"""
@@ -483,7 +483,7 @@ def croc(msg):
 	"""
 	if len(msg.text.split()) == 1:
 		return
-
+	croko ={}
 	croko = msg.text.split()[1]
 	bot.reply_to(msg, f"🎁 croko {croko}", parse_mode="HTML")
 #	change_karma(msg.reply_to_message.from_user, msg.chat, result)
