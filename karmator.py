@@ -79,7 +79,7 @@ def helps(msg):
 	bot.send_message(msg.chat.id, help_mess, parse_mode="HTML")
 
 @bot.message_handler(commands=["weather"], func=is_my_message)
-def source(msg):
+def weather(msg):
 	"""
 	Функция, которая по запросу возвращает ссылку на гитхаб-репозиторий,
 	в котором хранится исходный код бота
@@ -123,6 +123,9 @@ def loves(msg):
 	Функция, для Знакомства
 	"""
 	main_log.info("Starting func 'loves'")
+	if len(msg.text.split()) == 1:
+		bot.delete_message(msg.chat.id, msg.message_id)
+		return
 	loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
 	bot.reply_to(msg, loves_text, parse_mode="HTML")
 	
@@ -386,7 +389,7 @@ def krasavchik(msg):
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 		if user.is_freezed:
-			bot.send_message(msg.chat.id, f"Сегодня вечер самопознания✊", parse_mode="HTML")
+			bot.send_message(msg.chat.id, f"🎉 Сегодня Я красавчик дня!", parse_mode="HTML")
 		else:
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
@@ -478,7 +481,7 @@ def gods(msg):
 	
 	
 @bot.message_handler(commands=["vote"])
-def vote(msg):
+def vote_da_net(msg):
 	if len(msg.text.split()) == 1:
 		bot.delete_message(msg.chat.id, msg.message_id)
 		return
@@ -486,11 +489,10 @@ def vote(msg):
 	bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
 	
 @bot.message_handler(commands=["v"])
-def v(msg):
+def v_yes_no(msg):
 	if len(msg.text.split()) == 1:
 		bot.delete_message(msg.chat.id, msg.message_id)
 		return
-	result = msg.text.split()[1]
 	random_karma = ("Определенно <b>Да!</b>","<b>Нет</b>, в другой раз.")
 	random_karma2 = random.choice(random_karma)
 	bot.send_chat_action(msg.chat.id, "typing")
@@ -702,34 +704,25 @@ def is_karma_abuse(msg):
 
 			
 def commands(msg, text):
-
-		
-		
+	if 'hello' in message.text:
+		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
+    
 	if msg.text.lower() in ['язабан']:
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
 		if user.status == 'administrator' or user.status == 'creator':
 			return
-		
 		if msg.reply_to_message:
 			bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
 			bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
 		else:
 			return
 	
-	if msg.text.lower() in ['опрос']:
-		
-		bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
-	
-#	if msg.text.lower() in ['кости']:
-#		bot.send_dice(msg.chat.id
-	
 	if msg.text.lower() in ['!к']:
 		bot.delete_message(msg.chat.id, msg.message_id)
 		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 		if user.status == 'creator':
 			krasavchik(msg)
-		
-		
+
 	if msg.text.lower() in ['цитата']:
 		citata = random.choice(config.citata_words)
 		bot.send_chat_action(msg.chat.id, "typing")
