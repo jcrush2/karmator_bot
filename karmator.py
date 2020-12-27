@@ -751,12 +751,10 @@ def commands(msg, text):
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if msg.text.lower() in ['крокодил']:
-		now = datetime.datetime.now() #Текущая дата
-		chat_id = msg.chat.id
-		date = (now.year,now.month)
-		current_shown_dates[chat_id] = date #Сохраним текущую дату в словарь
-		markup = create_calendar(now.year,now.month)
-		bot.send_message(msg.chat.id, "Пожалйста, выберите дату", reply_markup=markup)
+		markup = telebot.types.InlineKeyboardMarkup()
+		button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data='add')
+		markup.add(button)
+		bot.send_message(msg.chat.id, text='Some text', reply_markup=markup)
 		bot.answer_callback_query(call.id, show_alert=True, text="Дата выбрана")
 			
 
