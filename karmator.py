@@ -11,6 +11,7 @@ import telebot
 
 from database import KarmaUser, Limitation
 from logger import main_log
+from telebot import types
 import config
 
 main_log.info("Program starting")
