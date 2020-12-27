@@ -385,6 +385,9 @@ def krasavchik(msg):
 		.limit(100)
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
+		if user.is_freezed:
+			bot.send_message(msg.chat.id, f"Сегодня вечер самопознания✊", parse_mode="HTML")
+		else:
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
@@ -471,6 +474,15 @@ def gods(msg):
 		return
 	result = int(msg.text.split()[1])
 	change_karma(msg.reply_to_message.from_user, msg.chat, result)
+	bot.delete_message(msg.chat.id, msg.message_id)
+	
+	
+@bot.message_handler(commands=["vote"])
+def vote(msg):
+	if len(msg.text.split()) == 1:
+		return
+	result = msg.text.split()[1]
+	bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
 	bot.delete_message(msg.chat.id, msg.message_id)
 	
 
