@@ -68,6 +68,7 @@ def helps(msg):
 	\n<b>тиндер</b> - Найти пару.\
 	\n<b>вабанк</b> - Карма -5 или +5.\
 	\n<b>играть</b> - Рандом от -1 до +3.\
+	\n<b>купить</b> - Купить карму.\
 	\n/gift - Подарить +5 карму.\
 	\n/freez - Заморозка кармы.\
 	\n/unfreez - Разморозка."
@@ -709,7 +710,7 @@ def commands(msg, text):
 		
 	if msg.text.lower() in ['купить']:
 		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg, f"💰 Вы можете купить карму, оплатив по <a href='https://khabara.ru/informer.html'>➡️ ссылке</a> за 1 единицу кармы - 1р.", parse_mode="HTML")
+		bot.reply_to(msg, f"💰 Вы можете купить карму, оплатив по <a href='https://khabara.ru/informer.html'>➡️ ссылке</a> за 1 единицу кармы 1р.", parse_mode="HTML")
 		
 	if msg.text.lower() in ['утра']:
 		citata = random.choice(config.citata_words)
