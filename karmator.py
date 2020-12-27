@@ -751,18 +751,24 @@ def commands(msg, text):
 \n🗣Го в Войс Чат!👂\
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
-	if msg.text.lower() in ['крокодил']:
-		markup = types.InlineKeyboardMarkup(row_width=3)
-		buttons = [
-			types.InlineKeyboardButton(
-				text='Хочу стати учасницею клуба мам',
-				callback_data='your_callback_data'
-			),
-		]
-		markup.add(*buttons)
-		bot.send_message(msg.from_user.id, 'Текст персонажа', reply_markup=markup)
- 
+#	if msg.text.lower() in ['крокодил']:
 
+
+@bot.message_handler(commands=['croco'], func=is_my_message)
+def keyboard(msg):
+	markup = types.InlineKeyboardMarkup(row_width=3)
+	buttons = [
+		types.InlineKeyboardButton(
+			text='Хочу стати учасницею клуба мам',
+			callback_data='your_callback_data'
+		),
+		types.InlineKeyboardButton(
+			text='Хочу стати партнером',
+			callback_data='your_callback_data'
+		),
+	]
+	markup.add(*buttons)
+	bot.send_message(msg.chat.id, 'Текст персонажа', reply_markup=markup)
 def reputation(msg, text):
 	""" TODO """
 
