@@ -753,7 +753,7 @@ def commands(msg, text):
 
 	if msg.text.lower() in ['крокодил']:
 		keyboard = types.InlineKeyboardMarkup()
-		callback_button = types.InlineKeyboardButton(text="Нажми меня", callback_data="test")
+		callback_button = types.InlineKeyboardButton(text='Try', switch_inline_query="Telegram")
 		keyboard.add(callback_button)
 		bot.send_message(msg.chat.id, "Я – сообщение из обычного режима", reply_markup=keyboard)
 
