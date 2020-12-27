@@ -480,11 +480,21 @@ def gods(msg):
 @bot.message_handler(commands=["vote"])
 def vote(msg):
 	if len(msg.text.split()) == 1:
+		bot.delete_message(msg.chat.id, msg.message_id)
 		return
 	result = msg.text.split()[1]
 	bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
-	bot.delete_message(msg.chat.id, msg.message_id)
 	
+@bot.message_handler(commands=["v"])
+def v(msg):
+	if len(msg.text.split()) == 1:
+		bot.delete_message(msg.chat.id, msg.message_id)
+		return
+	result = msg.text.split()[1]
+	random_karma = ("Определенно <b>Да!</b>","<b>Нет</b>, в другой раз.")
+	random_karma2 = random.choice(random_karma)
+	bot.send_chat_action(msg.chat.id, "typing")
+	bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
 
 
 @bot.message_handler(commands=["gift"])
