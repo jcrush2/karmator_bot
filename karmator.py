@@ -762,15 +762,15 @@ def commands(msg, text):
 		keyboard.add(button2)
 
     # отправляем сообщение пользователю
-		bot.send_message(message.chat.id, "Нажмите кнопку!", reply_markup=keyboard)
+		bot.send_message(msg.chat.id, "Нажмите кнопку!", reply_markup=keyboard)
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
-	if call.message:
+	if call.msg:
 		if call.data == "button1":
-			bot.send_message(call.message.chat.id, "Вы нажали на первую кнопку.")
+			bot.send_message(call.msg.chat.id, "Вы нажали на первую кнопку.")
 		if call.data == "button2":
-			bot.send_message(call.message.chat.id, "Вы нажали на вторую кнопку.")
+			bot.send_message(call.msg.chat.id, "Вы нажали на вторую кнопку.")
 
 	
 def reputation(msg, text):
