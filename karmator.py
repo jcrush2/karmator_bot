@@ -485,7 +485,7 @@ def croc(msg):
 		return
 
 	croko = msg.text.split()[1]
-	bot.reply_to(msg, "🎁 croko", parse_mode="HTML")
+	bot.reply_to(msg, "🎁 croko {croko}", parse_mode="HTML")
 #	change_karma(msg.reply_to_message.from_user, msg.chat, result)
 #	bot.delete_message(msg.chat.id, msg.message_id)
 
