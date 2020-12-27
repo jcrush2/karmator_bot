@@ -752,12 +752,17 @@ def commands(msg, text):
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if msg.text.lower() in ['крокодил']:
-# Эти параметры для клавиатуры необязательны, просто для удобства
-		keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-		button_phone = types.KeyboardButton(text="Отправить номер телефона", request_contact=True)
-		button_geo = types.KeyboardButton(text="Отправить местоположение", request_location=True)
-		keyboard.add(button_phone, button_geo)
-		bot.send_message(msg.chat.id, "Отправь мне свой номер телефона или поделись местоположением, жалкий человечишка!", reply_markup=keyboard)
+		markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
+		markup.add('1', '2') #Имена кнопок
+		msg = bot.reply_to(message, 'Test text', reply_markup=markup)
+		bot.register_next_step_handler(msg, process_step)
+
+def process_step(message):
+	chat_id = message.chat.id
+	if message.text=='1':
+		bot.send_message(msg.chat.id, f"1", parse_mode="HTML")
+	else:
+		bot.send_message(msg.chat.id, f"2", parse_mode="HTML")
 	
 def reputation(msg, text):
 	""" TODO """
