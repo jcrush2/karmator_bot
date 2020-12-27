@@ -752,9 +752,11 @@ def commands(msg, text):
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if msg.text.lower() in ['крокодил']:
-		markup = types.InlineKeyboardMarkup()
-		switch_button = types.InlineKeyboardButton(text='Try', switch_inline_query="Telegram")
-		markup.add(switch_button)
+		key = types.InlineKeyboardMarkup()
+		but_1 = types.InlineKeyboardButton(text="Альфредо", callback_data="Альфредо")
+		but_2 = types.InlineKeyboardButton(text="Челентано", callback_data="Челентано")
+		key.add(but_1, but_2)
+		bot.send_message(msg.chat.id, "Кто же твой кумир?", reply_markup=key)
 
 			
 
