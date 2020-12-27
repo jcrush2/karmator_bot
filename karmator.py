@@ -847,10 +847,6 @@ def changing_karma_sticker(msg):
 	
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
-	keyboard = types.InlineKeyboardMarkup()
-	callback_button = types.InlineKeyboardButton(text="Нажми меня", callback_data="test")
-	keyboard.add(callback_button)
-	bot.send_message(msg.chat.id, "sdfsd", reply_markup=keyboard)
 	reputation_mat(msg, msg.text)
 	commands(msg, msg.text)
 	"""
