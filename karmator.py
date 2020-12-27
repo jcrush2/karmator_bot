@@ -764,7 +764,7 @@ def keyboard(msg):
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
 	if call.data == 'add':
-		bot.answer_callback_query(callback_query_id=call.id, text='Hello world')
+		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text='Hello world')
   
 def reputation(msg, text):
 	""" TODO """
