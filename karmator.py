@@ -16,7 +16,7 @@ import config
 main_log.info("Program starting")
 TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
-current_shown_dates = {}
+
 
 
 def is_my_message(msg):
@@ -751,10 +751,16 @@ def commands(msg, text):
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if msg.text.lower() in ['крокодил']:
-		markup = telebot.types.InlineKeyboardMarkup()
-		button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data='add')
-		markup.add(button)
-		bot.send_message(msg.chat.id, text='Some text', reply_markup=markup)
+		now = datetime.datetime.now()  # Текущая дата.
+		chat_id = message.chat.id
+		date = (now.year,now.month)
+
+    # Добавлено создание словаря.
+		current_shown_dates = {}
+
+		current_shown_dates[chat_id] = date  # Сохраним текущую дату в словарь.
+		markup = create_calendar(now.year,now.month)
+		bot.send_message(message.chat.id, "Пожалуйста, выберите дату", reply_markup=markup)
 
 			
 
