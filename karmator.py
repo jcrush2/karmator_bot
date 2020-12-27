@@ -18,7 +18,7 @@ main_log.info("Program starting")
 TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
-
+idchatme ={}
 
 def is_my_message(msg):
 	"""
@@ -712,7 +712,10 @@ def commands(msg, text):
 		
 	if msg.text.lower() in ['купить']:
 		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg, f"💰 Вы можете купить карму, оплатив по <a href='https://khabara.ru/informer.html'>➡️ ссылке</a> за 1 единицу кармы 1р.", parse_mode="HTML")
+		keyboard = types.InlineKeyboardMarkup()
+		url_button = types.InlineKeyboardButton(text="💰 Купить кармы", url="https://khabara.ru/informer.html")
+		keyboard.add(url_button)
+		bot.send_message(msg.chat.id, "Вы можете купить карму, оплатив по кнопке ниже.", reply_markup=keyboard)
 		
 		
 	if msg.text.lower() in ['утра']:
@@ -751,17 +754,18 @@ def commands(msg, text):
 \n🗣Го в Войс Чат!👂\
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
-	if msg.text.lower() in ['крокодил']:
-		markup = telebot.types.InlineKeyboardMarkup()
-		button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data='add')
-		markup.add(button)
-		bot.send_message(msg.from_user.id, text='Some text', reply_markup=markup)
+#	if msg.text.lower() in ['крокодил']:
+#		idchatme='крокодил'
+#		markup = telebot.types.InlineKeyboardMarkup()
+#		button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data='add')
+#		markup.add(button)
+#		bot.send_message(chat_id=msg.chat.id, text='Some text', reply_markup=markup)
 
 
-@bot.callback_query_handler(func=lambda call: True)
-def query_handler(call):
-	if call.data == 'add':
-		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text='собака')
+#@bot.callback_query_handler(func=lambda call: True)
+#def query_handler(call):
+#	if call.data == 'add':
+#		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text='собака')
   
 def reputation(msg, text):
 	""" TODO """
