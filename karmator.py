@@ -755,7 +755,7 @@ def commands(msg, text):
 		markup = telebot.types.InlineKeyboardMarkup()
 		button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data='add')
 		markup.add(button)
-		bot.send_message(chat_id=msg.chat.id, text='Some text', reply_markup=markup)
+		bot.send_message(msg.from_user.id, text='Some text', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
