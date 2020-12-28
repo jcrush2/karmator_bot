@@ -383,7 +383,6 @@ def krasavchik(msg):
 		return
 	if not selected_user:
 		return
-
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
 
 
@@ -518,7 +517,6 @@ def un_mute(msg):
 	Limitation.delete().where(
 		(Limitation.userid == msg.reply_to_message.from_user.id) &
 		(Limitation.chatid == msg.chat.id)).execute()
-
 	bot.send_message(msg.chat.id, "Возможность менять карму возвращена.")
 
 def is_karma_changing(text):
@@ -670,6 +668,7 @@ def is_karma_abuse(msg):
 
 			
 def commands(msg, text):
+
 	if 'бот' in msg.text.lower() or 'скуч' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
 		random_ = (config.bot_words)
@@ -911,7 +910,11 @@ def karma_game(msg):
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 				
-@bot.message_handler(content_types=['dice'])
+def forward(msg):
+	if msg.forward_from_chat != None:
+		bot.delete_message(msg.chat.id, msg.message_id)
+				
+@bot.message_handler(content_types=['dice'], func=forward)
 def send_dice(msg):
 		if is_game_abuse(msg):
 			return
@@ -931,7 +934,7 @@ def send_dice(msg):
 				random_karma = ("-","+")
 				random_karma2 = random.choice(random_karma)
 				bot.send_chat_action(msg.chat.id, "typing")
-								
+#				if msg.dice.value >
 				bot.reply_to(msg, f"Сыграл в карму {random_karma2}{msg.dice.value}", parse_mode="HTML")
 				user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 				if user.status == 'creator':
