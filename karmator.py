@@ -674,7 +674,7 @@ def commands(msg, text):
 		random_ = (config.bot_words)
 		random_bot = random.choice(random_)
 		bot.reply_to(msg, f"{random_bot}", parse_mode="HTML")
-	if msg.reply_to_message.from_user.id == 419583537:
+	if msg.reply_to_message.from_user.id == "419583537":
 		bot.send_chat_action(msg.chat.id, "typing")
 		random_ = (config.bot_words)
 		random_bot = random.choice(random_)
