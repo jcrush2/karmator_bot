@@ -915,7 +915,7 @@ def karma_game(msg):
 @bot.message_handler(content_types=['dice'])
 def send_dice(msg):
 	if msg.forward_from != None:
-		return
+		bot.delete_message(msg.chat.id, msg.message_id)
 	else:
 		if is_game_abuse(msg):
 			return
