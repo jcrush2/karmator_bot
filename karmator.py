@@ -910,11 +910,13 @@ def karma_game(msg):
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 				
-def forward(msg):
-	return msg.forward_from_chat
+
 				
-@bot.message_handler(content_types=['dice'], func=forward)
+@bot.message_handler(content_types=['dice'])
 def send_dice(msg):
+	if msg.forward_from_chat != None:
+		return
+	else:
 		if is_game_abuse(msg):
 			return
 		Limitation.create(
