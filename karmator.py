@@ -690,7 +690,7 @@ def commands(msg, text):
 		random_bot = random.choice(random_)
 		bot.reply_to(msg, f"{random_bot}", parse_mode="HTML")
 	if '!?' in msg.text.lower():
-		random_karma = ("Определенно <b>Да!</b>","<b>Нет</b>, в другой раз.","<b>Я устал</b>, спроси в другой раз.")
+		random_karma = ("Определенно <b>Да!</b>","<b>Нет</b>, в другой раз.","<b>Я устал</b>, спроси потом.")
 		random_karma2 = random.choice(random_karma)
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
@@ -729,7 +729,7 @@ def commands(msg, text):
 	if msg.text.lower() in ['купить']:
 		bot.send_chat_action(msg.chat.id, "typing")
 		keyboard = types.InlineKeyboardMarkup()
-		url_button = types.InlineKeyboardButton(text="💰 Купить кармы", url="https://khabara.ru/informer.html")
+		url_button = types.InlineKeyboardButton(text="💰 Купить кармы - 1р.", url="https://khabara.ru/informer.html")
 		keyboard.add(url_button)
 		bot.send_message(msg.chat.id, "Вы можете купить карму, оплатив по кнопке ниже.", reply_markup=keyboard)
 		
@@ -895,7 +895,6 @@ def karma_game(msg):
 			if user.karma > 0:
 				if msg.text.lower() == 'тиндер':
 					tinder(msg)
-					
 	
 				if msg.text.lower() == 'играть':
 					random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
@@ -938,8 +937,6 @@ def send_dice(msg):
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
 			if user.karma > 65:
-				
-
 				bot.send_chat_action(msg.chat.id, "typing")
 				random_karma = ("-","+")
 				random_karma2 = random.choice(random_karma)
