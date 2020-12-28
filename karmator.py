@@ -912,7 +912,7 @@ def karma_game(msg):
 				
 def forward(msg):
 	if msg.forward_from_chat != None:
-		bot.delete_message(msg.chat.id, msg.message_id)
+#		bot.delete_message(msg.chat.id, msg.message_id)
 				
 @bot.message_handler(content_types=['dice'], func=forward)
 def send_dice(msg):
