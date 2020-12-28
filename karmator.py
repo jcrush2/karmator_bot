@@ -197,12 +197,6 @@ def change_karma(user, chat, result):
 							(KarmaUser.chatid == chat.id))
 	update_user.execute()
 	
-	
-	
-	
-
-
-
 
 @bot.message_handler(commands=["my"], func=is_my_message)
 def my_karma(msg):
@@ -320,7 +314,7 @@ def top_best(msg):
 		else:
 			name = user.user_nick.strip()
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status != 'left' :
+		if userstatus.status != 'left' or name != "":
 			top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
@@ -686,7 +680,7 @@ def is_karma_abuse(msg):
 def commands(msg, text):
 	if 'бот' in msg.text.lower() or 'скуч' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
-		random_ = ("Привет, я тут!","Сегодня отличны день!","Привет, как дела?", "Да.","Хорошо","Я знаю","Сколько тебе лет?","Кстати, мой мозг умещается в одном файле","Познакомимся?","Чем ты отличаешься?","Я бот","Мне это тоже интересно.","Расскажи о себе?","Ты кто?","Давай целоваться?","не тупи","О да","Тебе это действительно интересно или так?","Подумай и приходи с готовым ответом.","Да, я буду править миром.","с тобой так интересно","чем занимаешься?","думаю да","Зачем?","что дальше?","Ты часто разговариваешь с ботами?","а ты подумай","думаешь?","нет конечно","колобок повесился","не понял","я тоже так думаю","Привет! Познакомимся?","поздравляю","что нет?")
+		random_ = (config.bot_words)
 		random_bot = random.choice(random_)
 		bot.reply_to(msg, f"{random_bot}", parse_mode="HTML")
 	if '!?' in msg.text.lower():
