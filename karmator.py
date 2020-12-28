@@ -674,10 +674,7 @@ def commands(msg, text):
 		random_ = (config.bot_words)
 		random_bot = random.choice(random_)
 		bot.reply_to(msg, f"{random_bot}", parse_mode="HTML")
-	if msg.reply_to_message.user.user_name.strip() == "ХабКарма":
-		bot.send_chat_action(msg.chat.id, "typing")
-		random_ = (config.bot_words)
-		random_bot = random.choice(random_)
+
 	if '!?' in msg.text.lower():
 		random_karma = ("Определенно <b>Да!</b>","<b>Нет</b>, в другой раз.","<b>Я устал</b>, спроси потом.")
 		random_karma2 = random.choice(random_karma)
