@@ -116,18 +116,6 @@ def nos(msg):
 		bot.reply_to(msg,nos_text)
 		bot.delete_message(msg.chat.id, msg.message_id)
 
-		
-@bot.message_handler(commands=["love"], func=is_my_message)
-def loves(msg):
-	"""
-	Функция, для Знакомства
-	"""
-	main_log.info("Starting func 'loves'")
-	if len(msg.text.split()) == 1:
-		bot.delete_message(msg.chat.id, msg.message_id)
-		return
-	loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
-	bot.reply_to(msg, loves_text, parse_mode="HTML")
 	
 
 def select_user(user, chat):
@@ -488,15 +476,7 @@ def vote_da_net(msg):
 	result = msg.text.split()[1]
 	bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
 	
-@bot.message_handler(commands=["v"])
-def v_yes_no(msg):
-	if len(msg.text.split()) == 1:
-		bot.delete_message(msg.chat.id, msg.message_id)
-		return
-	random_karma = ("Определенно <b>Да!</b>","<b>Нет</b>, в другой раз.")
-	random_karma2 = random.choice(random_karma)
-	bot.send_chat_action(msg.chat.id, "typing")
-	bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
+
 
 
 @bot.message_handler(commands=["gift"])
@@ -704,11 +684,27 @@ def is_karma_abuse(msg):
 
 			
 def commands(msg, text):
-	if 'бот' in msg.text.lower():
+	if 'бот' in msg.text.lower() or 'скуч' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
 		random_ = ("Привет, я тут!","Сегодня отличны день!","Привет, как дела?", "Да.","Хорошо","Я знаю","Сколько тебе лет?","Кстати, мой мозг умещается в одном файле","Познакомимся?","Чем ты отличаешься?","Я бот","Мне это тоже интересно.","Расскажи о себе?","Ты кто?","Давай целоваться?","не тупи","О да","Тебе это действительно интересно или так?","Подумай и приходи с готовым ответом.","Да, я буду править миром.","с тобой так интересно","чем занимаешься?","думаю да","Зачем?","что дальше?","Ты часто разговариваешь с ботами?","а ты подумай","думаешь?","нет конечно","колобок повесился","не понял","я тоже так думаю","Привет! Познакомимся?","поздравляю","что нет?")
 		random_bot = random.choice(random_)
 		bot.reply_to(msg, f"{random_bot}", parse_mode="HTML")
+	if '!?' in msg.text.lower():
+		random_karma = ("Определенно <b>Да!</b>","<b>Нет</b>, в другой раз.","<b>Я устал</b>, спроси в другой раз.")
+		random_karma2 = random.choice(random_karma)
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
+		
+	if ' vs ' in msg.text.lower():
+		random_karma = ("2️⃣ Определенно второе","1️⃣ Определенно первое")
+		random_karma2 = random.choice(random_karma)
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
+		
+	if 'love' in msg.text.lower():
+		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
+		bot.reply_to(msg, loves_text, parse_mode="HTML")
+	
 	if msg.text.lower() in ['язабан']:
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
 		if user.status == 'administrator' or user.status == 'creator':
