@@ -68,9 +68,7 @@ def helps(msg):
 	\n/my - Посмотреть свою карму.\
 	\n/top - Узнать наиболее благодаримых в чате.\
 	\n<b>тиндер</b> - Найти пару.\
-	\n<b>вабанк</b> - Карма -5 или +5.\
-	\n<b>играть</b> - Рандом от -1 до +3.\
-	\n<b>купить</b> - Купить карму.\
+	\n<b>🎲🎰🏀🎳⚽️</b> - Рандом кармы.\
 	\n/gift - Подарить +5 карму.\
 	\n/freez - Заморозка кармы.\
 	\n/unfreez - Разморозка."
@@ -668,8 +666,10 @@ def is_karma_abuse(msg):
 
 			
 def commands(msg, text):
+	
+	
 
-	if 'бот' in msg.text.lower() or 'скуч' in msg.text.lower():
+	if 'бот ' in msg.text.lower() or ' бот' in msg.text.lower() or 'скуч' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
 		random_ = (config.bot_words)
 		random_bot = random.choice(random_)
@@ -868,7 +868,7 @@ def karma_game(msg):
 	"""
 	Функция играть в карму.
 	"""
-	if msg.text.lower() in ['играть', 'вабанк', 'тиндер']:
+	if msg.text.lower() in ['тиндер']:
 		if is_game_abuse(msg):
 			return
 		Limitation.create(
@@ -883,31 +883,7 @@ def karma_game(msg):
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
 			if user.karma > 0:
-				if msg.text.lower() == 'тиндер':
 					tinder(msg)
-	
-				if msg.text.lower() == 'играть':
-					random_karma = ("+1", "-1", "-2", "+2", "+3", "-3")
-					random_karma2 = random.choice(random_karma)
-					change_karma(msg.from_user, msg.chat, random_karma2)
-					random_karma3 = f"🎲 Сыграл в карму <b>{random_karma2}</b>."
-					bot.send_chat_action(msg.chat.id, "typing")
-					bot.reply_to(msg, random_karma3, parse_mode="HTML")
-		
-	
-				if msg.text.lower() == 'вабанк':
-
-					if user.karma > 5:
-						random_karma = ("+5", "-5")
-						random_karma2 = random.choice(random_karma)
-						change_karma(msg.from_user, msg.chat, random_karma2)
-						random_karma3 = f"🎰 Сыграл вабанк <b>{random_karma2}</b>."
-						bot.send_chat_action(msg.chat.id, "typing")
-						bot.reply_to(msg, random_karma3, parse_mode="HTML")
-					else:
-						podarok = f"🎁 Нехватает кармы для ставки +5."
-						bot.send_chat_action(msg.chat.id, "typing")
-						bot.reply_to(msg, podarok, parse_mode="HTML")
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 				
@@ -931,7 +907,7 @@ def send_dice(msg):
 		if user.is_freezed:
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
-			if user.karma > 65:
+			if user.karma > msg.dice.value:
 				bot.send_chat_action(msg.chat.id, "typing")
 				random_karma = ("-","+")
 				random_karma2 = random.choice(random_karma)
