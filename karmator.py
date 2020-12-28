@@ -462,14 +462,6 @@ def gods(msg):
 	bot.delete_message(msg.chat.id, msg.message_id)
 	
 	
-@bot.message_handler(commands=["vote"])
-def vote_da_net(msg):
-	if len(msg.text.split()) == 1:
-		bot.delete_message(msg.chat.id, msg.message_id)
-		return
-	result = msg.text.split()[1]
-	bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
-	
 
 
 
@@ -688,6 +680,9 @@ def commands(msg, text):
 		random_karma2 = random.choice(random_karma)
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
+	if '!v' in msg.text.lower():
+		result = msg.text.split()[1]
+		bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
 		
 	if ' vs ' in msg.text.lower():
 		random_karma = ("2️⃣ Определенно второе","1️⃣ Определенно первое")
