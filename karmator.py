@@ -681,7 +681,8 @@ def commands(msg, text):
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
 	if '!v' in msg.text.lower():
-		result = string.replace(msg.text,"!v", "")
+		result = msg.text.split()[0]
+		result = result.replace(msg.text,msg.text.split()[0], "")
 		bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
 		
 	if ' vs ' in msg.text.lower():
