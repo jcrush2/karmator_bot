@@ -911,8 +911,7 @@ def karma_game(msg):
 				bot.delete_message(msg.chat.id, msg.message_id)
 				
 def forward(msg):
-	if msg.forward_from_chat != None:
-		print("это пересланное сообщение")
+	return msg.forward_from_chat
 				
 @bot.message_handler(content_types=['dice'], func=forward)
 def send_dice(msg):
