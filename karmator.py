@@ -766,7 +766,7 @@ def commands(msg, text):
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 		
-	if f"{database.get(saves_database)}" in msg.text.lower():
+	if f"{saves_database[database]}" == msg.text.lower():
 		bot.send_message(msg.chat.id,f"{saves_database[database]}", parse_mode="HTML")
 
 #	if msg.text.lower() in ['играть']:
