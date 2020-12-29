@@ -787,7 +787,6 @@ def commands(msg, text):
 #		markup.add(button)
 #		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 
-
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
 	if  f"{call.from_user.id}" == f"{call.data}":
