@@ -19,6 +19,7 @@ TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
 saves_database = {}
+database=""
 
 def is_my_message(msg):
 	"""
@@ -766,9 +767,9 @@ def commands(msg, text):
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 		
 	if msg.text.lower() in ['кр']:
-		saves_database[msg.chat.id] = random.choice(config.kroko_words)
+		saves_database[database] = random.choice(config.kroko_words)
 	if msg.text.lower() in ['крк']:
-		bot.reply_to(msg.reply_to_message,f"{saves_database[msg.chat.id]}", parse_mode="HTML")
+		bot.reply_to(msg.reply_to_message,f"{saves_database[database]}", parse_mode="HTML")
 
 #	if msg.text.lower() in ['играть']:
 
