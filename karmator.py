@@ -763,17 +763,17 @@ def commands(msg, text):
 	if msg.text.lower() in ['крокодил']:
 
 		markup = telebot.types.InlineKeyboardMarkup()
-		button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data=msg.from_user.id)
+		button = telebot.types.InlineKeyboardButton(text='🐊 Посмотреть слово', callback_data=msg.from_user.id)
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text='Some text', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
-	if f"{call.data}" == f"{call.from_user.id}":
-		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text='собака')
+	if  f"{call.from_user.id}" == f"{call.data}":
+		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=config.kroko_words)
 	else:
-		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"{call.from_user.id}---{call.data}")
+		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
   
 def reputation(msg, text):
