@@ -760,18 +760,18 @@ def commands(msg, text):
 \n🗣Го в Войс Чат!👂\
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
-#	if msg.text.lower() in ['крокодил']:
-#		idchatme='крокодил'
-#		markup = telebot.types.InlineKeyboardMarkup()
-#		button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data='add')
-#		markup.add(button)
-#		bot.send_message(chat_id=msg.chat.id, text='Some text', reply_markup=markup)
+	if msg.text.lower() in ['крокодил']:
+
+		markup = telebot.types.InlineKeyboardMarkup()
+		button = telebot.types.InlineKeyboardButton(text='CLick me', callback_data=f'Посмотреть слово {msg.from_user.id}')
+		markup.add(button)
+		bot.send_message(chat_id=msg.chat.id, text='Some text', reply_markup=markup)
 
 
-#@bot.callback_query_handler(func=lambda call: True)
-#def query_handler(call):
-#	if call.data == 'add':
-#		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text='собака')
+@bot.callback_query_handler(func=lambda call: True)
+def query_handler(call):
+	if call.from_user.id == call.data.split()[3]:
+		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text='собака')
   
 def reputation(msg, text):
 	""" TODO """
