@@ -773,7 +773,8 @@ def query_handler(call):
 	if call.from_user.id == call.data.split()[2]:
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text='собака')
 	else:
-		bot.send_message(msg.chat.id,f"{call.from_user.id}---{call.data.split()[2]}", parse_mode="HTML")
+		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"{call.from_user.id}---{call.data.split()[2]}")
+		
   
 def reputation(msg, text):
 	""" TODO """
