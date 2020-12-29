@@ -768,7 +768,7 @@ def commands(msg, text):
 	seves = f"{saves_database.get(database)}"
 	if msg.text.lower() in ['кр']:
 		bot.send_message(msg.chat.id,f"{seves}", parse_mode="HTML")
-	if seves == msg.text.lower():
+	if seves in msg.text.lower():
 		bot.send_message(msg.chat.id,f"{saves_database[database]}", parse_mode="HTML")
 
 #	if msg.text.lower() in ['играть']:
