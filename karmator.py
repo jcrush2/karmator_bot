@@ -785,7 +785,7 @@ def commands(msg, text):
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 	seves = saves_database.get(database)
-	if seves.lower() == msg.text.lower():
+	if msg.text.lower() == seves:
 	
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы", parse_mode="HTML")
