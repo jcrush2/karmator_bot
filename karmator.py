@@ -759,7 +759,7 @@ def commands(msg, text):
 \n🗣Го в Войс Чат!👂\
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
-	if 'крокодил ' in msg.text.lower():
+	if '!крокодил ' in msg.text.lower():
 
 		result = msg.text.split()[1].lower()
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал свой слово.', parse_mode="HTML")
