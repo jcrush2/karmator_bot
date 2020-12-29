@@ -760,10 +760,11 @@ def commands(msg, text):
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if 'крокодил ' in msg.text.lower():
-		result = msg.text.lower()
-		result = msg.text.split()[1]
+
+		result = msg.text.split()[1].lower()
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал свой слово.', parse_mode="HTML")
 		bot.delete_message(msg.chat.id, msg.message_id)
+		saves_database[database] = result
 
 	if msg.text.lower() in ['крокодил']:
 
