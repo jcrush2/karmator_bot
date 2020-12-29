@@ -761,14 +761,14 @@ def commands(msg, text):
 	if msg.text.lower() in ['крокодил']:
 
 		markup = telebot.types.InlineKeyboardMarkup()
-		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=f"1_{msg.from_user.id})
+		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=f"1_{msg.from_user.id}")
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 
 	if msg.text.lower() in ['играть']:
 
 		markup = telebot.types.InlineKeyboardMarkup()
-		button = telebot.types.InlineKeyboardButton(text='играть', callback_data=f"2_{msg.from_user.id})
+		button = telebot.types.InlineKeyboardButton(text='играть', callback_data=f"2_{msg.from_user.id}")
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 
