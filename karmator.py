@@ -763,7 +763,7 @@ def commands(msg, text):
 		markup = telebot.types.InlineKeyboardMarkup()
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
 		markup.add(button)
-		bot.reply_to(msg.reply_to_message, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
+		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
