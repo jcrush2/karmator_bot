@@ -769,7 +769,7 @@ def commands(msg, text):
 	if msg.text.lower() in ['кр']:
 		saves_database[database] ="тест"
 		bot.send_message(msg.chat.id,f"{seves}", parse_mode="HTML")
-	if seves == msg.text.lower():
+	if seves.lower() in msg.text.lower():
 		bot.send_message(msg.chat.id,f"{seves}", parse_mode="HTML")
 
 #	if msg.text.lower() in ['играть']:
@@ -784,7 +784,7 @@ def commands(msg, text):
 def query_handler(call):
 	if  f"{call.from_user.id}" == f"{call.data}":
 		
-		saves_database[database] = f"{random.choice(config.kroko_words)}"
+		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 	
 #	if  call.data == "pravda":
