@@ -769,7 +769,7 @@ def commands(msg, text):
 	if msg.text.lower() in ['кр']:
 		saves_database[database] = random.choice(config.kroko_words)
 	if msg.text.lower() in ['крк']:
-		bot.reply_to(msg.reply_to_message,f"{saves_database[database]}", parse_mode="HTML")
+		bot.send_message(msg.chat.id,f"{saves_database[database]}", parse_mode="HTML")
 
 #	if msg.text.lower() in ['играть']:
 
