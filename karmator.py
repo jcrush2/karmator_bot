@@ -725,9 +725,9 @@ def commands(msg, text):
 	if msg.text.lower() in ['чат']:
 		bot.send_chat_action(msg.chat.id, "typing")
 		keyboard = types.InlineKeyboardMarkup()
-		url_button = types.InlineKeyboardButton(text="WhatsApp", url="https://api.whatsapp.com/send?text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
-		url_button = types.InlineKeyboardButton(text="WhatsApp", url="https://api.whatsapp.com/send?text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
-		keyboard.add(url_button)
+		url_button1 = types.InlineKeyboardButton(text="WhatsApp", url="https://api.whatsapp.com/send?text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
+		url_button2 = types.InlineKeyboardButton(text="WhatsApp", url="https://api.whatsapp.com/send?text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
+		keyboard.add(url_button1).add(url_button2)
 		bot.send_message(msg.chat.id, "Пригласи в ХабЧат друзей из других мессенджеров и соцсетей:", reply_markup=keyboard)
 		
 		
