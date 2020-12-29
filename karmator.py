@@ -762,7 +762,7 @@ def commands(msg, text):
 	if '!крокодил ' in msg.text.lower():
 
 		result = msg.text.split()[1].lower()
-		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал свой слово.', parse_mode="HTML")
+		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
 		bot.delete_message(msg.chat.id, msg.message_id)
 		saves_database[database] = result
 
@@ -771,7 +771,7 @@ def commands(msg, text):
 		markup = telebot.types.InlineKeyboardMarkup()
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
 		markup.add(button)
-		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
+		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 	seves = saves_database.get(database)
 	if seves.lower() in msg.text.lower():
 	
