@@ -63,7 +63,7 @@ def helps(msg):
 	\n/weather - Погода. \
 	\n/no - Для объявлений. \
 	\n/report - Отправить жалобу.\
-	\n\n<b>утра, цитата, превед, фсб, фото, войс, язаБан</b> - Ответом на сообщение.\
+	\n\n<b>утра, цитата, превед, фсб, фото, войс, !?, !v, vs, язаБан</b> - Ответом на сообщение.\
 	\n\n<b>Карма:</b>\
 	\n/my - Посмотреть свою карму.\
 	\n/top - Узнать наиболее благодаримых в чате.\
@@ -675,12 +675,12 @@ def commands(msg, text):
 		random_bot = random.choice(random_)
 		bot.reply_to(msg, f"{random_bot}", parse_mode="HTML")
 
-	if '!?' in msg.text.lower():
+	if '!? ' in msg.text.lower():
 		random_karma = ("Определенно <b>Да!</b>","<b>Нет</b>, в другой раз.","<b>Я устал</b>, спроси потом.")
 		random_karma2 = random.choice(random_karma)
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
-	if '!v' in msg.text.lower():
+	if '!v ' in msg.text.lower():
 		result = msg.text.lower()
 		result = result.replace(msg.text.split()[0], "")
 		bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
