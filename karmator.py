@@ -765,12 +765,12 @@ def commands(msg, text):
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 
-	if msg.text.lower() in ['играть']:
+#	if msg.text.lower() in ['играть']:
 
-		markup = telebot.types.InlineKeyboardMarkup()
-		button = telebot.types.InlineKeyboardButton(text='играть', callback_data="pravda")
-		markup.add(button)
-		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
+#		markup = telebot.types.InlineKeyboardMarkup()
+#		button = telebot.types.InlineKeyboardButton(text='играть', callback_data="pravda")
+#		markup.add(button)
+#		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -778,8 +778,9 @@ def query_handler(call):
 	if  f"{call.from_user.id}" == f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=random.choice(config.kroko_words))
 	
-	if  call.data == "pravda":
-		bot.delete_message(call.chat.id, call.message_id)
+#	if  call.data == "pravda":
+#		bot.delete_message(call.id, call.message_id)
+		
 	if  f"{call.from_user.id}" != f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
