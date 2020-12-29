@@ -759,6 +759,12 @@ def commands(msg, text):
 \n🗣Го в Войс Чат!👂\
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
+	if 'крокодил ' in msg.text.lower():
+		result = msg.text.lower()
+		result = msg.text.split()[1]
+		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал свой слово.', parse_mode="HTML")
+		bot.delete_message(msg.chat.id, msg.message_id)
+
 	if msg.text.lower() in ['крокодил']:
 
 		markup = telebot.types.InlineKeyboardMarkup()
