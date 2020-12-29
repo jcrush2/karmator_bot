@@ -771,7 +771,7 @@ def commands(msg, text):
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы", parse_mode="HTML")
 		change_karma(msg.from_user, msg.chat, 3)
-		seves ="dse4f"
+		saves_database[database] = "dse4f"
 
 #	if msg.text.lower() in ['играть']:
 
