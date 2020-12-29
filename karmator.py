@@ -767,12 +767,9 @@ def commands(msg, text):
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 	seves = saves_database.get(database)
 	if seves.lower() in msg.text.lower():
-		if msg.reply_to_message:
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg.reply_to_message,f"🎉 Это правильный ответ: {seves}", parse_mode="HTML")
-		else:
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.send_message(msg.chat.id,f"🎉 Это правильный ответ: {seves}", parse_mode="HTML")
+	
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.reply_to(msg,f"🎉 Это правильный ответ: <b>{seves}</b>", parse_mode="HTML")
 
 #	if msg.text.lower() in ['играть']:
 
