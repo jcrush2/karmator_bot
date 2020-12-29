@@ -784,7 +784,7 @@ def commands(msg, text):
 def query_handler(call):
 	if  f"{call.from_user.id}" == f"{call.data}":
 		
-		saves_database[database] = random.choice(config.kroko_words)
+		saves_database[database] = f"{random.choice(config.kroko_words)}"
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 	
 #	if  call.data == "pravda":
