@@ -313,7 +313,7 @@ def top_best(msg):
 		else:
 			name = user.user_nick.strip()
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status != 'left':
+		if userstatus.status != 'left' or userstatus.status != 'kicked':
 			top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
@@ -769,7 +769,9 @@ def commands(msg, text):
 	if seves.lower() in msg.text.lower():
 	
 		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg,f"🎉 Это правильный ответ: <b>{seves}</b>", parse_mode="HTML")
+		bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы", parse_mode="HTML")
+		change_karma(msg.from_user, msg.chat, 3)
+		seves ="dse4f"
 
 #	if msg.text.lower() in ['играть']:
 
