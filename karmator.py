@@ -668,7 +668,7 @@ def is_karma_abuse(msg):
 			
 def commands(msg, text):
 	
-	
+	main_log.info("Starting func 'commands'")
 
 	if 'бот ' in msg.text.lower() or ' бот' in msg.text.lower() or 'скуч' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
@@ -769,7 +769,7 @@ def commands(msg, text):
 	if msg.text.lower() in ['кр']:
 		bot.send_message(msg.chat.id,f"{seves}", parse_mode="HTML")
 	if msg.text.lower() == seves:
-		bot.send_message(msg.chat.id,f"{saves_database[database]}", parse_mode="HTML")
+		bot.send_message(msg.chat.id,f"{seves}", parse_mode="HTML")
 
 #	if msg.text.lower() in ['играть']:
 
