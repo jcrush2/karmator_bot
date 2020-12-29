@@ -63,7 +63,7 @@ def helps(msg):
 	\n/weather - Погода. \
 	\n/no - Для объявлений. \
 	\n/report - Отправить жалобу.\
-	\n\n<b>утра, цитата, превед, фсб, фото, войс, !?, !v, vs, язаБан</b> - Ответом на сообщение.\
+	\n\n<b>утра, цитата, превед, фсб, фото, войс, крокодил, !?, !v, vs, язаБан</b> - Ответом на сообщение.\
 	\n\n<b>Карма:</b>\
 	\n/my - Посмотреть свою карму.\
 	\n/top - Узнать наиболее благодаримых в чате.\
@@ -763,7 +763,7 @@ def commands(msg, text):
 		markup = telebot.types.InlineKeyboardMarkup()
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
 		markup.add(button)
-		bot.send_message(chat_id=msg.chat.id, text=f'🐊 <b>{msg.from_user.first_name}</b> загадал слово.', reply_markup=markup)
+		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
