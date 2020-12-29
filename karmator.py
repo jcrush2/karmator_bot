@@ -18,7 +18,7 @@ main_log.info("Program starting")
 TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
-saves_database = {"dfdsfs4s"}
+saves_database = {}
 database="dss4fgfd"
 
 def is_my_message(msg):
