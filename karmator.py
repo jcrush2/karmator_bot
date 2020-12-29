@@ -724,15 +724,14 @@ def commands(msg, text):
 		
 	if 'чат' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
-		keyboard = types.InlineKeyboardMarkup(row_width=2)
+		keyboard = types.InlineKeyboardMarkup()
 		url_button1 = types.InlineKeyboardButton(text="Telegram", url="https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
 		url_button2 = types.InlineKeyboardButton(text="WhatsApp", url="https://api.whatsapp.com/send?text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
 		url_button3 = types.InlineKeyboardButton(text="ВК", url="https://vk.com/share.php?url=https://t.me/khvchat&title=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
 		
 		url_button4 = types.InlineKeyboardButton(text="OK", url="https://connect.ok.ru/offer?url=https://t.me/khvchat&title=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
 		
-		
-		keyboard.add(url_button1).add(url_button2).add(url_button3).add(url_button4)
+		keyboard.row(url_button1, url_button2, url_button3, url_button4)
 		bot.send_message(msg.chat.id, "Пригласи в ХабЧат друзей из других мессенджеров и соцсетей:", reply_markup=keyboard)
 		
 		
