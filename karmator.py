@@ -770,7 +770,7 @@ def commands(msg, text):
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
-	if call.from_user.id ==call.data.split()[2]:
+	if call.data.split()[2]==call.from_user.id:
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text='собака')
 	else:
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"{call.from_user.id}---{call.data.split()[2]}")
