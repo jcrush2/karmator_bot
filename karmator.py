@@ -777,7 +777,7 @@ def commands(msg, text):
 def query_handler(call):
 	if  f"{call.from_user.id}" == f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=random.choice(config.kroko_words))
-	if  f"1_{call.from_user.id}" != f"1_{call.data}":
+	if  f"{call.from_user.id}" != f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 	if  call.data == "pravda":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text="fdsf")
