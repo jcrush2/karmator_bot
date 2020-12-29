@@ -765,8 +765,7 @@ def commands(msg, text):
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
-		
-	if saves_database.get(database) == msg.text.lower():
+	if saves_database.get(database, "fdfd") in msg.text.lower():
 		bot.send_message(msg.chat.id,f"{saves_database[database]}", parse_mode="HTML")
 
 #	if msg.text.lower() in ['играть']:
