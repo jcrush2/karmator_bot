@@ -18,7 +18,7 @@ main_log.info("Program starting")
 TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
-
+saves_database = {}
 
 def is_my_message(msg):
 	"""
@@ -764,6 +764,11 @@ def commands(msg, text):
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
+		
+	if msg.text.lower() in ['кр']:
+		saves_database[database] = random.choice(config.kroko_words)
+	if msg.text.lower() in ['крк']:
+		bot.reply_to(msg.reply_to_message,f"{saves_database[database]}", parse_mode="HTML")
 
 #	if msg.text.lower() in ['играть']:
 
@@ -776,6 +781,8 @@ def commands(msg, text):
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
 	if  f"{call.from_user.id}" == f"{call.data}":
+		
+		
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=random.choice(config.kroko_words))
 	
 #	if  call.data == "pravda":
