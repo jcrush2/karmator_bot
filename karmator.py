@@ -779,7 +779,7 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=random.choice(config.kroko_words))
 	
 	if  call.data == "pravda":
-		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text="fdsf")
+		bot.delete_message(msg.chat.id, call.message_id)
 	if  f"{call.from_user.id}" != f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
