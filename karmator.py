@@ -310,7 +310,7 @@ def top_best(msg):
 		else:
 			name = user.user_nick.strip()
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status != 'left' or userstatus.status != 'kicked' or userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
+		if userstatus.status != 'left' or userstatus.status != 'kicked' or userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or name!="":
 			top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
@@ -336,7 +336,7 @@ def tinder(msg):
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-	if userstatus.status != 'left' or userstatus.status != 'kicked' or userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
+	if userstatus.status != 'left' or userstatus.status != 'kicked' or userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or name!="":
 		random_karma = ("+1", "+2", "+3")
 		random_karma2 = random.choice(random_karma)
 		change_karma(userstatus.user, msg.chat, random_karma2)
@@ -369,7 +369,7 @@ def krasavchik(msg):
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-	if userstatus.status != 'left' or userstatus.status != 'kicked' or userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
+	if userstatus.status != 'left' or userstatus.status != 'kicked' or userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or name!="":
 		top_mess = f"🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}. 🎁 +5 кармы."
 		change_karma(userstatus.user, msg.chat, 5)
 	else:
