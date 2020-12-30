@@ -249,7 +249,7 @@ def my_karma(msg):
 	if 1000 <= user.karma < 1200: user_rang = "🏹\n      <code>Вождь</code>"
 	if 1200 <= user.karma < 1500: user_rang = "✝️\n      <code>Бог</code>"
 	if 1500 <= user.karma < 2800: user_rang = "⚡️\n      <code>Верховный Бог</code>"
-	if 1800 <= user.karma < 2000: user_rang = "⚡⚡️⚡️️\n      <code>Пантеон</code>"
+	if 1800 <= user.karma < 2000: user_rang = "⚡⚡️️️\n      <code>Пантеон</code>"
 	if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>\n"
 
 	now_karma = f"Карма у {name}: <b>{user.karma}</b> {user_rang}."
@@ -306,7 +306,7 @@ def top_best(msg):
 		if 1000 <= user.karma < 1200: user_rang = "🏹\n      <code>Вождь</code>"
 		if 1200 <= user.karma < 1500: user_rang = "✝️\n      <code>Бог</code>"
 		if 1500 <= user.karma < 2800: user_rang = "⚡️\n      <code>Верховный Бог</code>"
-		if 1800 <= user.karma < 2000: user_rang = "⚡⚡️⚡️️\n      <code>Пантеон</code>"
+		if 1800 <= user.karma < 2000: user_rang = "⚡⚡️️️\n      <code>Пантеон</code>"
 		if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>\n"
 	
 		if user.user_name:
