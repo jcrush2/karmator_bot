@@ -272,9 +272,6 @@ def top_best(msg):
 	user_rang = "🤖 Бот"
 	top_mess = "📈 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
-#		userdel = KarmaUser.chatid
-#		if userdel.status != 'member':
-#			change_karma(msg.from_user, msg.chat, random_karma2)
 			
 		if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
 		if 10 <= user.karma < 20: user_rang = "🤫\n      <code>Тихоня</code>"
@@ -324,9 +321,8 @@ def tinder(msg):
 	"""
 	Функция которая выводит пару дня
 	"""
-	main_log.info("Starting func 'tinder'")
+	bot.send_chat_action(msg.chat.id, "typing")
 	bot.send_message(msg.chat.id, "Анализирую параметры совместимости...", parse_mode="HTML")
-	main_log.info("Starting func 'tinder'")
 	bot.send_chat_action(msg.chat.id, "typing")
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
@@ -339,8 +335,6 @@ def tinder(msg):
 		else:
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
-	
-			
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 	if userstatus.status != 'left' :
 		random_karma = ("+1", "+2", "+3")
@@ -383,8 +377,6 @@ def krasavchik(msg):
 	if not selected_user:
 		return
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
-
-
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
 def top_bad(msg):
@@ -458,10 +450,6 @@ def gods(msg):
 	result = int(msg.text.split()[1])
 	change_karma(msg.reply_to_message.from_user, msg.chat, result)
 	bot.delete_message(msg.chat.id, msg.message_id)
-	
-	
-
-
 
 @bot.message_handler(commands=["gift"])
 def gift_karma(msg):
@@ -499,8 +487,6 @@ def gift_karma(msg):
 			else:
 				bot.send_chat_action(msg.chat.id, "typing")
 				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
-				
-				
 	else:
 		return
 
@@ -520,7 +506,6 @@ def un_mute(msg):
 
 def is_karma_changing(text):
 	result = []
-
 	# Проверка изменения кармы по смайликам
 	if len(text) == 1:
 		if text in config.good_emoji:
@@ -583,7 +568,6 @@ def is_karma_changing_mat(text):
 
 	return result
 
-
 def is_karma_freezed(msg):
 	"""
 	Функция для проверки индивидуальной блокировки кармы.
@@ -608,7 +592,6 @@ def is_karma_freezed(msg):
 				name = req.user_name.strip()
 			else:
 				name = req.user_nick.strip()
-
 			# Сообщение, у кого именно заморожена карма
 #			reply_text = f"Юзер: {name}.\nСтатус кармы: Заморожена."
 #			bot.send_message(msg.chat.id, reply_text)
@@ -618,7 +601,6 @@ def is_karma_freezed(msg):
 
 def is_game_abuse(msg):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-#	if user.status == 'administrator' or user.status == 'creator':
 	if user.status == 'creator':
 		return
 	random_karma = ("5", "10", "20", "30", "30", "50", "60")
@@ -632,15 +614,12 @@ def is_game_abuse(msg):
 	if len(limitation_request) > 1:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
-		reply_text = f"Возможность играть появится позже."
 		bot.delete_message(msg.chat.id, msg.message_id)
-#		bot.send_message(msg.chat.id, reply_text)
 		return True
 	return False
 	
 def is_karma_abuse(msg):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-#	if user.status == 'administrator' or user.status == 'creator':
 	if user.status == 'creator':
 		return
 	random_karma = ("5", "10", "20", "30", "30", "50", "60")
@@ -654,8 +633,6 @@ def is_karma_abuse(msg):
 	if len(limitation_request) > 1:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
-		reply_text = f"Возможность играть с кармой будет доступна с: {timer}"
-#		bot.send_message(msg.chat.id, reply_text)
 		return True
 	return False
 
@@ -663,8 +640,6 @@ def is_karma_abuse(msg):
 #def pola(polle):
 #	bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
 #	bot.send_message(msg, polle, parse_mode="HTML")
-    
-
 			
 def commands(msg, text):
 	
@@ -675,9 +650,9 @@ def commands(msg, text):
 		bot.reply_to(msg, f"{random.choice(config.bot_words)}", parse_mode="HTML")
 
 	if '!? ' in msg.text.lower():
-		random_karma = ("Определенно <b>Да!</b>","<b>Нет</b>, в другой раз.","<b>Я устал</b>, спроси потом.")
-		random_karma2 = random.choice(random_karma)
 		bot.send_chat_action(msg.chat.id, "typing")
+		random_karma = ("Абсолютно точно!","Да.","Нет.","Скорее да, чем нет.","Не уверен...","Однозначно нет!","Если ты не фанат аниме, у тебя все получится!","Можешь быть уверен в этом.","Перспективы не очень хорошие.","А как же иначе?.","Да, но если только ты не смотришь аниме.","Знаки говорят - да.","Не знаю.","Мой ответ - нет.","Весьма сомнительно.","Не могу дать точный ответ.")
+		random_karma2 = random.choice(random_karma)
 		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
 	if '!v ' in msg.text.lower():
 		result = msg.text.lower()
@@ -685,9 +660,9 @@ def commands(msg, text):
 		bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
 		
 	if ' vs ' in msg.text.lower():
+		bot.send_chat_action(msg.chat.id, "typing")
 		random_karma = ("2️⃣ Определенно второе","1️⃣ Определенно первое")
 		random_karma2 = random.choice(random_karma)
-		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
 		
 	if 'love' in msg.text.lower():
@@ -716,14 +691,12 @@ def commands(msg, text):
 		bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 		
 	if msg.text.lower() in ['купить']:
-		bot.send_chat_action(msg.chat.id, "typing")
 		keyboard = types.InlineKeyboardMarkup()
 		url_button = types.InlineKeyboardButton(text="💰 Купить кармы - 1р.", url="https://khabara.ru/informer.html")
 		keyboard.add(url_button)
 		bot.send_message(msg.chat.id, "Вы можете купить карму, оплатив по кнопке ниже.", reply_markup=keyboard)
 		
 	if 'чат' in msg.text.lower():
-		bot.send_chat_action(msg.chat.id, "typing")
 		keyboard = types.InlineKeyboardMarkup()
 		url_button1 = types.InlineKeyboardButton(text="TG", url="https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
 		url_button2 = types.InlineKeyboardButton(text="WA", url="https://api.whatsapp.com/send?text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
@@ -736,10 +709,9 @@ def commands(msg, text):
 		
 		
 	if msg.text.lower() in ['утра']:
-		citata = random.choice(config.citata_words)
 		bot.send_chat_action(msg.chat.id, "typing")
+		citata = random.choice(config.citata_words)
 		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
-		
 
 	if msg.text.lower() in ['превед']:
 		if msg.reply_to_message:
@@ -761,25 +733,21 @@ def commands(msg, text):
 			return
 	if msg.text.lower() in ['войс']:
 		if msg.reply_to_message:
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg.reply_to_message,f"🔔🔔🔔🔔🔔🔔🔔\
-\n🗣Го в Войс Чат!👂\
+			bot.reply_to(msg.reply_to_message,f"🔔🔔🔔🔔🔔🔔🔔\n🗣Го в Войс Чат!👂\
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 		else:
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.send_message(msg.chat.id, f"🔔🔔🔔🔔🔔🔔🔔\
-\n🗣Го в Войс Чат!👂\
+			bot.send_message(msg.chat.id, f"🔔🔔🔔🔔🔔🔔🔔\n🗣Го в Войс Чат!👂\
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
 	if '!крокодил ' in msg.text.lower():
-
+		
 		result = msg.text.split()[1].lower()
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
 		bot.delete_message(msg.chat.id, msg.message_id)
 		saves_database[database] = result
 
 	if msg.text.lower() in ['крокодил']:
-
+		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
 		markup.add(button)
@@ -836,9 +804,6 @@ def reputation(msg, text):
 
 	if is_karma_freezed(msg):
 		return
-
-	bot.send_chat_action(msg.chat.id, "typing")
-
 	# Если значение кармы все же можно изменить: изменяем
 	result = sum(how_much_changed)
 	if result != 0:
@@ -869,8 +834,6 @@ def reputation(msg, text):
 
 	now_karma = f"Карма {res}.\n{name}: <b>{user.karma}</b>."
 	bot.send_message(msg.chat.id, now_karma, parse_mode="HTML")
-	
-	
 
 def reputation_mat(msg, text):
 	""" TODO понижение репутации за маты"""
@@ -899,8 +862,6 @@ def changing_karma_text(msg):
 def changing_karma_sticker(msg):
 	reputation(msg, msg.sticker.emoji)
 	
-	
-	
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
 	reputation_mat(msg, msg.text)
@@ -927,7 +888,6 @@ def karma_game(msg):
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 				
-
 				
 @bot.message_handler(content_types=['dice'])
 def send_dice(msg):
@@ -952,7 +912,6 @@ def send_dice(msg):
 				random_karma = ("-","+")
 				random_karma2 = random.choice(random_karma)
 				bot.send_chat_action(msg.chat.id, "typing")
-#				if msg.dice.value >
 				bot.reply_to(msg, f"Сыграл в карму {random_karma2}{msg.dice.value}", parse_mode="HTML")
 				user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 				if user.status == 'creator':
