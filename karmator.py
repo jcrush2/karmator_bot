@@ -275,7 +275,9 @@ def top_best(msg):
 	top_mess = "📈 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or userstatus.status != 'left':
+		if userstatus.status != 'creator' or userstatus.status != 'member' or userstatus.status != 'administrator' or userstatus.status == 'left':
+			user.karma==f"-{user.karma}"
+		else:
 			
 			if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
 			if 10 <= user.karma < 20: user_rang = "🤫\n      <code>Тихоня</code>"
@@ -920,8 +922,9 @@ def send_dice(msg):
 				bot.reply_to(msg, f"Сыграл в карму {random_karma2}{msg.dice.value}", parse_mode="HTML")
 				user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 				if user.status == 'creator':
-					return
-				change_karma(msg.from_user, msg.chat, f"{random_karma2}{msg.dice.value}")
+					change_karma(msg.from_user, msg.chat, f"+{msg.dice.value}")
+				else:
+					change_karma(msg.from_user, msg.chat, f"{random_karma2}{msg.dice.value}")
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 
