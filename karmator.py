@@ -275,7 +275,7 @@ def top_best(msg):
 	top_mess = "📈 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or userstatus.status != 'left':
+		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 			
 		
 			
@@ -344,7 +344,7 @@ def tinder(msg):
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-	if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or userstatus.status != 'left':
+	if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 		random_karma = ("+1", "+2", "+3")
 		random_karma2 = random.choice(random_karma)
 		change_karma(userstatus.user, msg.chat, random_karma2)
@@ -377,7 +377,7 @@ def krasavchik(msg):
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
 	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-	if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or userstatus.status != 'left':
+	if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 		top_mess = f"🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}. 🎁 +5 кармы."
 		change_karma(userstatus.user, msg.chat, 5)
 	else:
