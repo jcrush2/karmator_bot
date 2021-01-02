@@ -318,8 +318,6 @@ def top_best(msg):
 			else:
 				name = user.user_nick.strip()
 			top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
-		else:
-			user.karma==f"-{user.karma}"
 			
 			
 	if not selected_user:
