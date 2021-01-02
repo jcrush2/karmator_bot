@@ -275,8 +275,8 @@ def top_best(msg):
 	top_mess = "📈 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status != 'creator' or userstatus.status != 'member' or userstatus.status != 'administrator' or userstatus.status == 'left':
-			user.karma==f"-{user.karma}"
+		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or userstatus.status != 'left':
+			
 		
 			
 			if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
@@ -317,8 +317,10 @@ def top_best(msg):
 				name = user.user_name.strip()
 			else:
 				name = user.user_nick.strip()
+		else:
+			user.karma==f"-{user.karma}"
 
-			top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
+		top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
