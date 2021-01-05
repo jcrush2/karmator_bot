@@ -704,7 +704,7 @@ def commands(msg, text):
 		keyboard.add(url_button)
 		bot.send_message(msg.chat.id, "Вы можете купить карму, оплатив по кнопке ниже.", reply_markup=keyboard)
 		
-	if 'чат' in msg.text.lower():
+	if ' чат ' in msg.text.lower():
 		keyboard = types.InlineKeyboardMarkup()
 		url_button1 = types.InlineKeyboardButton(text="TG", url="https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
 		url_button2 = types.InlineKeyboardButton(text="WA", url="https://api.whatsapp.com/send?text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
