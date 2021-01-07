@@ -274,8 +274,8 @@ def top_best(msg):
 	user_rang = "🤖 Бот"
 	top_mess = "📈 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
-		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
+#		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+#		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 			
 		
 			
