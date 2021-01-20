@@ -331,7 +331,7 @@ def tinder(msg):
 	"""
 	Функция которая выводит пару дня
 	"""
-	change_karma(msg.from_user, msg.chat, -1)
+	change_karma(msg.from_user, msg.chat, -5)
 	bot.send_chat_action(msg.chat.id, "typing")
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
