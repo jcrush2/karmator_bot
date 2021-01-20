@@ -275,9 +275,10 @@ def top_best(msg):
 	top_mess = "📈 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
 		
-		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
-			try:
+		
+		try:
+			userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+			if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 				if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
 				if 10 <= user.karma < 20: user_rang = "🤫\n      <code>Тихоня</code>"
 				if 20 <= user.karma < 30: user_rang = "🐛\n      <code>Личинка</code>"
@@ -318,7 +319,7 @@ def top_best(msg):
 					name = user.user_nick.strip()
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 			
-			except Exception:
+		except Exception:
 				top_mess += f"3333333333333{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
