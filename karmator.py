@@ -755,7 +755,7 @@ def commands(msg, text):
 
 	if msg.text.lower() in ['крокодил']:
 		bot.send_chat_action(msg.chat.id, "typing")
-		markup = telebot.types.InlineKeyboardMarkup(one_time_keyboard=True)
+		markup = telebot.types.InlineKeyboardMarkup()
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
@@ -780,6 +780,7 @@ def query_handler(call):
 		
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
+
 	
 #	if  call.data == "pravda":
 #		bot.delete_message(call.id, call.message_id)
