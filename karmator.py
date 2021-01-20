@@ -320,7 +320,7 @@ def top_best(msg):
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 			
 		except Exception:
-				top_mess += f"3333333333333{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
+				top_mess += f"Удалился\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
@@ -344,15 +344,18 @@ def tinder(msg):
 		else:
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
-	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-	if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
-		random_karma = ("+1", "+2", "+3")
-		random_karma2 = random.choice(random_karma)
-		change_karma(userstatus.user, msg.chat, random_karma2)
-		top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
-		change_karma(msg.from_user, msg.chat, -1)
-	else:
+	try:
+		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
+			random_karma = ("+1", "+2", "+3")
+			random_karma2 = random.choice(random_karma)
+			change_karma(userstatus.user, msg.chat, random_karma2)
+			top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
+			change_karma(msg.from_user, msg.chat, -1)
+		else:
 		top_mess = f"Сегодня вечер самопознания🤚"
+	except Exception:
+		top_mess = f"Сегодня ночь самопознания🤚"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 
