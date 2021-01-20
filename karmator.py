@@ -331,8 +331,6 @@ def tinder(msg):
 	"""
 	Функция которая выводит пару дня
 	"""
-	bot.send_chat_action(msg.chat.id, "typing")
-	bot.send_message(msg.chat.id, "Анализирую параметры совместимости...", parse_mode="HTML")
 	change_karma(msg.from_user, msg.chat, -1)
 	bot.send_chat_action(msg.chat.id, "typing")
 	selected_user = KarmaUser.select()\
@@ -350,6 +348,8 @@ def tinder(msg):
 	try:
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.send_message(msg.chat.id, "Анализирую параметры совместимости...", parse_mode="HTML")
 			random_karma = ("+1", "+2", "+3")
 			random_karma2 = random.choice(random_karma)
 			change_karma(userstatus.user, msg.chat, random_karma2)
