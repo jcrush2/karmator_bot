@@ -349,6 +349,7 @@ def tinder(msg):
 		random_karma2 = random.choice(random_karma)
 		change_karma(userstatus.user, msg.chat, random_karma2)
 		top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
+		change_karma(msg.from_user, msg.chat, -1)
 	else:
 		top_mess = f"Сегодня вечер самопознания🤚"
 	if not selected_user:
@@ -891,7 +892,7 @@ def karma_game(msg):
 		if user.is_freezed:
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
-			if user.karma > 0:
+			if user.karma > 10:
 					tinder(msg)
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
