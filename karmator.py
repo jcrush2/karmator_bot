@@ -352,7 +352,7 @@ def tinder(msg):
 			bot.send_message(msg.chat.id, "Анализирую параметры совместимости...", parse_mode="HTML")
 			change_karma(userstatus.user, msg.chat, random.randint(1, 3))
 			top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
-			
+			bot.reply_to(msg, top_mess, parse_mode="HTML")
 #		if userstatus.status == 'left':
 #			top_mess = f"Сегодня вечер самопознания🤚"
 	except Exception:
