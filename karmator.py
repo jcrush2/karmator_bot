@@ -350,9 +350,7 @@ def tinder(msg):
 		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.send_message(msg.chat.id, "Анализирую параметры совместимости...", parse_mode="HTML")
-			random_karma = ("+1", "+2", "+3")
-			random_karma2 = random.choice(random_karma)
-			change_karma(userstatus.user, msg.chat, random_karma2)
+			change_karma(userstatus.user, msg.chat, random.randint(1, 3))
 			top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
 			
 #		if userstatus.status == 'left':
@@ -619,9 +617,7 @@ def is_game_abuse(msg):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 	if user.status == 'creator':
 		return
-#	random_karma = ("5", "10", "20", "30", "30", "50", "60")
-	random_karma2 = random.randint(10, 120)
-	hours_ago_12 = pw.SQL(f"current_timestamp-interval'{random_karma2} minutes'")
+	hours_ago_12 = pw.SQL(f"current_timestamp-interval'{random.randint(10, 120)} minutes'")
 	limitation_request = Limitation.select().where(
 		(Limitation.timer > hours_ago_12) &
 		(Limitation.userid == msg.from_user.id) &
@@ -638,9 +634,7 @@ def is_karma_abuse(msg):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 	if user.status == 'creator':
 		return
-	random_karma = ("5", "10", "20", "30", "30", "50", "60")
-	random_karma2 = random.choice(random_karma)
-	hours_ago_12 = pw.SQL(f"current_timestamp-interval'{random_karma2} minutes'")
+	hours_ago_12 = pw.SQL(f"current_timestamp-interval'{random.randint(5, 60)} minutes'")
 	limitation_request = Limitation.select().where(
 		(Limitation.timer > hours_ago_12) &
 		(Limitation.userid == msg.from_user.id) &
