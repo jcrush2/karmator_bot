@@ -345,14 +345,14 @@ def tinder(msg):
 		else:
 			nick = user.user_nick.strip()
 			name = user.user_name.strip()
-			try:
-				userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-				if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
-					bot.send_chat_action(msg.chat.id, "typing")
-					change_karma(userstatus.user, msg.chat, random.randint(1, 3))
-					top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
-			except Exception:
-				top_mess = f"Сегодня ночь самопознания🤚"
+#			try:
+			userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+			if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
+				bot.send_chat_action(msg.chat.id, "typing")
+				change_karma(userstatus.user, msg.chat, random.randint(1, 3))
+				top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
+#			except Exception:
+#				top_mess = f"Сегодня ночь самопознания🤚"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 
