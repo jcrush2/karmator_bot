@@ -619,15 +619,15 @@ def is_game_abuse(msg):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 	if user.status == 'creator':
 		return
-	random_karma = ("5", "10", "20", "30", "30", "50", "60")
-	random_karma2 = random.choice(random_karma)
+#	random_karma = ("5", "10", "20", "30", "30", "50", "60")
+	random_karma2 = random.randint(10, 120)
 	hours_ago_12 = pw.SQL(f"current_timestamp-interval'{random_karma2} minutes'")
 	limitation_request = Limitation.select().where(
 		(Limitation.timer > hours_ago_12) &
 		(Limitation.userid == msg.from_user.id) &
 		(Limitation.chatid == msg.chat.id))
 
-	if len(limitation_request) > 1:
+	if len(limitation_request) > 0:
 		timer = limitation_request[0].timer + datetime.timedelta(hours=15)
 		timer = timer.strftime("%H:%M %d.%m.%Y")
 		bot.delete_message(msg.chat.id, msg.message_id)
