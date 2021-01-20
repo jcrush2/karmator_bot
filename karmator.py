@@ -318,9 +318,10 @@ def top_best(msg):
 				else:
 					name = user.user_nick.strip()
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
-			
+			else:
+				top_mess += f"{i+1}. <b>Удаленный</b> (0) 🗑\n      <code>Покинул чат</code>\n"
 		except Exception:
-				top_mess += f"{i+1}. <b>Удаленный</b> (0) 🗑\n"
+				top_mess += f"{i+1}. <b>Удаленный</b> (0) 🗑\n      <code>Покинул чат</code>\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
