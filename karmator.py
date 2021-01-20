@@ -337,7 +337,7 @@ def tinder(msg):
 		.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(100)
-	
+	top_mess = f"Анализирую параметры совместимости..."
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 		if user.is_freezed:
@@ -349,10 +349,10 @@ def tinder(msg):
 		userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 		if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 			bot.send_chat_action(msg.chat.id, "typing")
-			bot.send_message(msg.chat.id, "Анализирую параметры совместимости...", parse_mode="HTML")
+#			bot.send_message(msg.chat.id, "Анализирую параметры совместимости...", parse_mode="HTML")
 			change_karma(userstatus.user, msg.chat, random.randint(1, 3))
 			top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
-			bot.reply_to(msg, top_mess, parse_mode="HTML")
+#			bot.reply_to(msg, top_mess, parse_mode="HTML")
 #		if userstatus.status == 'left':
 #			top_mess = f"Сегодня вечер самопознания🤚"
 	except Exception:
