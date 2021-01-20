@@ -755,7 +755,7 @@ def commands(msg, text):
 
 	if msg.text.lower() in ['крокодил']:
 		bot.send_chat_action(msg.chat.id, "typing")
-		markup = telebot.types.InlineKeyboardMarkup()
+		markup = telebot.types.InlineKeyboardMarkup(one_time_keyboard=True)
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
