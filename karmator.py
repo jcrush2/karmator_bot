@@ -333,11 +333,13 @@ def tinder(msg):
 	"""
 	bot.send_chat_action(msg.chat.id, "typing")
 	bot.send_message(msg.chat.id, "Анализирую параметры совместимости...", parse_mode="HTML")
+	change_karma(msg.from_user, msg.chat, -1)
 	bot.send_chat_action(msg.chat.id, "typing")
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(100)
+	
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 		if user.is_freezed:
@@ -352,9 +354,9 @@ def tinder(msg):
 			random_karma2 = random.choice(random_karma)
 			change_karma(userstatus.user, msg.chat, random_karma2)
 			top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random_karma2} кармы."
-			change_karma(msg.from_user, msg.chat, -1)
-		if userstatus.status == 'left':
-			top_mess = f"Сегодня вечер самопознания🤚"
+			
+#		if userstatus.status == 'left':
+#			top_mess = f"Сегодня вечер самопознания🤚"
 	except Exception:
 		top_mess = f"Сегодня ночь самопознания🤚"
 	if not selected_user:
