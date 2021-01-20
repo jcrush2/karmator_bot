@@ -337,7 +337,7 @@ def tinder(msg):
 		.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(100)
-	top_mess = f"Анализирую параметры совместимости..."
+	top_mess = f"Сегодня ночь самопознания🤚"
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 		if user.is_freezed:
@@ -352,7 +352,7 @@ def tinder(msg):
 					change_karma(userstatus.user, msg.chat, random.randint(1, 3))
 					top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random.randint(1, 3)} кармы."
 			except Exception:
-				top_mess = f"Сегодня ночь самопознания🤚"
+				top_mess = f"Сегодня вечер самопознания🤚"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 
