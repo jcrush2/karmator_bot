@@ -954,7 +954,6 @@ def webhook_add():
 	bot.set_webhook(url=config.url)
 	return "!", 200
 
-
 @server.route("/<password>")
 def webhook_rem(password):
 	""" TODO """
