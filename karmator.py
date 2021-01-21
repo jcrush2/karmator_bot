@@ -205,7 +205,7 @@ def my_karma(msg):
 	Выводится карма для пользователя, который вызвал функцию
 	:param msg: Объект сообщения-команды
 	"""
-	bot.delete_message(msg.chat.id, msg.message_id)
+	
 	main_log.info("Start func 'my_karma'")
 	user = select_user(msg.from_user, msg.chat)
 	if not user:
@@ -256,6 +256,7 @@ def my_karma(msg):
 
 	now_karma = f"Карма у {name}: <b>{user.karma}</b> {user_rang}."
 	bot.reply_to(msg, now_karma, parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 
 @bot.message_handler(commands=["top"], func=is_my_message)
 def top_best(msg):
