@@ -58,7 +58,8 @@ def helps(msg):
 
 	bot.send_chat_action(msg.chat.id, "typing")
 
-	help_mess = "ℹ️ Выражения похвалы и общение в положительном ключе повышают карму, ругательства понижают.\
+	help_mess = "<b>ХабЧат</b> - чат города Хабаровска.\
+	\n\nℹ️ Выражения похвалы и общение в положительном ключе повышают карму, ругательства понижают.\
 	\n\n<b>Команды:</b>\
 	\n/h - Справка. \
 	\n/weather - Погода. \
@@ -204,6 +205,7 @@ def my_karma(msg):
 	Выводится карма для пользователя, который вызвал функцию
 	:param msg: Объект сообщения-команды
 	"""
+	bot.delete_message(msg.chat.id, msg.message_id)
 	main_log.info("Start func 'my_karma'")
 	user = select_user(msg.from_user, msg.chat)
 	if not user:
