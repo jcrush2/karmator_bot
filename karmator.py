@@ -276,7 +276,9 @@ def top_best(msg):
 		.limit(result)
 	user_rang = "🤖 Бот"
 	top_mess = "📈 Топ благодаримых\n\n"
-	for i, user in enumerate(selected_user):
+	top_mess2 =""
+	new=[]
+	for user in enumerate(selected_user):
 		if user.user_name:
 			name = user.user_name.strip()
 		else:
@@ -286,47 +288,46 @@ def top_best(msg):
 
 			userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 			if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or userstatus.status != 'left':
-				if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
-				if 10 <= user.karma < 20: user_rang = "🤫\n      <code>Тихоня</code>"
-				if 20 <= user.karma < 30: user_rang = "🐛\n      <code>Личинка</code>"
-				if 30 <= user.karma < 40: user_rang = "👤\n      <code>Гость</code>"
-				if 40 <= user.karma < 50: user_rang = "🐤\n      <code>Прохожий</code>"
-				if 50 <= user.karma < 60: user_rang = "🎗\n      <code>Новичок</code>"
-				if 60 <= user.karma < 70: user_rang = "🔱\n      <code>Любопытный</code>"
-				if 70 <= user.karma < 80: user_rang = "⚜️\n      <code>Странник</code>"
-				if 80 <= user.karma < 90: user_rang = "✨\n      <code>Бывалый</code>"
-				if 90 <= user.karma < 100: user_rang = "🥉\n      <code>Постоялец</code>"
-				if 100 <= user.karma < 120: user_rang = "🥈\n      <code>Завсегдатай</code>"
-				if 120 <= user.karma < 150: user_rang = "🥇\n      <code>Местный житель</code>"
-				if 150 <= user.karma < 200: user_rang = "🎖\n      <code>Городовой</code>"
-				if 200 <= user.karma < 250: user_rang = "🏅\n      <code>Хабаровчанин</code>"
-				if 250 <= user.karma < 300: user_rang = "⭐️\n      <code>ХабАктивист</code>"
-				if 300 <= user.karma < 350: user_rang = "🌟\n      <code>Дальневосточник</code>"
-				if 350 <= user.karma < 400: user_rang = "🏵\n      <code>Старожил</code>"
-				if 400 <= user.karma < 450: user_rang = "💫\n      <code>Сталкер</code>"
-				if 450 <= user.karma < 500: user_rang = "💥\n      <code>Ветеран</code>"
-				if 500 <= user.karma < 550: user_rang = "🎭\n      <code>Философ</code>"
-				if 550 <= user.karma < 600: user_rang = "🎓\n      <code>Мыслитель</code>"
-				if 600 <= user.karma < 650: user_rang = "🛠\n      <code>Мастер</code>"
-				if 650 <= user.karma < 700: user_rang = "☀️\n      <code>Спец</code>"
-				if 700 <= user.karma < 750: user_rang = "🔮\n      <code>Оракул</code>"
-				if 750 <= user.karma < 800: user_rang = "🏆\n      <code>Гуру</code>"
-				if 800 <= user.karma < 850: user_rang = "👑\n      <code>Элита</code>"
-				if 850 <= user.karma < 900: user_rang = "🧠\n      <code>Мудрец</code>"
-				if 900 <= user.karma < 1000: user_rang = "👁\n      <code>Смотритель</code>"
-				if 1000 <= user.karma < 1200: user_rang = "🏹\n      <code>Вождь</code>"
-				if 1200 <= user.karma < 1500: user_rang = "✝️\n      <code>Бог</code>"
-				if 1500 <= user.karma < 2800: user_rang = "⚡️\n      <code>Верховный Бог</code>"
-				if 1800 <= user.karma < 2000: user_rang = "⚡⚡️️️\n      <code>Пантеон</code>"
-				if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>\n"
-			
+				new.append(user)
 
-				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 
 		except Exception:
-				top_mess += f"{i+1}. <b>Удаленный</b> (0) 🗑\n      <code>Покинул чат</code>\n"
-#				userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-#				change_karma(userstatus.user, msg.chat, -100)
+				top_mess2 = f"0. <b>Удаленный</b> (0) 🗑\n      <code>Покинул чат</code>\n"
+	for i, user in new:
+		if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
+		if 10 <= user.karma < 20: user_rang = "🤫\n      <code>Тихоня</code>"
+		if 20 <= user.karma < 30: user_rang = "🐛\n      <code>Личинка</code>"
+		if 30 <= user.karma < 40: user_rang = "👤\n      <code>Гость</code>"
+		if 40 <= user.karma < 50: user_rang = "🐤\n      <code>Прохожий</code>"
+		if 50 <= user.karma < 60: user_rang = "🎗\n      <code>Новичок</code>"
+		if 60 <= user.karma < 70: user_rang = "🔱\n      <code>Любопытный</code>"
+		if 70 <= user.karma < 80: user_rang = "⚜️\n      <code>Странник</code>"
+		if 80 <= user.karma < 90: user_rang = "✨\n      <code>Бывалый</code>"
+		if 90 <= user.karma < 100: user_rang = "🥉\n      <code>Постоялец</code>"
+		if 100 <= user.karma < 120: user_rang = "🥈\n      <code>Завсегдатай</code>"
+		if 120 <= user.karma < 150: user_rang = "🥇\n      <code>Местный житель</code>"
+		if 150 <= user.karma < 200: user_rang = "🎖\n      <code>Городовой</code>"
+		if 200 <= user.karma < 250: user_rang = "🏅\n      <code>Хабаровчанин</code>"
+		if 250 <= user.karma < 300: user_rang = "⭐️\n      <code>ХабАктивист</code>"
+		if 300 <= user.karma < 350: user_rang = "🌟\n      <code>Дальневосточник</code>"
+		if 350 <= user.karma < 400: user_rang = "🏵\n      <code>Старожил</code>"
+		if 400 <= user.karma < 450: user_rang = "💫\n      <code>Сталкер</code>"
+		if 450 <= user.karma < 500: user_rang = "💥\n      <code>Ветеран</code>"
+		if 500 <= user.karma < 550: user_rang = "🎭\n      <code>Философ</code>"
+		if 550 <= user.karma < 600: user_rang = "🎓\n      <code>Мыслитель</code>"
+		if 600 <= user.karma < 650: user_rang = "🛠\n      <code>Мастер</code>"
+		if 650 <= user.karma < 700: user_rang = "☀️\n      <code>Спец</code>"
+		if 700 <= user.karma < 750: user_rang = "🔮\n      <code>Оракул</code>"
+		if 750 <= user.karma < 800: user_rang = "🏆\n      <code>Гуру</code>"
+		if 800 <= user.karma < 850: user_rang = "👑\n      <code>Элита</code>"
+		if 850 <= user.karma < 900: user_rang = "🧠\n      <code>Мудрец</code>"
+		if 900 <= user.karma < 1000: user_rang = "👁\n      <code>Смотритель</code>"
+		if 1000 <= user.karma < 1200: user_rang = "🏹\n      <code>Вождь</code>"
+		if 1200 <= user.karma < 1500: user_rang = "✝️\n      <code>Бог</code>"
+		if 1500 <= user.karma < 2800: user_rang = "⚡️\n      <code>Верховный Бог</code>"
+		if 1800 <= user.karma < 2000: user_rang = "⚡⚡️️️\n      <code>Пантеон</code>"
+		if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>\n"
+		top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
