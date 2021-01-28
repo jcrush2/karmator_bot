@@ -347,7 +347,7 @@ def tinder(msg):
 		.where((KarmaUser.karma > 8) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(100)
-	top_mess = ""
+	top_mess = f"🤚"
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
 			
