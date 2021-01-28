@@ -277,11 +277,16 @@ def top_best(msg):
 	user_rang = "🤖 Бот"
 	top_mess = "📈 Топ благодаримых\n\n"
 	for i, user in enumerate(selected_user):
+		if user.user_name:
+			name = user.user_name.strip()
+		else:
+			name = user.user_nick.strip()
 		
 		
 		try:
+
 			userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-			if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' or userstatus.status != 'left':
+			if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 				if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
 				if 10 <= user.karma < 20: user_rang = "🤫\n      <code>Тихоня</code>"
 				if 20 <= user.karma < 30: user_rang = "🐛\n      <code>Личинка</code>"
@@ -315,12 +320,11 @@ def top_best(msg):
 				if 1500 <= user.karma < 2800: user_rang = "⚡️\n      <code>Верховный Бог</code>"
 				if 1800 <= user.karma < 2000: user_rang = "⚡⚡️️️\n      <code>Пантеон</code>"
 				if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>\n"
-	
-				if user.user_name:
-					name = user.user_name.strip()
-				else:
-					name = user.user_nick.strip()
+			
+
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
+			if userstatus.status == 'left':
+				top_mess += f"{i+1}. <b>Вышел</b> (0) 🗑\n      <code>Покинул чат</code>\n"
 		except Exception:
 				top_mess += f"{i+1}. <b>Удаленный</b> (0) 🗑\n      <code>Покинул чат</code>\n"
 #				userstatus = bot.get_chat_member(msg.chat.id,user.userid)
