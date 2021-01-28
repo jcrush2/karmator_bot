@@ -336,15 +336,21 @@ def tinder(msg):
 	"""
 	Функция которая выводит пару дня
 	""" 
-	change_karma(msg.from_user, msg.chat, -5)
+	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+	if user.status == 'creator':
+		change_karma(msg.from_user, msg.chat, +5)
+	else:
+		change_karma(msg.from_user, msg.chat, -5)
+	
 	bot.send_chat_action(msg.chat.id, "typing")
 	selected_user = KarmaUser.select()\
 		.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
 		.order_by(KarmaUser.karma.desc())\
 		.limit(100)
-	top_mess = f"Сегодня ночь самопознания🤚"
+#	top_mess = f"Сегодня ночь самопознания🤚"
 	selected_user = random.choices(selected_user)
 	for i, user in enumerate(selected_user):
+			
 		if user.is_freezed:
 			bot.send_message(msg.chat.id, f"Сегодня вечер самопознания✊", parse_mode="HTML")
 		else:
@@ -356,13 +362,15 @@ def tinder(msg):
 					bot.send_chat_action(msg.chat.id, "typing")
 					change_karma(userstatus.user, msg.chat, random.randint(1, 3))
 					top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random.randint(1, 3)} кармы."
+				if userstatus.status == 'left':
+					top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} (покинул ХабЧат), но можешь <a href='https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat'>позвать обратно</a> через личку."
 			except Exception:
 				top_mess = f"Сегодня вечер самопознания🤚"
 #				change_karma(userstatus.user, msg.chat, -100)
+		bot.reply_to(msg, top_mess, parse_mode="HTML")
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
-
-	bot.reply_to(msg, top_mess, parse_mode="HTML")
+		bot.reply_to(msg, top_mess, parse_mode="HTML")
 	
 	
 def krasavchik(msg):
