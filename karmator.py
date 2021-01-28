@@ -278,7 +278,7 @@ def top_best(msg):
 	top_mess = "📈 Топ благодаримых\n\n"
 	top_mess2 =""
 	new=[]
-	for user in enumerate(selected_user):
+	for i, user in enumerate(selected_user):
 		if user.user_name:
 			name = user.user_name.strip()
 		else:
