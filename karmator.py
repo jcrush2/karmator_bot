@@ -739,6 +739,13 @@ def commands(msg, text):
 			bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
 		else:
 			return
+	if msg.text.lower() in ['сохранить']:
+		if msg.reply_to_message:
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.forward_message(-1001338159710, msg.chat.id, message_id)
+			bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранино в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
+		else:
+			return
 	if msg.text.lower() in ['фото']:
 		if msg.reply_to_message:
 			bot.send_chat_action(msg.chat.id, "typing")
