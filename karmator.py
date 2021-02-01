@@ -65,7 +65,7 @@ def helps(msg):
 	\n/weather - Погода. \
 	\n/no - Для объявлений. \
 	\n/report - Отправить жалобу.\
-	\n\n<b>утра, цитата, превед, фсб, фото, войс, крокодил, !?, !v, vs, язаБан</b> - Ответом на сообщение.\
+	\n\n<b>утра, цитата, превед, фсб, фото, войс, крокодил, !?, !v, vs, save, язаБан</b> - Ответом на сообщение.\
 	\n\n<b>Карма:</b>\
 	\n/my - Посмотреть свою карму.\
 	\n/top - Узнать наиболее благодаримых в чате.\
@@ -739,7 +739,7 @@ def commands(msg, text):
 			bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
 		else:
 			return
-	if msg.text.lower() in ['сохранить']:
+	if msg.text.lower() in ['сохранить'] or msg.text.lower() in ['save']:
 		if msg.reply_to_message:
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.forward_message(-1001338159710, msg.chat.id, msg.reply_to_message.message_id)
