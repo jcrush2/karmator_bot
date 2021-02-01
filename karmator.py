@@ -743,7 +743,7 @@ def commands(msg, text):
 		if msg.reply_to_message:
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.forward_message(-1001338159710, msg.chat.id, msg.reply_to_message.message_id)
-			bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранино в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
+			bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранено в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
 		else:
 			return
 	if msg.text.lower() in ['фото']:
