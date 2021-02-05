@@ -669,6 +669,10 @@ def commands(msg, text):
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"{random.choice(config.bot_words)}", parse_mode="HTML")
 
+	if 'бот фильм' in msg.text.lower() or ' бот фильм' in msg.text.lower():
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.reply_to(msg, f"{random.choice(config.bot_film)}", parse_mode="HTML")
+
 	if '!? ' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
 		random_karma = ("Абсолютно точно!","Да.","Нет.","Скорее да, чем нет.","Не уверен...","Однозначно нет!","Если ты не фанат аниме, у тебя все получится!","Можешь быть уверен в этом.","Перспективы не очень хорошие.","А как же иначе?.","Да, но если только ты не смотришь аниме.","Знаки говорят - да.","Не знаю.","Мой ответ - нет.","Весьма сомнительно.","Не могу дать точный ответ.")
