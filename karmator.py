@@ -723,7 +723,7 @@ def commands(msg, text):
 		response = requests.request("GET", url, headers=headers, params=querystring)
 #		bot.reply_to(msg, f"📍 Цитата: {response.text}", parse_mode="HTML")
 		json = response.text
-		bot.reply_to(msg, f"📍 Цитата: {json['price']}", parse_mode="HTML")
+		bot.reply_to(msg, f"📍 Цитата: {str(json['price'])}", parse_mode="HTML")
 		
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
