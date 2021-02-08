@@ -726,8 +726,13 @@ def commands(msg, text):
 		data = response.json()
 		a1 = data['data']['BKK']['1']['price']
 		a2 = data['data']['AER']['1']['price']
+		t2 = data['data']['AER']['1']['expires_at']
 		bot.reply_to(msg, f"✈️ Бангкок (Таиланд), цена: {a1}", parse_mode="HTML")
 		bot.reply_to(msg, f"✈️ Сочи (Адлер), цена: {a2}", parse_mode="HTML")
+		keyboard = types.InlineKeyboardMarkup()
+		url_button = types.InlineKeyboardButton(text="Посмотреть", url="https://www.aviasales.ru/search/KHV"+t2+"AER1")
+		keyboard.add(url_button)
+		bot.send_message(msg.chat.id, "Вы можете купить билет, оплатив по кнопке ниже.", reply_markup=keyboard)
 		
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
