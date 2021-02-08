@@ -724,7 +724,7 @@ def commands(msg, text):
 		response = requests.request("GET", url, headers=headers, params=querystring)
 #		bot.reply_to(msg, f"📍 Цитата: {response.text}", parse_mode="HTML")
 		data = response.json()
-		task = data['data']['0']['price']
+		task = data['0']['price']
 		bot.reply_to(msg, f"📍 Цитата: {task}", parse_mode="HTML")
 		
 	if msg.text.lower() in ['купить']:
