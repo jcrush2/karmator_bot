@@ -724,8 +724,10 @@ def commands(msg, text):
 		response = requests.request("GET", url, headers=headers, params=querystring)
 #		bot.reply_to(msg, f"📍 Цитата: {response.text}", parse_mode="HTML")
 		data = response.json()
-		task = data['data']['BKK']['0']['price']
-		bot.reply_to(msg, f"📍 Цитата: {task}", parse_mode="HTML")
+		a1 = data['data']['BKK']['1']['price']
+		a2 = data['data']['AER']['1']['price']
+		bot.reply_to(msg, f"✈️ Бангкок (Таиланд), цена: {a1}", parse_mode="HTML")
+		bot.reply_to(msg, f"✈️ Сочи (Адлер), цена: {a2}", parse_mode="HTML")
 		
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
