@@ -722,7 +722,7 @@ def commands(msg, text):
 		headers = {'x-access-token': '83a5fe66f97a36e6f0be4b2be21a5552'}
 		response = requests.request("GET", url, headers=headers, params=querystring)
 #		bot.reply_to(msg, f"📍 Цитата: {response.text}", parse_mode="HTML")
-		bot.reply_to(msg, f"📍 Цитата: {response.text['price'][0]}", parse_mode="HTML")
+		bot.reply_to(msg, f"📍 Цитата: {response.text['price']}", parse_mode="HTML")
 		
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
