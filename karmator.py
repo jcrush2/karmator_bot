@@ -5,6 +5,7 @@ import string
 import os
 import random
 import requests
+import json
 
 from flask import Flask, request
 import peewee as pw
@@ -722,8 +723,9 @@ def commands(msg, text):
 		headers = {'x-access-token': '83a5fe66f97a36e6f0be4b2be21a5552'}
 		response = requests.request("GET", url, headers=headers, params=querystring)
 #		bot.reply_to(msg, f"📍 Цитата: {response.text}", parse_mode="HTML")
-		json = response.text
-		bot.reply_to(msg, f"📍 Цитата: {str(json['price'])}", parse_mode="HTML")
+		data = response.json()
+		task = data['data']['KHV']['0']['price']
+		bot.reply_to(msg, f"📍 Цитата: {task}", parse_mode="HTML")
 		
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
