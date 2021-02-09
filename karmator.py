@@ -22,6 +22,8 @@ bot = telebot.TeleBot(TELEGRAM_API)
 
 saves_database = {}
 database="dss4fgfd"
+saves_database_id = {}
+database_id="111111"
 
 def is_my_message(msg):
 	"""
@@ -804,7 +806,7 @@ def commands(msg, text):
 		markup.add(button)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 	seves = saves_database.get(database)
-	if msg.text.lower() == seves:
+	if msg.text.lower() == seves and msg.from_user.id != saves_database_id[database_id]:
 	
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы", parse_mode="HTML")
@@ -821,7 +823,7 @@ def commands(msg, text):
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
 	if  f"{call.from_user.id}" == f"{call.data}":
-		
+		saves_database_id[database_id] =f"{call.data}"
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 
