@@ -800,6 +800,7 @@ def commands(msg, text):
 		saves_database[database] = result
 
 	if msg.text.lower() in ['крокодил']:
+		saves_database_id[database_id] =f"{msg.from_user.id}"
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
@@ -808,11 +809,11 @@ def commands(msg, text):
 	seves = saves_database.get(database)
 	seves_id = saves_database_id.get(database_id)
 	if msg.text.lower() == seves:
-		if seves_id ==  msg.from_user.id:
+		if seves_id ==  f"{msg.from_user.id}":
 					bot.send_chat_action(msg.chat.id, "typing")
 					bot.reply_to(msg,f"Ответить загадавшему не красиво: -10 кармы", parse_mode="HTML")
-					change_karma(msg.from_user, msg.chat, 3)
-					saves_database_id[database_id] = "dse4f"
+					change_karma(msg.from_user, msg.chat, -10)
+					
 		else:
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы", parse_mode="HTML")
@@ -829,7 +830,7 @@ def commands(msg, text):
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
 	if  f"{call.from_user.id}" == f"{call.data}":
-		saves_database_id[database_id] =f"{call.from_user.id}"
+		
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 
