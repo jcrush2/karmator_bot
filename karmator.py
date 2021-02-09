@@ -807,12 +807,17 @@ def commands(msg, text):
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 	seves = saves_database.get(database)
 	seves_id = saves_database_id.get(database_id)
-	if msg.text.lower() == seves and msg.from_user.id != seves_id:
-	
-		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы", parse_mode="HTML")
-		change_karma(msg.from_user, msg.chat, 3)
-		saves_database[database] = "dse4f"
+	if msg.text.lower() == seves:
+		if seves_id ==  msg.from_user.id:
+					bot.send_chat_action(msg.chat.id, "typing")
+					bot.reply_to(msg,f"Ответить загадавшему не красиво: -10 кармы", parse_mode="HTML")
+					change_karma(msg.from_user, msg.chat, 3)
+					saves_database_id[database_id] = "dse4f"
+		else:
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы", parse_mode="HTML")
+			change_karma(msg.from_user, msg.chat, 3)
+			saves_database[database] = "dse4f"
 
 #	if msg.text.lower() in ['играть']:
 
