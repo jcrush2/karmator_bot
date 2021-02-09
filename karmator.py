@@ -805,7 +805,7 @@ def commands(msg, text):
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=msg.from_user.id)
-		button2 = telebot.types.InlineKeyboardButton(text='Сменить другое', callback_data=msg.from_user.first_name)
+		button2 = telebot.types.InlineKeyboardButton(text='Сменить слово', callback_data=msg.from_user.first_name)
 		markup.add(button,button2)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 	seves = saves_database.get(database)
