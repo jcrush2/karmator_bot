@@ -811,7 +811,7 @@ def commands(msg, text):
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 	seves = saves_database.get(database)
 	seves_id = saves_database_id.get(database_id)
-	
+
 	if re.search(r'[^a-zA-Zа-яА-Я]',msg.text.lower()):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
