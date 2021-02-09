@@ -812,8 +812,8 @@ def commands(msg, text):
 	seves = saves_database.get(database)
 	seves_id = saves_database_id.get(database_id)
 
-	if re.search(r'[^a-zA-Zа-яА-Я]',msg.text.lower()):
-		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
+#	if re.search(r'[^a-zA-Zа-яА-Я]',msg.text.lower()):
+#		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
 		if seves_id ==  f"{msg.from_user.id}":
 					bot.send_chat_action(msg.chat.id, "typing")
