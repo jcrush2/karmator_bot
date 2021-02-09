@@ -840,7 +840,7 @@ def query_handler(call):
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 		bot.send_message(call.message.chat.id, f"Играющий сменил слово в крокодиле -5 кармы", parse_mode="HTML")
-		change_karma(msg.from_user, msg.chat, -5)
+		change_karma(call.from_user, msg.chat, -5)
 #	if  call.data == "pravda":
 #		bot.delete_message(call.id, call.message_id)
 		
