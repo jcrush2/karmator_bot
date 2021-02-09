@@ -829,7 +829,7 @@ def commands(msg, text):
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
 	if  f"{call.from_user.id}" == f"{call.data}":
-		saves_database_id[database_id] =f"{call.data}"
+		saves_database_id[database_id] =f"{call.from_user.id}"
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 
