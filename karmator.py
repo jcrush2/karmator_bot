@@ -6,6 +6,7 @@ import os
 import random
 import requests
 import json
+import re
 
 from flask import Flask, request
 import peewee as pw
@@ -810,6 +811,9 @@ def commands(msg, text):
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 	seves = saves_database.get(database)
 	seves_id = saves_database_id.get(database_id)
+	
+	if re.search(r'[^a-zA-Zа-яА-Я]',msg.text.lower()):
+		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
 		if seves_id ==  f"{msg.from_user.id}":
 					bot.send_chat_action(msg.chat.id, "typing")
