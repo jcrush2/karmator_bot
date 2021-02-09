@@ -708,7 +708,7 @@ def commands(msg, text):
 		else:
 			return
 	
-	if msg.text.lower() in ['!к']:
+	if msg.text.lower() in ['!k']:
 		bot.delete_message(msg.chat.id, msg.message_id)
 		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 		if user.status == 'creator':
@@ -793,7 +793,7 @@ def commands(msg, text):
 			bot.send_message(msg.chat.id, f"🔔🔔🔔🔔🔔🔔🔔\n🗣Го в Войс Чат!👂\
 \n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
 
-	if '!крокодил ' in msg.text.lower():
+	if '!к ' in msg.text.lower():
 		
 		result = msg.text.split()[1].lower()
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
