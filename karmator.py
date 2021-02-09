@@ -798,7 +798,8 @@ def commands(msg, text):
 		result = msg.text.split()[1].lower()
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
 		saves_database[database] = result
-		bot.forward_message(-1001110839896, msg.message_id)
+		bot.send_message(-1001110839896,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
+#		bot.forward_message(-1001110839896, msg.message_id)
 		bot.delete_message(msg.chat.id, msg.message_id)
 
 	if msg.text.lower() in ['крокодил']:
