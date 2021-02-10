@@ -802,7 +802,7 @@ def commands(msg, text):
 #		bot.forward_message(-1001110839896, msg.message_id)
 		bot.delete_message(msg.chat.id, msg.message_id)
 
-	if msg.text.lower() in ['крокодил']:
+	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco']:
 		saves_database_id[database_id] =f"{msg.from_user.id}"
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
@@ -824,7 +824,7 @@ def commands(msg, text):
 					
 		else:
 			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы", parse_mode="HTML")
+			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы, запустить игру /croco", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, 3)
 			saves_database[database] = "dse4f"
 
