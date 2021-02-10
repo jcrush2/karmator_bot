@@ -811,6 +811,7 @@ def commands(msg, text):
 		button2 = telebot.types.InlineKeyboardButton(text='Сменить слово', callback_data=msg.from_user.first_name)
 		markup.add(button,button2)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
+		bot.delete_message(msg.chat.id, msg.message_id)
 	seves = saves_database.get(database)
 	seves_id = saves_database_id.get(database_id)
 
