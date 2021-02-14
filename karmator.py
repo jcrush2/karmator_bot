@@ -722,7 +722,8 @@ def commands(msg, text):
 	if msg.text.lower() in ['билет']:
 		bot.send_chat_action(msg.chat.id, "typing")
 		url = "https://api.travelpayouts.com/v1/prices/cheap"
-		querystring = {"origin":"KHV","destination":"-","depart_date":"2021-01"}
+		a = datetime.datetime.now().strftime("%Y-%m")
+		querystring = {"origin":"KHV","destination":"-","depart_date":f"{a}"}
 		headers = {'x-access-token': '83a5fe66f97a36e6f0be4b2be21a5552'}
 		response = requests.request("GET", url, headers=headers, params=querystring)
 #		bot.reply_to(msg, f"📍 Цитата: {response.text}", parse_mode="HTML")
