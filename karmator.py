@@ -740,7 +740,8 @@ def commands(msg, text):
 			send_bilet+=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
 			send_bilet+=f"✈️ Гонконг (Китай), цена: {HKG}, вылет: {HKG2}\n\n"
 			send_bilet+=f"✈️ Нячанг (Вьетнам), цена: {NHA}, вылет: {NHA2}\n\n"
-
+		except KeyError:
+  			print("Key error. Do something else")
 		except Exception:
 			 print("Some other error")
 		bot.send_message(msg.chat.id, send_bilet, parse_mode="HTML")
