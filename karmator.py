@@ -721,6 +721,7 @@ def commands(msg, text):
 		
 	if msg.text.lower() in ['билет']:
 		bot.send_chat_action(msg.chat.id, "typing")
+		send_bilet=f"✈️ билеты\n\n"
 		try:
 			url = "https://api.travelpayouts.com/v1/prices/cheap"
 			a = datetime.datetime.now().strftime("%Y-%m")
@@ -736,7 +737,7 @@ def commands(msg, text):
 			NHA = data['data']['NHA']['1']['price']
 			NHA2 = data['data']['NHA']['1']['departure_at']
 		
-			send_bilet=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
+			send_bilet+=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
 			send_bilet+=f"✈️ Гонконг (Китай), цена: {HKG}, вылет: {HKG2}\n\n"
 			send_bilet+=f"✈️ Нячанг (Вьетнам), цена: {NHA}, вылет: {NHA2}\n\n"
 
