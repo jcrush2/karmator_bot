@@ -722,28 +722,33 @@ def commands(msg, text):
 	if msg.text.lower() in ['билет']:
 		bot.send_chat_action(msg.chat.id, "typing")
 		send_bilet=f"✈️ билеты\n\n"
+		
+		url = "https://api.travelpayouts.com/v1/prices/cheap"
+		a = datetime.datetime.now().strftime("%Y-%m")
+		querystring = {"origin":"KHV","destination":"-","depart_date":f"{a}"}
+		headers = {'x-access-token': '83a5fe66f97a36e6f0be4b2be21a5552'}
+		response = requests.request("GET", url, headers=headers, params=querystring)
+		data = response.json()
+		BKK = data['data']['BKK']['1']['price']
+		BKK2 = data['data']['BKK']['1']['departure_at']
+		send_bilet+=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
 		try:
-			url = "https://api.travelpayouts.com/v1/prices/cheap"
-			a = datetime.datetime.now().strftime("%Y-%m")
-			querystring = {"origin":"KHV","destination":"-","depart_date":f"{a}"}
-			headers = {'x-access-token': '83a5fe66f97a36e6f0be4b2be21a5552'}
-			response = requests.request("GET", url, headers=headers, params=querystring)
-			data = response.json()
-			BKK = data['data']['BKK']['1']['price']
-			BKK2 = data['data']['BKK']['1']['departure_at']
 			HKG = data['data']['HKG']['1']['price']
 			HKG2 = data['data']['HKG']['1']['departure_at']
-		
+			send_bilet+=f"✈️ Гонконг (Китай), цена: {HKG}, вылет: {HKG2}\n\n"
+		except KeyError:
+  			print("Key error. Do something else")
+		except Exception:
+			 print("Some other error")
+		try:
 			NHA = data['data']['NHA']['1']['price']
 			NHA2 = data['data']['NHA']['1']['departure_at']
-		
-			send_bilet+=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
-			send_bilet+=f"✈️ Гонконг (Китай), цена: {HKG}, вылет: {HKG2}\n\n"
 			send_bilet+=f"✈️ Нячанг (Вьетнам), цена: {NHA}, вылет: {NHA2}\n\n"
 		except KeyError:
   			print("Key error. Do something else")
 		except Exception:
 			 print("Some other error")
+
 		bot.send_message(msg.chat.id, send_bilet, parse_mode="HTML")
 
 		keyboard = types.InlineKeyboardMarkup()
