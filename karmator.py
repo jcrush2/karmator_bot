@@ -729,9 +729,14 @@ def commands(msg, text):
 		headers = {'x-access-token': '83a5fe66f97a36e6f0be4b2be21a5552'}
 		response = requests.request("GET", url, headers=headers, params=querystring)
 		data = response.json()
-		BKK = data['data']['BKK']['1']['price']
-		BKK2 = data['data']['BKK']['1']['departure_at']
-		send_bilet+=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
+		try:
+			BKK = data['data']['BKK']['1']['price']
+			BKK2 = data['data']['BKK']['1']['departure_at']
+			send_bilet+=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
+		except KeyError:
+  			print("Key error. Do something else")
+		except Exception:
+			 print("Some other error")
 		try:
 			HKG = data['data']['HKG']['1']['price']
 			HKG2 = data['data']['HKG']['1']['departure_at']
