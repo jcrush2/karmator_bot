@@ -802,7 +802,7 @@ def commands(msg, text):
 #		bot.forward_message(-1001110839896, msg.message_id)
 		bot.delete_message(msg.chat.id, msg.message_id)
 
-	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot' or msg.text.lower() in ['/croco']:
+	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot']:
 		saves_database_id[database_id] =f"{msg.from_user.id}"
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
