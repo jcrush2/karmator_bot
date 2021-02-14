@@ -753,11 +753,17 @@ def commands(msg, text):
   			print("Key error. Do something else")
 		except Exception:
 			 print("Some other error")
+		try:
+			AYT = data['data']['AYT']['1']['price']
+			AYT2 = data['data']['AYT']['1']['departure_at']
+			send_bilet+=f"✈️ Анталья (Турция), цена: {AYT}, вылет: {AYT2}\n\n"
+		except Exception:
+			 print("Some other error")
 
 		bot.send_message(msg.chat.id, send_bilet, parse_mode="HTML")
 
 		keyboard = types.InlineKeyboardMarkup()
-		url_button = types.InlineKeyboardButton(text="Посмотреть", url="https://tp.media/r?marker=13972&trs=10984&p=4114&u=https%3A%2F%2Fwww.aviasales.ru%2FKHV")
+		url_button = types.InlineKeyboardButton(text="Посмотреть", url="https://tp.media/r?marker=13972&trs=10984&p=4114&u=https%3A%2F%2Fwww.aviasales.ru%2Fsearch%2FKHV")
 		keyboard.add(url_button)
 		bot.send_message(msg.chat.id, "Вы можете купить билет, оплатив по кнопке ниже.", reply_markup=keyboard)
 
