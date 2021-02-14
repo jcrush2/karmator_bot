@@ -739,15 +739,16 @@ def commands(msg, text):
 			send_bilet=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
 			send_bilet+=f"✈️ Гонконг (Китай), цена: {HKG}, вылет: {HKG2}\n\n"
 			send_bilet+=f"✈️ Нячанг (Вьетнам), цена: {NHA}, вылет: {NHA2}\n\n"
-			bot.send_message(msg.chat.id, send_bilet, parse_mode="HTML")
 
-			keyboard = types.InlineKeyboardMarkup()
-			url_button = types.InlineKeyboardButton(text="Посмотреть", url="https://tp.media/r?marker=13972&trs=10984&p=4114&u=https%3A%2F%2Fwww.aviasales.ru%2FKHV")
-			keyboard.add(url_button)
-			bot.send_message(msg.chat.id, "Вы можете купить билет, оплатив по кнопке ниже.", reply_markup=keyboard)
 		except Exception:
 			 print("Some other error")
-		
+		bot.send_message(msg.chat.id, send_bilet, parse_mode="HTML")
+
+		keyboard = types.InlineKeyboardMarkup()
+		url_button = types.InlineKeyboardButton(text="Посмотреть", url="https://tp.media/r?marker=13972&trs=10984&p=4114&u=https%3A%2F%2Fwww.aviasales.ru%2FKHV")
+		keyboard.add(url_button)
+		bot.send_message(msg.chat.id, "Вы можете купить билет, оплатив по кнопке ниже.", reply_markup=keyboard)
+
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
 		url_button = types.InlineKeyboardButton(text="💰 Купить кармы - 1р.", url="https://khabara.ru/informer.html")
