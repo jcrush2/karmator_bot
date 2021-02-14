@@ -730,7 +730,7 @@ def commands(msg, text):
 		data = response.json()
 		BKK = data['data']['BKK']['1']['price']
 		BKK2 = data['data']['BKK']['1']['departure_at']
-		
+		key=""
 		HKG = key.get(data['data']['HKG']['1']['price'])
 		HKG2 = key.get(data['data']['HKG']['1']['departure_at'])
 		
