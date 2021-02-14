@@ -721,31 +721,32 @@ def commands(msg, text):
 		
 	if msg.text.lower() in ['билет']:
 		bot.send_chat_action(msg.chat.id, "typing")
-		url = "https://api.travelpayouts.com/v1/prices/cheap"
-		a = datetime.datetime.now().strftime("%Y-%m")
-		querystring = {"origin":"KHV","destination":"-","depart_date":f"{a}"}
-		headers = {'x-access-token': '83a5fe66f97a36e6f0be4b2be21a5552'}
-		response = requests.request("GET", url, headers=headers, params=querystring)
-#		bot.reply_to(msg, f"📍 Цитата: {response.text}", parse_mode="HTML")
-		data = response.json()
-		BKK = data['data']['BKK']['1']['price']
-		BKK2 = data['data']['BKK']['1']['departure_at']
-		key=""
-		HKG = key.get(data['data']['HKG']['1']['price'])
-		HKG2 = key.get(data['data']['HKG']['1']['departure_at'])
+		try:
+			url = "https://api.travelpayouts.com/v1/prices/cheap"
+			a = datetime.datetime.now().strftime("%Y-%m")
+			querystring = {"origin":"KHV","destination":"-","depart_date":f"{a}"}
+			headers = {'x-access-token': '83a5fe66f97a36e6f0be4b2be21a5552'}
+			response = requests.request("GET", url, headers=headers, params=querystring)
+			data = response.json()
+			BKK = data['data']['BKK']['1']['price']
+			BKK2 = data['data']['BKK']['1']['departure_at']
+			HKG = data['data']['HKG']['1']['price']
+			HKG2 = data['data']['HKG']['1']['departure_at']
 		
-		NHA = data['data']['NHA']['1']['price']
-		NHA2 = data['data']['NHA']['1']['departure_at']
+			NHA = data['data']['NHA']['1']['price']
+			NHA2 = data['data']['NHA']['1']['departure_at']
 		
-		send_bilet=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
-		send_bilet+=f"✈️ Гонконг (Китай), цена: {HKG}, вылет: {HKG2}\n\n"
-		send_bilet+=f"✈️ Нячанг (Вьетнам), цена: {NHA}, вылет: {NHA2}\n\n"
-		bot.send_message(msg.chat.id, send_bilet, parse_mode="HTML")
+			send_bilet=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
+			send_bilet+=f"✈️ Гонконг (Китай), цена: {HKG}, вылет: {HKG2}\n\n"
+			send_bilet+=f"✈️ Нячанг (Вьетнам), цена: {NHA}, вылет: {NHA2}\n\n"
+			bot.send_message(msg.chat.id, send_bilet, parse_mode="HTML")
 
-		keyboard = types.InlineKeyboardMarkup()
-		url_button = types.InlineKeyboardButton(text="Посмотреть", url="https://tp.media/r?marker=13972&trs=10984&p=4114&u=https%3A%2F%2Fwww.aviasales.ru%2FKHV")
-		keyboard.add(url_button)
-		bot.send_message(msg.chat.id, "Вы можете купить билет, оплатив по кнопке ниже.", reply_markup=keyboard)
+			keyboard = types.InlineKeyboardMarkup()
+			url_button = types.InlineKeyboardButton(text="Посмотреть", url="https://tp.media/r?marker=13972&trs=10984&p=4114&u=https%3A%2F%2Fwww.aviasales.ru%2FKHV")
+			keyboard.add(url_button)
+			bot.send_message(msg.chat.id, "Вы можете купить билет, оплатив по кнопке ниже.", reply_markup=keyboard)
+		except Exception:
+			 print("Some other error")
 		
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
