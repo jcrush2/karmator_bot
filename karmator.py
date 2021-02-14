@@ -731,16 +731,19 @@ def commands(msg, text):
 		BKK = data['data']['BKK']['1']['price']
 		BKK2 = data['data']['BKK']['1']['departure_at']
 		
-		AER = data['data']['AER']['1']['price']
-		AER2 = data['data']['AER']['1']['departure_at']
+		HKG = data['data']['HKG']['1']['price']
+		HKG2 = data['data']['HKG']['1']['departure_at']
 		
-		t2 = data['data']['AER']['1']['expires_at']
-		send_bilet=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}"
-		send_bilet+=f"✈️ Сочи (Адлер), цена: {AER}, вылет: {AER2}"
+		NHA = data['data']['NHA']['1']['price']
+		NHA2 = data['data']['NHA']['1']['departure_at']
+		
+		send_bilet=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}\n\n"
+		send_bilet+=f"✈️ Гонконг (Китай), цена: {HKG}, вылет: {HKG2}\n\n"
+		send_bilet+=f"✈️ Нячанг (Вьетнам), цена: {NHA}, вылет: {NHA2}\n\n"
 		bot.send_message(msg.chat.id, send_bilet, parse_mode="HTML")
 
 		keyboard = types.InlineKeyboardMarkup()
-		url_button = types.InlineKeyboardButton(text="Посмотреть", url="https://www.aviasales.ru/search/KHV"+t2+"AER1")
+		url_button = types.InlineKeyboardButton(text="Посмотреть", url="https://tp.media/r?marker=13972&trs=10984&p=4114&u=https%3A%2F%2Fwww.aviasales.ru%2FKHV")
 		keyboard.add(url_button)
 		bot.send_message(msg.chat.id, "Вы можете купить билет, оплатив по кнопке ниже.", reply_markup=keyboard)
 		
