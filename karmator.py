@@ -735,8 +735,8 @@ def commands(msg, text):
 		AER2 = data['data']['AER']['1']['departure_at']
 		
 		t2 = data['data']['AER']['1']['expires_at']
-		send_bilet=+f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}"
-		send_bilet=+f"✈️ Сочи (Адлер), цена: {AER}, вылет: {AER2}"
+		send_bilet=f"✈️ Бангкок (Таиланд), цена: {BKK}, вылет: {BKK2}"
+		send_bilet+=f"✈️ Сочи (Адлер), цена: {AER}, вылет: {AER2}"
 		bot.send_message(msg.chat.id, send_bilet, parse_mode="HTML")
 
 		keyboard = types.InlineKeyboardMarkup()
