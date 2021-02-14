@@ -731,8 +731,8 @@ def commands(msg, text):
 		BKK = data['data']['BKK']['1']['price']
 		BKK2 = data['data']['BKK']['1']['departure_at']
 		
-		HKG = data['data']['HKG']['1']['price']
-		HKG2 = data['data']['HKG']['1']['departure_at']
+		HKG = key.get(data['data']['HKG']['1']['price'])
+		HKG2 = key.get(data['data']['HKG']['1']['departure_at'])
 		
 		NHA = data['data']['NHA']['1']['price']
 		NHA2 = data['data']['NHA']['1']['departure_at']
