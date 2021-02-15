@@ -854,6 +854,7 @@ def query_handler(call):
 	if f"{idmy2}" == f"{call.data}":
 		if seves_3<1:
 			return
+		saves_database_3[database_3]=seves_3-1
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} сменил слово -5 кармы", parse_mode="HTML")
