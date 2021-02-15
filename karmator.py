@@ -6,7 +6,7 @@ import os
 import random
 import requests
 import re
-import time
+
 from flask import Flask, request
 import peewee as pw
 import telebot
@@ -26,6 +26,9 @@ saves_database_id = {}
 database_id="111111"
 saves_database_time = {}
 database_time="3333"
+
+saves_database_3 = {}
+database_3=2
 
 def is_my_message(msg):
 	"""
@@ -792,6 +795,7 @@ def commands(msg, text):
 		idmy2 =idmy+1
 		idmy3=idmy+3
 		saves_database_time[database_time] =a
+		saves_database_3[database_3] =2
 		saves_database_id[database_id] =f"{msg.from_user.id}"
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
@@ -806,6 +810,7 @@ def commands(msg, text):
 	seves = saves_database.get(database)
 	seves_id = saves_database_id.get(database_id)
 	seves_time = saves_database_time.get(database_time)
+	seves_3 = saves_database_3.get(database_3)
 
 	if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
@@ -830,8 +835,8 @@ def commands(msg, text):
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
-	timing = time.time()
 	seves_time = saves_database_time.get(database_time)
+	seves_3 = saves_database_3.get(database_3)
 	idmy =seves_time+call.from_user.id
 	idmy2=idmy+1
 	idmy3=idmy+3
@@ -839,17 +844,16 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 
 	if f"{idmy3}" == f"{call.data}":
-			while True:
-				if time.time() - timing > 5.0:
-					return
+		if seves_3<1:
+			return
+		saves_database_3[database_3]=seves_3-1
 		saves_database[database] = random.choice(["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🦁","🐮","🐷","🐽","🐸","🐵","🙈","🙉","🙊","🙊","🐒","🐔","🐧","🐦","🐤","🐣","🐥","🦆","🦅","🦉","🦇","🐺","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌","🐞","🐜","🪰","🪲","🪳","🦟","🦗","🕷","🕸","🦂","🐢","🐍","🦎","🦖","🦕","🐙","🦑","🦐","🦞","🦀","🐡","🐠","🐟","🐬","🐳","🐋","🦈","🐊","🐅","🐆","🦓","🦍","🦧","🐘","🦛","🦏","🐪","🐫","🦒","🦘","🐃","🐂","🐄","🐎","🐖","🐏","🐑","🦙","🐐","🦌","🐕","🐩","🦮","🐈","🐓","🦃","🦚","🦜","🦢","🦩","🕊","🐇","🦝","🦨","🦡","🦦","🦥","🐁","🐀","🐿","🦔","🐾","🐉","🐲"])
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное Эмодзи: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} загадал <b>Эмодзи</b>", parse_mode="HTML")
 		
 	if f"{idmy2}" == f"{call.data}":
-		while True:
-			if time.time() - timing > 5.0:
-				return
+		if seves_3<1:
+			return
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} сменил слово -5 кармы", parse_mode="HTML")
