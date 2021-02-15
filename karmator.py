@@ -801,7 +801,7 @@ def commands(msg, text):
 		saves_database_time[database_time] =a
 		saves_database_3[database_3] =2
 		saves_database_id[database_id] =f"{msg.from_user.id}"
-		saves_database_id2[database_id2] =msg.message_id
+		
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
@@ -817,7 +817,7 @@ def commands(msg, text):
 	seves_time = saves_database_time.get(database_time)
 	seves_3 = saves_database_3.get(database_3)
 	
-	seves_id2 = saves_database_id2.get(database_id2)
+	
 
 	if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
@@ -831,6 +831,7 @@ def commands(msg, text):
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы, запустить игру /croco", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, 3)
+			seves_id2 = saves_database_id2.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
 
@@ -843,6 +844,7 @@ def commands(msg, text):
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
+	saves_database_id2[database_id2] =call.message_id
 	seves_time = saves_database_time.get(database_time)
 	seves_3 = saves_database_3.get(database_3)
 	idmy =seves_time+call.from_user.id
@@ -853,10 +855,10 @@ def query_handler(call):
 
 	if f"{idmy3}" == f"{call.data}":
 		if seves_3<1:
-			bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=" Как дела?",reply_markup=None)
-			bot.answer_callback_query(callback_query_id=call.id, show_alert=True,
-        text="Преобразовано...")
-#			return
+			return
+#			bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=" Как дела?",reply_markup=None)
+#			bot.answer_callback_query(callback_query_id=call.id, show_alert=True,
+#        text="Преобразовано...")
 		saves_database_3[database_3]=seves_3-1
 		saves_database[database] = random.choice(["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🦁","🐮","🐷","🐽","🐸","🐵","🙈","🙉","🙊","🙊","🐒","🐔","🐧","🐦","🐤","🐣","🐥","🦆","🦅","🦉","🦇","🐺","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌","🐞","🐜","🪰","🪲","🪳","🦟","🦗","🕷","🕸","🦂","🐢","🐍","🦎","🦖","🦕","🐙","🦑","🦐","🦞","🦀","🐡","🐠","🐟","🐬","🐳","🐋","🦈","🐊","🐅","🐆","🦓","🦍","🦧","🐘","🦛","🦏","🐪","🐫","🦒","🦘","🐃","🐂","🐄","🐎","🐖","🐏","🐑","🦙","🐐","🦌","🐕","🐩","🦮","🐈","🐓","🦃","🦚","🦜","🦢","🦩","🕊","🐇","🦝","🦨","🦡","🦦","🦥","🐁","🐀","🐿","🦔","🐾","🐉","🐲"])
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное Эмодзи: {saves_database[database]}")
