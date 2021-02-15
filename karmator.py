@@ -801,7 +801,7 @@ def commands(msg, text):
 		saves_database_time[database_time] =a
 		saves_database_3[database_3] =2
 		saves_database_id[database_id] =f"{msg.from_user.id}"
-		saves_database_id2[database_id2] =msg.message_id
+		saves_database_id2[database_id2] =msg.message.message_id
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
