@@ -811,7 +811,7 @@ def commands(msg, text):
 	if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
-		seves_id = saves_database.get(database_id)
+		seves_id = saves_database_id.get(database_id)
 		if seves_id ==  f"{msg.from_user.id}":
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
