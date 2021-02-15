@@ -22,16 +22,9 @@ bot = telebot.TeleBot(TELEGRAM_API)
 
 saves_database = {}
 database="dss4fgfd"
-saves_database_id = {}
 database_id="111111"
-
-saves_database_id2 = {}
 database_id2="111111"
-
-saves_database_time = {}
 database_time="3333"
-
-saves_database_3 = {}
 database_3=2
 
 def is_my_message(msg):
@@ -798,10 +791,10 @@ def commands(msg, text):
 		idmy =a+msg.from_user.id
 		idmy2 =idmy+1
 		idmy3=idmy+3
-		saves_database_time[database_time] =a
-		saves_database_3[database_3] =2
-		saves_database_id[database_id] =f"{msg.from_user.id}"
-		saves_database_id2[database_id2] =msg.message_id+1
+		saves_database[database_time] =a
+		saves_database[database_3] =2
+		saves_database[database_id] =f"{msg.from_user.id}"
+		saves_database[database_id2] =msg.message_id+1
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
@@ -813,9 +806,9 @@ def commands(msg, text):
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
 		bot.delete_message(msg.chat.id, msg.message_id)
 	seves = saves_database.get(database)
-	seves_id = saves_database_id.get(database_id)
-	seves_time = saves_database_time.get(database_time)
-	seves_3 = saves_database_3.get(database_3)
+	seves_id = saves_database.get(database_id)
+	seves_time = saves_database.get(database_time)
+	seves_3 = saves_database.get(database_3)
 	
 	
 
@@ -831,7 +824,7 @@ def commands(msg, text):
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы, запустить игру /croco", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, 3)
-			seves_id2 = saves_database_id2.get(database_id2)
+			seves_id2 = saves_database.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
 
@@ -845,8 +838,8 @@ def commands(msg, text):
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
 	
-	seves_time = saves_database_time.get(database_time)
-	seves_3 = saves_database_3.get(database_3)
+	seves_time = saves_database.get(database_time)
+	seves_3 = saves_database.get(database_3)
 	idmy =seves_time+call.from_user.id
 	idmy2=idmy+1
 	idmy3=idmy+3
@@ -861,7 +854,7 @@ def query_handler(call):
 #			bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=" Как дела?",reply_markup=None)
 #			bot.answer_callback_query(callback_query_id=call.id, show_alert=True,
 #        text="Преобразовано...")
-		saves_database_3[database_3]=seves_3-1
+		saves_database[database_3]=seves_3-1
 		saves_database[database] = random.choice(["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🦁","🐮","🐷","🐽","🐸","🐵","🙈","🙉","🙊","🙊","🐒","🐔","🐧","🐦","🐤","🐣","🐥","🦆","🦅","🦉","🦇","🐺","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌","🐞","🐜","🪰","🪲","🪳","🦟","🦗","🕷","🕸","🦂","🐢","🐍","🦎","🦖","🦕","🐙","🦑","🦐","🦞","🦀","🐡","🐠","🐟","🐬","🐳","🐋","🦈","🐊","🐅","🐆","🦓","🦍","🦧","🐘","🦛","🦏","🐪","🐫","🦒","🦘","🐃","🐂","🐄","🐎","🐖","🐏","🐑","🦙","🐐","🦌","🐕","🐩","🦮","🐈","🐓","🦃","🦚","🦜","🦢","🦩","🕊","🐇","🦝","🦨","🦡","🦦","🦥","🐁","🐀","🐿","🦔","🐾","🐉","🐲"])
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное Эмодзи: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} загадал <b>Эмодзи</b>", parse_mode="HTML")
@@ -870,7 +863,7 @@ def query_handler(call):
 		if seves_3<1:
 			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
-		saves_database_3[database_3]=seves_3-1
+		saves_database[database_3]=seves_3-1
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} сменил слово -5 кармы", parse_mode="HTML")
