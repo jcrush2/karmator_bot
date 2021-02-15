@@ -806,16 +806,13 @@ def commands(msg, text):
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
 		bot.delete_message(msg.chat.id, msg.message_id)
 	seves = saves_database.get(database)
-	seves_id = saves_database.get(database_id)
-	seves_time = saves_database.get(database_time)
-	seves_3 = saves_database.get(database_3)
-	
 	
 
 	if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
-		if seves_id ==msg.from_user.id:
+		seves_id = saves_database.get(database_id)
+		if msg.from_user.id==seves_id:
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, -10)
