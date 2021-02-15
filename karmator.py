@@ -790,15 +790,16 @@ def commands(msg, text):
 		a=random.randint(1,1000)
 		idmy =a+msg.from_user.id
 		idmy2 =idmy+1
+		idmy3=idmy+3
 		saves_database_time[database_time] =a
 		saves_database_id[database_id] =f"{msg.from_user.id}"
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
 		
-		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=idmy)
-		button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy+3)
-		button2 = telebot.types.InlineKeyboardButton(text='Сменить слово', callback_data=idmy2)
+		button = telebot.types.InlineKeyboardButton(text='👀', callback_data=idmy)
+		button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy3)
+		button2 = telebot.types.InlineKeyboardButton(text='🔄', callback_data=idmy2)
 		markup.add(button,button2,button3)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 		bot.delete_message(msg.chat.id, msg.message_id)
@@ -832,10 +833,11 @@ def query_handler(call):
 	seves_time = saves_database_time.get(database_time)
 	idmy =seves_time+call.from_user.id
 	idmy2=idmy+1
+	idmy3=idmy+3
 	if  f"{idmy}" == f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 
-	if f"{idmy+3}" == f"{call.data+3}":
+	if f"{idmy3}" == f"{call.data}":
 		saves_database[database] = random.choice(["🐊","ℹ️"])
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 		bot.send_message(call.message.chat.id, f"Играющий загадал <b<Эмодзи</b>", parse_mode="HTML")
