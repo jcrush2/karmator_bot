@@ -24,6 +24,10 @@ saves_database = {}
 database="dss4fgfd"
 saves_database_id = {}
 database_id="111111"
+
+saves_database_id2 = {}
+database_id2="111111"
+
 saves_database_time = {}
 database_time="3333"
 
@@ -797,6 +801,7 @@ def commands(msg, text):
 		saves_database_time[database_time] =a
 		saves_database_3[database_3] =2
 		saves_database_id[database_id] =f"{msg.from_user.id}"
+		saves_database_id2[database_id2] =msg.message_id
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
@@ -824,6 +829,8 @@ def commands(msg, text):
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы, запустить игру /croco", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, 3)
+			
+			bot.edit_message_text(chat_id=msg.chat.id, message_id=saves_database_id2.get(database_id2), text=" Как дела?",reply_markup=None)
 			saves_database[database] = "dse4f"
 
 #	if msg.text.lower() in ['играть']:
@@ -846,7 +853,7 @@ def query_handler(call):
 	if f"{idmy3}" == f"{call.data}":
 		if seves_3<1:
 			bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=" Как дела?",reply_markup=None)
-			bot.answer_callback_query(callback_query_id=call.id, show_alert=False,
+			bot.answer_callback_query(callback_query_id=call.id, show_alert=True,
         text="Преобразовано...")
 #			return
 		saves_database_3[database_3]=seves_3-1
