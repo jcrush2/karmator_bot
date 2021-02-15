@@ -787,9 +787,10 @@ def commands(msg, text):
 		bot.delete_message(msg.chat.id, msg.message_id)
 
 	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot'] or msg.text.lower() in ['/croco']:
-		idmy =random.randint(1,1000)+msg.from_user.id
+		a=random.randint(1,1000)
+		idmy =a+msg.from_user.id
 		idmy2 =idmy+1
-		saves_database_time[database_time] =idmy
+		saves_database_time[database_time] =a
 		saves_database_id[database_id] =f"{msg.from_user.id}"
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
@@ -918,6 +919,8 @@ def reply_exist(msg):
 
 @bot.message_handler(content_types=["text"], func=reply_exist)
 def changing_karma_text(msg):
+	if msg.chat.type == "private":
+		return
 	reputation(msg, msg.text)
 	reputation_mat(msg, msg.text)
 	commands(msg, msg.text)
@@ -925,6 +928,8 @@ def changing_karma_text(msg):
 
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
 def changing_karma_sticker(msg):
+	if msg.chat.type == "private":
+		return
 	reputation(msg, msg.sticker.emoji)
 	
 @bot.message_handler(content_types=['text'])	
@@ -958,6 +963,8 @@ def karma_game(msg):
 				
 @bot.message_handler(content_types=['dice'])
 def send_dice(msg):
+	if msg.chat.type == "private":
+		return
 	if msg.forward_from != None:
 		bot.delete_message(msg.chat.id, msg.message_id)
 	else:
