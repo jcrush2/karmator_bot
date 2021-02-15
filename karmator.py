@@ -832,7 +832,7 @@ def commands(msg, text):
 			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы, запустить игру /croco", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, 3)
 			
-			bot.edit_message_text(chat_id=msg.chat.id, message_id=seves_id2, text=" Как дела?",reply_markup=None)
+			bot.edit_message_text(msg.chat.id, seves_id2, text=" Как дела?",reply_markup=None)
 			saves_database[database] = "dse4f"
 
 #	if msg.text.lower() in ['играть']:
