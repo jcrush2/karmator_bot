@@ -789,7 +789,7 @@ def commands(msg, text):
 	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot'] or msg.text.lower() in ['/croco']:
 		idmy =random.randint(1,1000)+msg.from_user.id
 		idmy2 =idmy+1
-		saves_database_time[database_time] =a
+		saves_database_time[database_time] =idmy
 		saves_database_id[database_id] =f"{msg.from_user.id}"
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
