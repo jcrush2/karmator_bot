@@ -827,6 +827,7 @@ def commands(msg, text):
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
+	seves_time = saves_database_time.get(database_time)
 	idmy =seves_time+call.from_user.id
 	if  f"{idmy}" == f"{call.data}":
 		
