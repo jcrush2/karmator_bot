@@ -789,6 +789,7 @@ def commands(msg, text):
 	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot'] or msg.text.lower() in ['/croco']:
 		a = random.randint(1,1000)
 		idmy =a+msg.from_user.id
+		idmy2 =idmy+1
 		saves_database_time[database_time] =a
 		saves_database_id[database_id] =f"{msg.from_user.id}"
 		saves_database[database] = random.choice(config.kroko_words)
@@ -796,7 +797,7 @@ def commands(msg, text):
 		markup = telebot.types.InlineKeyboardMarkup()
 		
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=idmy)
-		button2 = telebot.types.InlineKeyboardButton(text='Сменить слово', callback_data=msg.from_user.first_name)
+		button2 = telebot.types.InlineKeyboardButton(text='Сменить слово', callback_data=idmy2)
 		markup.add(button,button2)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 		bot.delete_message(msg.chat.id, msg.message_id)
@@ -829,19 +830,20 @@ def commands(msg, text):
 def query_handler(call):
 	seves_time = saves_database_time.get(database_time)
 	idmy =seves_time+call.from_user.id
+	idmy2=idmy+1
 	if  f"{idmy}" == f"{call.data}":
 		
 		
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 
-	if f"{seves_time}{call.from_user.first_name}" == f"{call.data}":
+	if f"{idmy2}" == f"{call.data}":
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 		bot.send_message(call.message.chat.id, f"Играющий сменил слово в крокодиле -5 кармы", parse_mode="HTML")
 #	if  call.data == "pravda":
 #		bot.delete_message(call.id, call.message_id)
 		
-	if  f"{call.from_user.id}" != f"{call.data}":
+	if  f"{idmy2}" != f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
   
