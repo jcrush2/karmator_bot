@@ -797,8 +797,9 @@ def commands(msg, text):
 		markup = telebot.types.InlineKeyboardMarkup()
 		
 		button = telebot.types.InlineKeyboardButton(text='Посмотреть слово', callback_data=idmy)
+		button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy+3)
 		button2 = telebot.types.InlineKeyboardButton(text='Сменить слово', callback_data=idmy2)
-		markup.add(button,button2)
+		markup.add(button,button2,button3)
 		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
 		bot.delete_message(msg.chat.id, msg.message_id)
 	seves = saves_database.get(database)
@@ -832,10 +833,13 @@ def query_handler(call):
 	idmy =seves_time+call.from_user.id
 	idmy2=idmy+1
 	if  f"{idmy}" == f"{call.data}":
-		
-		
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 
+	if f"{idmy+3}" == f"{call.data+3}":
+		saves_database[database] = random.choice(["🐊","ℹ️"])
+		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
+		bot.send_message(call.message.chat.id, f"Играющий загадал <b<Эмодзи</b>", parse_mode="HTML")
+		
 	if f"{idmy2}" == f"{call.data}":
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
