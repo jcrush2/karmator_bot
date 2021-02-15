@@ -801,7 +801,7 @@ def commands(msg, text):
 		button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy3)
 		button2 = telebot.types.InlineKeyboardButton(text='🔄', callback_data=idmy2)
 		markup.add(button,button2,button3)
-		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово.', reply_markup=markup)
+		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
 		bot.delete_message(msg.chat.id, msg.message_id)
 	seves = saves_database.get(database)
 	seves_id = saves_database_id.get(database_id)
@@ -838,14 +838,14 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
 
 	if f"{idmy3}" == f"{call.data}":
-		saves_database[database] = random.choice(["🐊","ℹ️"])
+		saves_database[database] = random.choice(["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐻‍❄️","🐨","🐯","🦁","🐮","🐷","🐽","🐸","🐵","🙈","🙉","🙊","🙊","🐒","🐔","🐧","🐦","🐤","🐣","🐥","🦆","🦅","🦉","🦇","🐺","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌","🐞","🐜","🪰","🪲","🪳","🦟","🦗","🕷","🕸","🦂","🐢","🐍","🦎","🦖","🦕","🐙","🦑","🦐","🦞","🦀","🐡","🐠","🐟","🐬","🐳","🐋","🦈","🦭","🐊","🐅","🐆","🦓","🦍","🦧","🦣","🐘","🦛","🦏","🐪","🐫","🦒","🦘","🦬","🐃","🐂","🐄","🐎","🐖","🐏","🐑","🦙","🐐","🦌","🐕","🐩","🦮","🐕‍🦺","🐈","🐈‍⬛️","🪶","🐓","🦃","🦤","🦚","🦜","🦢","🦩","🕊","🐇","🦝","🦨","🦡","🦫","🦦","🦥","🐁","🐀","🐿","🦔","🐾","🐉","🐲"])
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
-		bot.send_message(call.message.chat.id, f"Играющий загадал <b<Эмодзи</b>", parse_mode="HTML")
+		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} загадал <b>Эмодзи</b>", parse_mode="HTML")
 		
 	if f"{idmy2}" == f"{call.data}":
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=saves_database[database])
-		bot.send_message(call.message.chat.id, f"Играющий сменил слово в крокодиле -5 кармы", parse_mode="HTML")
+		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} сменил слово -5 кармы", parse_mode="HTML")
 #	if  call.data == "pravda":
 #		bot.delete_message(call.id, call.message_id)
 		
