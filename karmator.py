@@ -793,7 +793,7 @@ def commands(msg, text):
 		idmy3=idmy+3
 		saves_database[database_time] =a
 		saves_database[database_3] =2
-		saves_database[database_id] =f"{msg.from_user.id}"
+		saves_database[database_id] =msg.from_user.id
 		saves_database[database_id2] =msg.message_id+1
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
@@ -815,10 +815,10 @@ def commands(msg, text):
 	if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
-		if seves_id ==  f"{msg.from_user.id}":
-					bot.send_chat_action(msg.chat.id, "typing")
-					bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
-					change_karma(msg.from_user, msg.chat, -10)
+		if seves_id ==msg.from_user.id:
+			bot.send_chat_action(msg.chat.id, "typing")
+			bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
+			change_karma(msg.from_user, msg.chat, -10)
 					
 		else:
 			bot.send_chat_action(msg.chat.id, "typing")
