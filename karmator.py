@@ -787,8 +787,7 @@ def commands(msg, text):
 		bot.delete_message(msg.chat.id, msg.message_id)
 
 	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot'] or msg.text.lower() in ['/croco']:
-		a = random.randint(1,1000)
-		idmy =a+msg.from_user.id
+		idmy =random.randint(1,1000)+msg.from_user.id
 		idmy2 =idmy+1
 		saves_database_time[database_time] =a
 		saves_database_id[database_id] =f"{msg.from_user.id}"
@@ -930,6 +929,8 @@ def changing_karma_sticker(msg):
 	
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
+	if msg.chat.type == "private":
+		return
 	reputation_mat(msg, msg.text)
 	commands(msg, msg.text)
 	"""
