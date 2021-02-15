@@ -855,7 +855,9 @@ def query_handler(call):
 
 	if f"{idmy3}" == f"{call.data}":
 		if seves_3<1:
+			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
+		
 #			bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=" Как дела?",reply_markup=None)
 #			bot.answer_callback_query(callback_query_id=call.id, show_alert=True,
 #        text="Преобразовано...")
@@ -866,6 +868,7 @@ def query_handler(call):
 		
 	if f"{idmy2}" == f"{call.data}":
 		if seves_3<1:
+			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
 		saves_database_3[database_3]=seves_3-1
 		saves_database[database] = random.choice(config.kroko_words)
