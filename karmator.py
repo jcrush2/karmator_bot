@@ -801,7 +801,7 @@ def commands(msg, text):
 		saves_database_time[database_time] =a
 		saves_database_3[database_3] =2
 		saves_database_id[database_id] =f"{msg.from_user.id}"
-		
+		saves_database_id2[database_id2] =msg.message_id+1
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
@@ -844,7 +844,7 @@ def commands(msg, text):
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
-	saves_database_id2[database_id2] =call.message_id
+	
 	seves_time = saves_database_time.get(database_time)
 	seves_3 = saves_database_3.get(database_3)
 	idmy =seves_time+call.from_user.id
