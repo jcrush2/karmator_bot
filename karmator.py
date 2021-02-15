@@ -801,7 +801,7 @@ def commands(msg, text):
 		saves_database_time[database_time] =a
 		saves_database_3[database_3] =2
 		saves_database_id[database_id] =f"{msg.from_user.id}"
-		saves_database_id2[database_id2] =msg.from_user.message_id
+		saves_database_id2[database_id2] =msg.message_id
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
@@ -816,6 +816,8 @@ def commands(msg, text):
 	seves_id = saves_database_id.get(database_id)
 	seves_time = saves_database_time.get(database_time)
 	seves_3 = saves_database_3.get(database_3)
+	
+	seves_id2 = saves_database_id2.get(database_id2)
 
 	if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
@@ -830,7 +832,7 @@ def commands(msg, text):
 			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы, запустить игру /croco", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, 3)
 			
-			bot.edit_message_text(chat_id=msg.chat.id, message_id=saves_database_id2.get(database_id2), text=" Как дела?",reply_markup=None)
+			bot.edit_message_text(chat_id=msg.chat.id, message_id=seves_id2, text=" Как дела?",reply_markup=None)
 			saves_database[database] = "dse4f"
 
 #	if msg.text.lower() in ['играть']:
