@@ -24,7 +24,7 @@ saves_database = {}
 database="dss4fgfd"
 saves_database_id = {}
 database_id="111111"
-database_id2="111111"
+database_id2="010101010"
 database_time="3333"
 database_3=2
 
@@ -788,8 +788,8 @@ def commands(msg, text):
 		bot.delete_message(msg.chat.id, msg.message_id)
 
 	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot'] or msg.text.lower() in ['/croco']:
-		seves_id2 = saves_database.get(database_id2)
-		bot.delete_message(msg.chat.id, seves_id2)
+		if saves_database.get(database_id2)!="010101010":
+			bot.delete_message(msg.chat.id, seves_id2)
 		a=random.randint(1,1000)
 		idmy =a+msg.from_user.id
 		idmy2 =idmy+1
