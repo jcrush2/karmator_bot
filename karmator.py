@@ -788,7 +788,8 @@ def commands(msg, text):
 		bot.delete_message(msg.chat.id, msg.message_id)
 
 	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot'] or msg.text.lower() in ['/croco']:
-		if saves_database.get(database_id2)!="010101010":
+		seves_id2=saves_database.get(database)
+		if seves_id2 == "010101010":
 			bot.delete_message(msg.chat.id, seves_id2)
 		a=random.randint(1,1000)
 		idmy =a+msg.from_user.id
