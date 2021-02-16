@@ -790,7 +790,10 @@ def commands(msg, text):
 	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot'] or msg.text.lower() in ['/croco']:
 		seves_id2=saves_database.get(database)
 		if seves_id2!=5:
-			bot.delete_message(msg.chat.id, seves_id2)
+			try:
+				bot.delete_message(msg.chat.id, seves_id2)
+			except Exception:
+				bot.send_chat_action(msg.chat.id, "typing")
 		a=random.randint(1,1000)
 		idmy =a+msg.from_user.id
 		idmy2 =idmy+1
