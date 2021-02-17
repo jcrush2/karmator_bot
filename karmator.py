@@ -960,8 +960,8 @@ def changing_karma_sticker(msg):
 def karma_game(msg):
 	if msg.chat.type == "channel":
 		bot.forward_message(-1001357839727, msg.chat.id, msg.message_id)
-	if msg.chat.type == "private":
-		return
+#	if msg.chat.type == "private":
+#		return
 	reputation_mat(msg, msg.text)
 	commands(msg, msg.text)
 	"""
