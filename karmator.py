@@ -872,6 +872,7 @@ def croco(msg, text):
 	idmy2 =idmy+1
 	idmy3=idmy+3
 	saves_database[database_time] =a
+	saves_database[database_3] =2
 	saves_database_id[database_id] =f"{msg.from_user.id}"
 	saves_database[database_id2] =msg.message_id+1
 	saves_database[database] = random.choice(config.kroko_words)
