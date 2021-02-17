@@ -958,9 +958,9 @@ def changing_karma_sticker(msg):
 	
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
-
-	bot.send_message(-1001357839727,f'🐊 {msg.text} загадал(а) свое слово.', parse_mode="HTML")
-	bot.forward_message(-1001357839727, msg.chat.id, msg.message_id)
+	if msg.chat.type == "channel":
+		bot.forward_message(-1001357839727, msg.chat.id, msg.message_id)
+		return
 	if msg.chat.type == "private":
 		return
 	reputation_mat(msg, msg.text)
