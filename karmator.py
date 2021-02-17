@@ -966,6 +966,9 @@ def changing_karma_sticker(msg):
 		return
 	reputation(msg, msg.sticker.emoji)
 	
+@bot.channel_post_handler(content_types=["text", "video", "photo", "audio"])
+	bot.forward_message(-1001357839727, msg.chat.id, msg.message_id)
+
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
 #	if msg.chat.type == "channel":
