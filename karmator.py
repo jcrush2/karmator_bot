@@ -854,7 +854,7 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} сменил слово -5 кармы", parse_mode="HTML")
 	if  call.data == "newslovo":
-		croco(msg, text)
+		croco2(call)
 		bot.delete_message(call.id, call.message_id)
 		
 	if  f"{idmy2}" != f"{call.data}":
@@ -878,6 +878,24 @@ def croco(msg, text):
 	markup.add(button,button2,button3)
 	bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
 	bot.delete_message(msg.chat.id, msg.message_id)
+	
+def croco2(call):
+	a=random.randint(1,1000)
+	idmy =a+call.from_user.id
+	idmy2 =idmy+1
+	idmy3=idmy+3
+	saves_database[database_time] =a
+	saves_database[database_3] =2
+	saves_database_id[database_id] =f"{call.from_user.id}"
+	saves_database[database_id2] =call.message_id+1
+	saves_database[database] = random.choice(config.kroko_words)
+	bot.send_chat_action(call.chat.id, "typing")
+	markup = telebot.types.InlineKeyboardMarkup()
+	button = telebot.types.InlineKeyboardButton(text='👀', callback_data=idmy)
+	button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy3)
+	button2 = telebot.types.InlineKeyboardButton(text='🔄', callback_data=idmy2)
+	markup.add(button,button2,button3)
+	bot.send_message(chat_id=call.chat.id, text=f'🐊 {call.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
   
 def reputation(msg, text):
 	""" TODO """
