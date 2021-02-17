@@ -84,6 +84,7 @@ def helps(msg):
 	
 	
 	bot.send_message(msg.chat.id, help_mess, parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 
 @bot.message_handler(commands=["weather"], func=is_my_message)
 def weather(msg):
@@ -96,6 +97,7 @@ def weather(msg):
 	bot.send_chat_action(msg.chat.id, "typing")
 	reply_text = "<a href=\"https://t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d\">погода</a>"
 	bot.reply_to(msg, reply_text, parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 	
 @bot.message_handler(commands=["report"], func=is_my_message)
 def report(msg):
@@ -105,6 +107,7 @@ def report(msg):
 	report_text = "⚠️ Жалоба получена! \
 	\nУведомление админов: " + config.adminschat
 	bot.reply_to(msg, report_text)
+	bot.delete_message(msg.chat.id, msg.message_id)
 	
 @bot.message_handler(commands=["no"], func=is_my_message)
 def nos(msg):
@@ -337,6 +340,7 @@ def top_best(msg):
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 	
 	
 def tinder(msg):
@@ -437,6 +441,7 @@ def top_bad(msg):
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
+	bot.delete_message(msg.chat.id, msg.message_id)
 
 
 @bot.message_handler(commands=["freez", "unfreez"], func=is_my_message)
