@@ -791,7 +791,7 @@ def commands(msg, text):
 		bot.send_message(-1001110839896,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
 		bot.delete_message(msg.chat.id, msg.message_id)
 
-	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot'] or msg.text.lower() in ['/croco']:
+	if msg.text.lower() in ['крокодил','/croco@khabara_bot','/croco']:
 		croco(msg, text)
 
 	seves = saves_database.get(database)
@@ -862,7 +862,7 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
-	a=random.randint(1,1000)
+	a=msg.date
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
 	idmy3=idmy+3
