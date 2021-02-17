@@ -863,8 +863,11 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
-	seves_id2 = saves_database.get(database_id2)
-	bot.delete_message(msg.chat.id, seves_id2)
+	try:
+		seves_id2 = saves_database.get(database_id2)
+		bot.delete_message(msg.chat.id, seves_id2)
+	except Exception:
+		bot.send_chat_action(msg.chat.id, "typing")
 	a=msg.date
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
