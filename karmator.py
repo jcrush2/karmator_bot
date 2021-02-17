@@ -831,10 +831,10 @@ def query_handler(call):
 	idmy =seves_time+call.from_user.id
 	idmy2=idmy+1
 	idmy3=idmy+3
-	if  f"{idmy}" == f"{call.data}":
+	if  idmy == call.data:
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 
-	if f"{idmy3}" == f"{call.data}":
+	if idmy3 == call.data:
 		if seves_3<1:
 			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
@@ -847,7 +847,7 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное Эмодзи: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} загадал <b>Эмодзи</b>", parse_mode="HTML")
 		
-	if f"{idmy2}" == f"{call.data}":
+	if idmy2 == call.data:
 		if seves_3<1:
 			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
@@ -859,7 +859,7 @@ def query_handler(call):
 #		croco2(call)
 #		bot.delete_message(call.id, call.message_id)
 		
-	if  f"{idmy2}" != f"{call.data}":
+	if  idmy2 != call.data:
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
@@ -873,8 +873,7 @@ def croco(msg, text):
 	idmy2 =idmy+1
 	idmy3=idmy+3
 	saves_database[database_time] =a
-	saves_database[database_3] =2
-	saves_database_id[database_id] =f"{msg.from_user.id}"
+	saves_database_id[database_id] =msg.from_user.id
 	saves_database[database_id2] =msg.message_id+1
 	saves_database[database] = random.choice(config.kroko_words)
 	bot.send_chat_action(msg.chat.id, "typing")
