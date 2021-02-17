@@ -21,12 +21,11 @@ TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
 saves_database = {}
-database="0"
+database="dss4fgfd"
 saves_database_id = {}
-database_id="0"
-database_id2=0
-database_time=0
-database_mess=0
+database_id="111111"
+database_id2="111111"
+database_time="3333"
 database_3=2
 
 def is_my_message(msg):
@@ -813,7 +812,7 @@ def commands(msg, text):
 			change_karma(msg.from_user, msg.chat, 3)
 			seves_id2 = saves_database.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
-			saves_database[database] = "0"
+			saves_database[database] = "dse4f"
 
 
 #	if msg.text.lower() in ['играть']:
@@ -831,10 +830,10 @@ def query_handler(call):
 	idmy =seves_time+call.from_user.id
 	idmy2=idmy+1
 	idmy3=idmy+3
-	if  idmy == call.data:
+	if  f"{idmy}" == f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 
-	if idmy3 == call.data:
+	if f"{idmy3}" == f"{call.data}":
 		if seves_3<1:
 			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
@@ -847,7 +846,7 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное Эмодзи: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} загадал <b>Эмодзи</b>", parse_mode="HTML")
 		
-	if idmy2 == call.data:
+	if f"{idmy2}" == f"{call.data}":
 		if seves_3<1:
 			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
@@ -859,7 +858,7 @@ def query_handler(call):
 #		croco2(call)
 #		bot.delete_message(call.id, call.message_id)
 		
-	if  idmy2 != call.data:
+	if  f"{idmy2}" != f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
@@ -868,12 +867,12 @@ def croco(msg, text):
 		bot.delete_message(msg.chat.id, seves_id2)
 	except Exception:
 		bot.send_chat_action(msg.chat.id, "typing")
-	a=msg.date
+	a=random.randint(1,1000)
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
 	idmy3=idmy+3
 	saves_database[database_time] =a
-	saves_database_id[database_id] =msg.from_user.id
+	saves_database_id[database_id] =f"{msg.from_user.id}"
 	saves_database[database_id2] =msg.message_id+1
 	saves_database[database] = random.choice(config.kroko_words)
 	bot.send_chat_action(msg.chat.id, "typing")
@@ -884,6 +883,7 @@ def croco(msg, text):
 	markup.add(button,button2,button3)
 	bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
 	bot.delete_message(msg.chat.id, msg.message_id)
+	
   
 def reputation(msg, text):
 	""" TODO """
