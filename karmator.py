@@ -799,7 +799,6 @@ def commands(msg, text):
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.send_chat_action(msg.chat.id, "typing")
 		markup = telebot.types.InlineKeyboardMarkup()
-		
 		button = telebot.types.InlineKeyboardButton(text='👀', callback_data=idmy)
 		button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy3)
 		button2 = telebot.types.InlineKeyboardButton(text='🔄', callback_data=idmy2)
@@ -959,6 +958,8 @@ def changing_karma_sticker(msg):
 	
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
+	if msg.chat.type == "channel":
+		bot.forward_message(-1001357839727, msg.chat.id, msg.message_id)
 	if msg.chat.type == "private":
 		return
 	reputation_mat(msg, msg.text)
