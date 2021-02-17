@@ -25,7 +25,7 @@ database="0"
 saves_database_id = {}
 database_id="0"
 database_id2=0
-database_time="0"
+database_time=0
 database_mess=0
 database_3=2
 
