@@ -21,11 +21,12 @@ TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
 saves_database = {}
-database="dss4fgfd"
+database="0"
 saves_database_id = {}
-database_id="111111"
-database_id2="111111"
-database_time="3333"
+database_id="0"
+database_id2="0"
+database_time="0"
+database_mess=0
 database_3=2
 
 def is_my_message(msg):
@@ -677,7 +678,7 @@ def commands(msg, text):
 	
 	main_log.info("Starting func 'commands'")
 
-	if ['бот ' , ' бот'] in msg.text.lower() or 'скуч' in msg.text.lower():
+	if ['бот ' in msg.text.lower() or ' бот' in msg.text.lower() or 'скуч' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"{random.choice(config.bot_words)}", parse_mode="HTML")
 
@@ -812,7 +813,7 @@ def commands(msg, text):
 			change_karma(msg.from_user, msg.chat, 3)
 			seves_id2 = saves_database.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
-			saves_database[database] = "dse4f"
+			saves_database[database] = "0"
 
 
 #	if msg.text.lower() in ['играть']:
@@ -862,6 +863,8 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
+	seves_id2 = saves_database.get(database_id2)
+	bot.delete_message(msg.chat.id, seves_id2+1)	
 	a=msg.date
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
@@ -879,7 +882,6 @@ def croco(msg, text):
 	markup.add(button,button2,button3)
 	bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
 	bot.delete_message(msg.chat.id, msg.message_id)
-	
   
 def reputation(msg, text):
 	""" TODO """
