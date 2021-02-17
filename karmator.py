@@ -864,7 +864,7 @@ def query_handler(call):
 		
 def croco(msg, text):
 	seves_id2 = saves_database.get(database_id2)
-	bot.delete_message(msg.chat.id, seves_id2+1)
+	bot.delete_message(msg.chat.id, seves_id2)
 	a=msg.date
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
