@@ -677,7 +677,7 @@ def commands(msg, text):
 	
 	main_log.info("Starting func 'commands'")
 
-	if 'бот ' in msg.text.lower() or ' бот' in msg.text.lower() or 'скуч' in msg.text.lower():
+	if ['бот ' , ' бот'] in msg.text.lower() or 'скуч' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"{random.choice(config.bot_words)}", parse_mode="HTML")
 
@@ -756,7 +756,7 @@ def commands(msg, text):
 			bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
 		else:
 			return
-	if msg.text.lower() in ['сохранить'] or msg.text.lower() in ['save']:
+	if msg.text.lower() in ['сохранить','save']:
 		if msg.reply_to_message:
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.forward_message(-1001338159710, msg.chat.id, msg.reply_to_message.message_id)
