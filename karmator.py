@@ -503,7 +503,7 @@ def gift_karma(msg):
 		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 		if user.status == 'administrator' or user.status == 'creator':
 			change_karma(msg.reply_to_message.from_user, msg.chat, 5)
-			bot.reply_to(msg, "🎁 отсыпал кармы")
+			bot.reply_to(msg, "🎁 отсыпал кармы.")
 		else:
 			user = select_user(msg.from_user, msg.chat)
 			if not user:
@@ -513,7 +513,7 @@ def gift_karma(msg):
 				bot.send_chat_action(msg.chat.id, "typing")
 				change_karma(msg.from_user, msg.chat, -5)
 				change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
-				bot.reply_to(msg.reply_to_message, "🎁 Вам подарили карму: <b>+5</b>.", parse_mode="HTML")
+				bot.reply_to(msg.reply_to_message, "🎁 Вам подарили карму <b>+5</b>.", parse_mode="HTML")
 				
 			else:
 				bot.send_chat_action(msg.chat.id, "typing")
@@ -784,27 +784,11 @@ def commands(msg, text):
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
 		saves_database[database] = result
 		bot.send_message(-1001110839896,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
-#		bot.forward_message(-1001110839896, msg.message_id)
 		bot.delete_message(msg.chat.id, msg.message_id)
 
 	if msg.text.lower() in ['крокодил'] or msg.text.lower() in ['/croco@khabara_bot'] or msg.text.lower() in ['/croco']:
-		a=random.randint(1,1000)
-		idmy =a+msg.from_user.id
-		idmy2 =idmy+1
-		idmy3=idmy+3
-		saves_database[database_time] =a
-		saves_database[database_3] =2
-		saves_database_id[database_id] =f"{msg.from_user.id}"
-		saves_database[database_id2] =msg.message_id+1
-		saves_database[database] = random.choice(config.kroko_words)
-		bot.send_chat_action(msg.chat.id, "typing")
-		markup = telebot.types.InlineKeyboardMarkup()
-		button = telebot.types.InlineKeyboardButton(text='👀', callback_data=idmy)
-		button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy3)
-		button2 = telebot.types.InlineKeyboardButton(text='🔄', callback_data=idmy2)
-		markup.add(button,button2,button3)
-		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
-		bot.delete_message(msg.chat.id, msg.message_id)
+		croco(msg, text)
+
 	seves = saves_database.get(database)
 	
 
@@ -824,6 +808,11 @@ def commands(msg, text):
 			seves_id2 = saves_database.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
+
+			keyboard = types.InlineKeyboardMarkup()
+			button = telebot.types.InlineKeyboardButton(text='🐊 Загадать слово', callback_data="newslovo")
+			keyboard.add(button)
+			bot.reply_to(msg, f'🎉 Правильный ответ: <b>{seves}</b> +3 кармы.', parse_mode="HTML", reply_markup=keyboard)
 
 #	if msg.text.lower() in ['играть']:
 
@@ -864,12 +853,31 @@ def query_handler(call):
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} сменил слово -5 кармы", parse_mode="HTML")
-#	if  call.data == "pravda":
+#	if  call.data == "newslovo":
+#		croco(msg, text)
 #		bot.delete_message(call.id, call.message_id)
 		
 	if  f"{idmy2}" != f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
+def croco(msg, text):
+	a=random.randint(1,1000)
+	idmy =a+msg.from_user.id
+	idmy2 =idmy+1
+	idmy3=idmy+3
+	saves_database[database_time] =a
+	saves_database[database_3] =2
+	saves_database_id[database_id] =f"{msg.from_user.id}"
+	saves_database[database_id2] =msg.message_id+1
+	saves_database[database] = random.choice(config.kroko_words)
+	bot.send_chat_action(msg.chat.id, "typing")
+	markup = telebot.types.InlineKeyboardMarkup()
+	button = telebot.types.InlineKeyboardButton(text='👀', callback_data=idmy)
+	button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy3)
+	button2 = telebot.types.InlineKeyboardButton(text='🔄', callback_data=idmy2)
+	markup.add(button,button2,button3)
+	bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
+	bot.delete_message(msg.chat.id, msg.message_id)
   
 def reputation(msg, text):
 	""" TODO """
@@ -922,7 +930,7 @@ def reputation(msg, text):
 	if name == "Telegram" or name == "ХабКарма":
 		return
 
-	now_karma = f"Карма {res}.\n{name}: <b>{user.karma}</b>."
+	now_karma = f"Карма {res}\n{name}: <b>{user.karma}</b>."
 	bot.send_message(msg.chat.id, now_karma, parse_mode="HTML")
 
 def reputation_mat(msg, text):
@@ -958,9 +966,9 @@ def changing_karma_sticker(msg):
 	
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
-	if msg.chat.type == "channel":
-		bot.forward_message(-1001357839727, msg.chat.id, msg.message_id)
-		return
+#	if msg.chat.type == "channel":
+#		bot.forward_message(-1001357839727, msg.chat.id, msg.message_id)
+#		return
 	if msg.chat.type == "private":
 		return
 	reputation_mat(msg, msg.text)
