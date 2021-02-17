@@ -968,7 +968,8 @@ def changing_karma_sticker(msg):
 	
 @bot.channel_post_handler(content_types=["text"])
 def channel_post(msg):
-	bot.forward_message(-1001110839896, msg.chat.id, msg.message_id)
+	if 'Доброе утро' in msg.text.lower():
+		bot.forward_message(-1001110839896, msg.chat.id, msg.message_id)
 
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
