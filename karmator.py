@@ -678,7 +678,7 @@ def commands(msg, text):
 	
 	main_log.info("Starting func 'commands'")
 
-	if ['бот ' in msg.text.lower() or ' бот' in msg.text.lower() or 'скуч' in msg.text.lower():
+	if 'бот ' in msg.text.lower() or ' бот' in msg.text.lower() or 'скуч' in msg.text.lower():
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"{random.choice(config.bot_words)}", parse_mode="HTML")
 
