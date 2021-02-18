@@ -865,7 +865,7 @@ def query_handler(call):
 def croco(msg, text):
 	try:
 		seves_id = saves_database_id.get(database_id)
-		if seves_id !=  msg.from_user.id:
+		if seves_id !=  f"{msg.from_user.id}":
 			bot.delete_message(msg.chat.id, seves_id2)
 			
 		else:
