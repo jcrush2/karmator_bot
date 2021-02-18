@@ -869,6 +869,7 @@ def croco(msg, text):
 		return
 	else:
 		try:
+			seves_id2 = saves_database.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
 		except Exception:
 			bot.send_chat_action(msg.chat.id, "typing")
