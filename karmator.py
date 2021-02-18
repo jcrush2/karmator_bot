@@ -864,8 +864,8 @@ def query_handler(call):
 		
 def croco(msg, text):
 	try:
-		seves_id2 = saves_database.get(database_id2)
-		if seves_id2==msg.from_user.id:
+		seves_id = saves_database_id.get(database_id)
+		if seves_id ==  f"{msg.from_user.id}":
 			bot.reply_to(msg,f"🐊 Вы уже загадали слово.", parse_mode="HTML")
 			return
 		else:
