@@ -813,7 +813,7 @@ def commands(msg, text):
 			seves_id2 = saves_database.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
-			saves_database[database]=0
+			saves_database_id[database_id]=0
 
 
 #	if msg.text.lower() in ['играть']:
