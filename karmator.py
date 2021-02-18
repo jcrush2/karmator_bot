@@ -863,16 +863,15 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
-	try:
-		seves_id = saves_database_id.get(database_id)
-		if seves_id !=  f"{msg.from_user.id}":
+	seves_id = saves_database_id.get(database_id)
+	if seves_id ==  f"{msg.from_user.id}":
+		bot.reply_to(msg,f"🐊 Вы уже загадали слово.", parse_mode="HTML")
+		return
+	else:
+		try:
 			bot.delete_message(msg.chat.id, seves_id2)
-			
-		else:
-			bot.reply_to(msg,f"🐊 Вы уже загадали слово.", parse_mode="HTML")
-			return
-	except Exception:
-		bot.send_chat_action(msg.chat.id, "typing")
+		except Exception:
+			bot.send_chat_action(msg.chat.id, "typing")
 	a=random.randint(1,1000)
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
