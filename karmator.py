@@ -808,11 +808,12 @@ def commands(msg, text):
 					
 		else:
 			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +3 кармы, запустить игру /croco", parse_mode="HTML")
-			change_karma(msg.from_user, msg.chat, 3)
+			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +10 кармы, запустить игру /croco", parse_mode="HTML")
+			change_karma(msg.from_user, msg.chat, 10)
 			seves_id2 = saves_database.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
+			saves_database[database]=0
 
 
 #	if msg.text.lower() in ['играть']:
@@ -864,7 +865,11 @@ def query_handler(call):
 def croco(msg, text):
 	try:
 		seves_id2 = saves_database.get(database_id2)
-		bot.delete_message(msg.chat.id, seves_id2)
+		if seves_id2==msg.from_user.id:
+			bot.reply_to(msg,f"🐊 Вы уже загадали слово.", parse_mode="HTML")
+			return
+		else:
+			bot.delete_message(msg.chat.id, seves_id2)
 	except Exception:
 		bot.send_chat_action(msg.chat.id, "typing")
 	a=random.randint(1,1000)
