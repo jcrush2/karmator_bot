@@ -878,7 +878,8 @@ def query_handler(call):
 def croco(msg, text):
 	seves_id = saves_database.get(database_id)
 	if seves_id ==  msg.from_user.id:
-		bot.reply_to(msg,f"🐊 Вы уже загадали слово.", parse_mode="HTML")
+		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} уже загадал слово.', parse_mode="HTML")
+		bot.delete_message(msg.chat.id, msg.message_id)
 		return
 	else:
 		try:
