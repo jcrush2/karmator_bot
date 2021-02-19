@@ -27,7 +27,7 @@ database_id=0
 message_id_del="111111"
 database_time="3333"
 change_croco_2=2
-database_id_mute=2
+database_id_mute=0
 
 def is_my_message(msg):
 	"""
@@ -808,10 +808,14 @@ def commands(msg, text):
 		seves_id = saves_database.get(database_id)
 		seves_id_mute = saves_database.get(msg.from_user.id)
 		
-		if seves_id_mute == 1:
-			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
+		if seves_id_mute <= 2:
+			
 			bot.delete_message(msg.chat.id, msg.message_id)
-			bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
+			bot.send_message(msg.chat.id,f'😶 Ответы от <b>{msg.from_user.first_name}</b> не принимаются в Крокодиле.', parse_mode="HTML")
+
+		if seves_id_mute ==  3:
+			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+900)
+			bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 15 минут за нарушения в Крокодиле.', parse_mode="HTML")
 			saves_database[msg.from_user.id]=0
 			
 		if seves_id ==  msg.from_user.id:
@@ -827,7 +831,7 @@ def commands(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "croco"
 			saves_database[database_id]=0
-			saves_database[msg.from_user.id]=1
+			saves_database[msg.from_user.id]=seves_id_mute+1
 
 
 #	if msg.text.lower() in ['играть']:
@@ -887,9 +891,7 @@ def croco(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 		except Exception:
 			bot.send_chat_action(msg.chat.id, "typing")
-	seves_id_mute = saves_database.get(msg.from_user.id)
-	if seves_id_mute ==  1:
-		saves_database[msg.from_user.id]=0
+	saves_database[msg.from_user.id]=0
 	a=random.randint(1,1000)
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
