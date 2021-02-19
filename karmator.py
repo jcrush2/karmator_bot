@@ -813,7 +813,7 @@ def commands(msg, text):
 		if seves_id_mute ==  1:
 			bot.reply_to(msg,f"😶 Ограничен на 30 минут за нарушения в Крокодиле.", parse_mode="HTML")
 			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+1800)
-		if seves_id ==  f"{msg.from_user.id}":
+		if seves_id ==  msg.from_user.id:
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, -10)
@@ -824,7 +824,7 @@ def commands(msg, text):
 			change_karma(msg.from_user, msg.chat, 10)
 			seves_id2 = saves_database.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
-			saves_database[database] = "dse4f"
+			saves_database[database] = "croco"
 			saves_database_id[database_id]=0
 			saves_database_id_mute[msg.from_user.id]=1
 
@@ -844,10 +844,10 @@ def query_handler(call):
 	idmy =seves_time+call.from_user.id
 	idmy2=idmy+1
 	idmy3=idmy+3
-	if  f"{idmy}" == f"{call.data}":
+	if  idmy == call.data:
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 
-	if f"{idmy3}" == f"{call.data}":
+	if idmy3 == call.data:
 		if seves_3<1:
 			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
@@ -860,7 +860,7 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное Эмодзи: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} загадал <b>Эмодзи</b>", parse_mode="HTML")
 		
-	if f"{idmy2}" == f"{call.data}":
+	if idmy2 == call.data:
 		if seves_3<1:
 			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
@@ -872,12 +872,12 @@ def query_handler(call):
 #		croco2(call)
 #		bot.delete_message(call.id, call.message_id)
 		
-	if  f"{idmy2}" != f"{call.data}":
+	if  idmy2 != call.data:
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
 	seves_id = saves_database_id.get(database_id)
-	if seves_id ==  f"{msg.from_user.id}":
+	if seves_id ==  msg.from_user.id:
 		bot.reply_to(msg,f"🐊 Вы уже загадали слово.", parse_mode="HTML")
 		return
 	else:
