@@ -810,7 +810,7 @@ def commands(msg, text):
 		seves_id = saves_database_id.get(database_id)
 		seves_id_mute = saves_database_id_mute.get(database_id_mute)
 		
-		if seves_id_mute ==  f"{msg.from_user.id}":
+		if seves_id_mute ==  msg.from_user.id:
 			bot.reply_to(msg,f"😶 Ограничен на 30 минут за нарушения в Крокодиле.", parse_mode="HTML")
 			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+1800)
 		if seves_id ==  f"{msg.from_user.id}":
