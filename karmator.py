@@ -815,12 +815,14 @@ def commands(msg, text):
 			
 				bot.delete_message(msg.chat.id, msg.message_id)
 				bot.send_message(msg.chat.id,f'😶 Ответы от <b>{msg.from_user.first_name}</b> не принимаются в Крокодиле.', parse_mode="HTML")
+				return
 
 			if seves_id_mute ==  4:
 				bot.delete_message(msg.chat.id, msg.message_id)
 				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+900)
 				bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 15 минут за нарушения в Крокодиле.', parse_mode="HTML")
 				saves_database[msg.from_user.id]=2
+				return
 			
 		if seves_id ==  msg.from_user.id:
 			bot.send_chat_action(msg.chat.id, "typing")
