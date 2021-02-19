@@ -810,7 +810,7 @@ def commands(msg, text):
 		seves_id = saves_database_id.get(database_id)
 		seves_id_mute = saves_database_id_mute.get(msg.from_user.id)
 		
-		if seves_id_mute ==  msg.from_user.id:
+		if seves_id_mute == 1:
 			bot.reply_to(msg,f"😶 Ограничен на 30 минут за нарушения в Крокодиле.", parse_mode="HTML")
 			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+1800)
 		if seves_id ==  f"{msg.from_user.id}":
@@ -826,7 +826,7 @@ def commands(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
 			saves_database_id[database_id]=0
-			saves_database_id_mute[msg.from_user.id]=0
+			saves_database_id_mute[msg.from_user.id]=1
 
 
 #	if msg.text.lower() in ['играть']:
