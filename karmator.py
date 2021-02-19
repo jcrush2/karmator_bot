@@ -27,7 +27,7 @@ database_id=0
 message_id_del="111111"
 database_time="3333"
 change_croco_2=2
-database_id_mute=0
+database_id_mute="0"
 
 def is_my_message(msg):
 	"""
@@ -819,7 +819,7 @@ def commands(msg, text):
 		if seves_id_mute ==  4:
 			bot.delete_message(msg.chat.id, msg.message_id)
 			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+900)
-			bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 15 минут за нарушения в Крокодиле.', parse_mode="HTML")
+			bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 15 минут за нарушения в Крокодиле.', parse_mode="HTML")
 			saves_database[msg.from_user.id]=2
 			return
 			
