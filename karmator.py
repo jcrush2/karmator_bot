@@ -28,7 +28,6 @@ database_id="111111"
 database_id2="111111"
 database_time="3333"
 database_3=2
-saves_database_id_mute = {}
 database_id_mute=2
 
 def is_my_message(msg):
@@ -808,7 +807,7 @@ def commands(msg, text):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
 		seves_id = saves_database_id.get(database_id)
-		seves_id_mute = saves_database_id_mute.get(msg.from_user.id)
+		seves_id_mute = saves_database.get(msg.from_user.id)
 		
 		if seves_id_mute == 1:
 			bot.reply_to(msg,f"😶 Ограничен на 30 минут за нарушения в Крокодиле.", parse_mode="HTML")
@@ -826,7 +825,7 @@ def commands(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
 			saves_database_id[database_id]=0
-			saves_database_id_mute[msg.from_user.id]=1
+			saves_database[msg.from_user.id]=1
 
 
 #	if msg.text.lower() in ['играть']:
@@ -886,9 +885,9 @@ def croco(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 		except Exception:
 			bot.send_chat_action(msg.chat.id, "typing")
-	seves_id_mute = saves_database_id_mute.get(msg.from_user.id)
+	seves_id_mute = saves_database.get(msg.from_user.id)
 	if seves_id_mute ==  1:
-		saves_database_id_mute[msg.from_user.id]=0
+		saves_database[msg.from_user.id]=0
 	a=random.randint(1,1000)
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
