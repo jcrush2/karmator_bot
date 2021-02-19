@@ -812,7 +812,7 @@ def commands(msg, text):
 		
 		if seves_id_mute ==  f"{msg.from_user.id}":
 			bot.reply_to(msg,f"😶 Ограничен на 30 минут за нарушения в Крокодиле.", parse_mode="HTML")
-			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time()+1800)
+			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+1800)
 		if seves_id ==  f"{msg.from_user.id}":
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
