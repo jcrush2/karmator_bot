@@ -24,9 +24,9 @@ bot = telebot.TeleBot(TELEGRAM_API)
 saves_database = {}
 database="croco"
 database_id=0
-database_id2="111111"
+message_id_del="111111"
 database_time="3333"
-database_3=2
+change_croco_2=2
 database_id_mute=2
 
 def is_my_message(msg):
@@ -822,7 +822,7 @@ def commands(msg, text):
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +10 кармы, запустить игру /croco", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, 10)
-			seves_id2 = saves_database.get(database_id2)
+			seves_id2 = saves_database.get(message_id_del)
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "croco"
 			saves_database[database_id]=0
@@ -838,9 +838,8 @@ def commands(msg, text):
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
-	
+	change_croco = saves_database.get(change_croco_2)
 	seves_time = saves_database.get(database_time)
-	seves_3 = saves_database.get(database_3)
 	idmy =seves_time+call.from_user.id
 	idmy2=idmy+1
 	idmy3=idmy+3
@@ -848,23 +847,23 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 
 	if f"{idmy3}" == f"{call.data}":
-		if seves_3<1:
+		if change_croco<1:
 			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
 		
 #			bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=" Как дела?",reply_markup=None)
 #			bot.answer_callback_query(callback_query_id=call.id, show_alert=True,
 #        text="Преобразовано...")
-		saves_database[database_3]=seves_3-1
+		saves_database[change_croco_2]=change_croco-1
 		saves_database[database] = random.choice(["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🦁","🐮","🐷","🐽","🐸","🐵","🙈","🙉","🙊","🙊","🐒","🐔","🐧","🐦","🐤","🐣","🐥","🦆","🦅","🦉","🦇","🐺","🐗","🐴","🦄","🐝","🪱","🐛","🦋","🐌","🐞","🐜","🪰","🪲","🪳","🦟","🦗","🕷","🕸","🦂","🐢","🐍","🦎","🦖","🦕","🐙","🦑","🦐","🦞","🦀","🐡","🐠","🐟","🐬","🐳","🐋","🦈","🐊","🐅","🐆","🦓","🦍","🦧","🐘","🦛","🦏","🐪","🐫","🦒","🦘","🐃","🐂","🐄","🐎","🐖","🐏","🐑","🦙","🐐","🦌","🐕","🐩","🦮","🐈","🐓","🦃","🦚","🦜","🦢","🦩","🕊","🐇","🦝","🦨","🦡","🦦","🦥","🐁","🐀","🐿","🦔","🐾","🐉","🐲"])
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное Эмодзи: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} загадал <b>Эмодзи</b>", parse_mode="HTML")
 		
 	if f"{idmy2}" == f"{call.data}":
-		if seves_3<1:
+		if change_croco<1:
 			bot.answer_callback_query(callback_query_id=call.id, show_alert=True, text="🐊 Менять слово можно не более 2-ух раз 🚫")
 			return
-		saves_database[database_3]=seves_3-1
+		saves_database[change_croco_2]=change_croco-1
 		saves_database[database] = random.choice(config.kroko_words)
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Задуманное слово: {saves_database[database]}")
 		bot.send_message(call.message.chat.id, f"🐊 {call.from_user.first_name} сменил слово -5 кармы", parse_mode="HTML")
@@ -882,7 +881,7 @@ def croco(msg, text):
 		return
 	else:
 		try:
-			seves_id2 = saves_database.get(database_id2)
+			seves_id2 = saves_database.get(message_id_del)
 			bot.delete_message(msg.chat.id, seves_id2)
 		except Exception:
 			bot.send_chat_action(msg.chat.id, "typing")
@@ -894,9 +893,9 @@ def croco(msg, text):
 	idmy2 =idmy+1
 	idmy3=idmy+3
 	saves_database[database_time] =a
-	saves_database[database_3] =2
+	saves_database[change_croco_2] =2
 	saves_database[database_id] =msg.from_user.id
-	saves_database[database_id2] =msg.message_id+1
+	saves_database[message_id] =msg.message_id+1
 	saves_database[database] = random.choice(config.kroko_words)
 	bot.send_chat_action(msg.chat.id, "typing")
 	markup = telebot.types.InlineKeyboardMarkup()
