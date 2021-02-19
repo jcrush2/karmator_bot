@@ -22,7 +22,7 @@ TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
 saves_database = {}
-database="0"
+database="croco"
 saves_database_id = {}
 database_id="0"
 database_id2="0"
