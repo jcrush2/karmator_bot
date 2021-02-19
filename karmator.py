@@ -29,7 +29,7 @@ database_id2="111111"
 database_time="3333"
 database_3=2
 saves_database_id_mute = {}
-database_id_mute="111111"
+database_id_mute=2
 
 def is_my_message(msg):
 	"""
