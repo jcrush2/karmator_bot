@@ -22,14 +22,14 @@ TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
 saves_database = {}
-database="croco"
+database="dss4fgfd"
 saves_database_id = {}
-database_id="000"
-database_id2="000"
-database_time="000"
+database_id="111111"
+database_id2="111111"
+database_time="3333"
 database_3=2
 saves_database_id_mute = {}
-database_id_mute="000"
+database_id_mute="111111"
 
 def is_my_message(msg):
 	"""
@@ -808,9 +808,9 @@ def commands(msg, text):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
 		seves_id = saves_database_id.get(database_id)
-		seves_id_mute = saves_database_id_mute.get(msg.from_user.id)
+		seves_id_mute = saves_database_id_mute.get(database_id_mute)
 		
-		if seves_id_mute ==  1:
+		if seves_id_mute ==  f"{msg.from_user.id}":
 			bot.reply_to(msg,f"😶 Ограничен на 30 минут за нарушения в Крокодиле.", parse_mode="HTML")
 			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+1800)
 		if seves_id ==  f"{msg.from_user.id}":
@@ -826,7 +826,7 @@ def commands(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
 			saves_database_id[database_id]=0
-			saves_database_id_mute[msg.from_user.id]=1
+			saves_database_id_mute[database_id_mute]=f"{msg.from_user.id}"
 
 
 #	if msg.text.lower() in ['играть']:
@@ -886,9 +886,9 @@ def croco(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 		except Exception:
 			bot.send_chat_action(msg.chat.id, "typing")
-	seves_id_mute = saves_database_id_mute.get(msg.from_user.id)
-	if seves_id_mute ==  1:
-		saves_database_id_mute[msg.from_user.id]=0
+	seves_id_mute = saves_database_id_mute.get(database_id_mute)
+	if seves_id_mute ==  f"{msg.from_user.id}":
+		saves_database_id_mute[database_id_mute]=0
 	a=random.randint(1,1000)
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
