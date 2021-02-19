@@ -813,7 +813,7 @@ def commands(msg, text):
 			
 			bot.delete_message(msg.chat.id, msg.message_id)
 			bot.send_message(msg.chat.id,f'😶 Ответы от <b>{msg.from_user.first_name}</b> не принимаются в Крокодиле.', parse_mode="HTML")
-			saves_database[msg.from_user.id]=seves_id_mute+1
+			
 			return
 
 		if seves_id_mute ==  4:
@@ -837,7 +837,7 @@ def commands(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "croco"
 			saves_database[database_id]=0
-			saves_database[msg.from_user.id]=1
+			saves_database[msg.from_user.id]=seves_id_mute+1
 
 
 #	if msg.text.lower() in ['играть']:
