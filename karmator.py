@@ -808,7 +808,7 @@ def commands(msg, text):
 		seves_id = saves_database.get(database_id)
 		seves_id_mute = saves_database.get(msg.from_user.id)
 		
-		if seves_id_mute >= 1:
+		if seves_id_mute ==1 or seves_id_mute ==2 or seves_id_mute ==3 or seves_id_mute ==4:
 			saves_database[msg.from_user.id]=seves_id_mute+1
 			
 			if seves_id_mute ==2 or seves_id_mute ==3:
