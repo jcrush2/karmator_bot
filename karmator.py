@@ -730,7 +730,7 @@ def commands(msg, text):
 	if msg.text.lower() in ['дата']:
 		t = datetime.datetime.now().strftime("%Y%m%d")
 		bot.send_chat_action(msg.chat.id, "typing")
-		bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = "Есть неплохие поводы...")
+		bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = f"{t} Есть неплохие поводы...")
 
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
