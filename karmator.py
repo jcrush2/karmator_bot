@@ -22,9 +22,8 @@ TELEGRAM_API = os.environ["telegram_token"]
 bot = telebot.TeleBot(TELEGRAM_API)
 
 saves_database = {}
-database="dss4fgfd"
-saves_database_id = {}
-database_id="111111"
+database="croco"
+database_id=0
 database_id2="111111"
 database_time="3333"
 database_3=2
@@ -806,13 +805,15 @@ def commands(msg, text):
 	if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
-		seves_id = saves_database_id.get(database_id)
+		seves_id = saves_database.get(database_id)
 		seves_id_mute = saves_database.get(msg.from_user.id)
 		
 		if seves_id_mute == 1:
-			bot.reply_to(msg,f"😶 Ограничен на 30 минут за нарушения в Крокодиле.", parse_mode="HTML")
 			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+1800)
-		if seves_id ==  f"{msg.from_user.id}":
+			bot.delete_message(msg.chat.id, msg.message_id)
+			bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 30 минут за нарушения в Крокодиле.', parse_mode="HTML")
+			
+		if seves_id ==  msg.from_user.id:
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, -10)
@@ -823,8 +824,8 @@ def commands(msg, text):
 			change_karma(msg.from_user, msg.chat, 10)
 			seves_id2 = saves_database.get(database_id2)
 			bot.delete_message(msg.chat.id, seves_id2)
-			saves_database[database] = "dse4f"
-			saves_database_id[database_id]=0
+			saves_database[database] = "croco"
+			saves_database[database_id]=0
 			saves_database[msg.from_user.id]=1
 
 
@@ -875,8 +876,8 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
-	seves_id = saves_database_id.get(database_id)
-	if seves_id ==  f"{msg.from_user.id}":
+	seves_id = saves_database.get(database_id)
+	if seves_id ==  msg.from_user.id:
 		bot.reply_to(msg,f"🐊 Вы уже загадали слово.", parse_mode="HTML")
 		return
 	else:
@@ -894,7 +895,7 @@ def croco(msg, text):
 	idmy3=idmy+3
 	saves_database[database_time] =a
 	saves_database[database_3] =2
-	saves_database_id[database_id] =f"{msg.from_user.id}"
+	saves_database[database_id] =msg.from_user.id
 	saves_database[database_id2] =msg.message_id+1
 	saves_database[database] = random.choice(config.kroko_words)
 	bot.send_chat_action(msg.chat.id, "typing")
