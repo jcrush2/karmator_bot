@@ -811,13 +811,13 @@ def commands(msg, text):
 		if seves_id_mute ==1 or seves_id_mute ==2 or seves_id_mute ==3 or seves_id_mute ==4:
 			saves_database[msg.from_user.id]=seves_id_mute+1
 			seves_id_mute = saves_database.get(msg.from_user.id)
-			if seves_id_mute ==2 or seves_id_mute ==3:
+			if seves_id_mute ==3 or seves_id_mute ==4:
 			
 				bot.delete_message(msg.chat.id, msg.message_id)
 				bot.send_message(msg.chat.id,f'😶 Ответы от <b>{msg.from_user.first_name}</b> не принимаются в Крокодиле.', parse_mode="HTML")
 				return
 
-			if seves_id_mute ==  4:
+			if seves_id_mute ==  5:
 				bot.delete_message(msg.chat.id, msg.message_id)
 				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+900)
 				bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 15 минут за нарушения в Крокодиле.', parse_mode="HTML")
