@@ -27,7 +27,7 @@ database_id=0
 message_id_del="111111"
 database_time="3333"
 change_croco_2=2
-database_id_mute=2
+database_id_mute=1
 
 def is_my_message(msg):
 	"""
@@ -810,7 +810,7 @@ def commands(msg, text):
 		
 		if seves_id_mute ==1 or seves_id_mute ==2 or seves_id_mute ==3 or seves_id_mute ==4:
 			saves_database[msg.from_user.id]=seves_id_mute+1
-			
+			seves_id_mute = saves_database.get(msg.from_user.id)
 			if seves_id_mute ==2 or seves_id_mute ==3:
 			
 				bot.delete_message(msg.chat.id, msg.message_id)
