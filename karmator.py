@@ -809,9 +809,10 @@ def commands(msg, text):
 		seves_id_mute = saves_database.get(msg.from_user.id)
 		
 		if seves_id_mute == 1:
-			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+1800)
+			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
 			bot.delete_message(msg.chat.id, msg.message_id)
-			bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 30 минут за нарушения в Крокодиле.', parse_mode="HTML")
+			bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
+			saves_database[msg.from_user.id]=0
 			
 		if seves_id ==  msg.from_user.id:
 			bot.send_chat_action(msg.chat.id, "typing")
