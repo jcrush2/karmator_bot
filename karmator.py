@@ -1,5 +1,6 @@
 #!usr/bin/python3
 import datetime
+import time
 import hashlib
 import string
 import os
@@ -27,6 +28,8 @@ database_id="111111"
 database_id2="111111"
 database_time="3333"
 database_3=2
+saves_database_id_mute = {}
+database_id_mute="111111"
 
 def is_my_message(msg):
 	"""
@@ -805,6 +808,9 @@ def commands(msg, text):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
 		seves_id = saves_database_id.get(database_id)
+		seves_id_mute = saves_database_id_mute.get(database_id_mute)
+		if seves_id_mute ==  f"{msg.from_user.id}":
+			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time()+1800)
 		if seves_id ==  f"{msg.from_user.id}":
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
@@ -818,6 +824,7 @@ def commands(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
 			saves_database_id[database_id]=0
+			saves_database_id_mute[database_id_mute]=msg.from_user.id
 
 
 #	if msg.text.lower() in ['играть']:
@@ -877,6 +884,9 @@ def croco(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 		except Exception:
 			bot.send_chat_action(msg.chat.id, "typing")
+	seves_id_mute = saves_database_id_mute.get(database_id_mute)
+	if seves_id_mute ==  f"{msg.from_user.id}":
+		saves_database_id_mute[database_id_mute]=0
 	a=random.randint(1,1000)
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
