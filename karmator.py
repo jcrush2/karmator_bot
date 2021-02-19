@@ -809,17 +809,10 @@ def commands(msg, text):
 		seves_id_mute = saves_database.get(msg.from_user.id)
 		
 		if seves_id_mute == 1:
-			saves_database[msg.from_user.id]=seves_id_mute+1
-			if seves_id_mute == 2:
-				bot.delete_message(msg.chat.id, msg.message_id)
-				bot.send_message(msg.chat.id,f'😶 Ответы от <b>{msg.from_user.first_name}</b> не принимаются в Крокодиле.', parse_mode="HTML")
-				return
-			else:
-				bot.delete_message(msg.chat.id, msg.message_id)
-				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+900)
-				bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 15 минут за нарушения в Крокодиле.', parse_mode="HTML")
-				saves_database[msg.from_user.id]=2
-				return
+			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
+			bot.delete_message(msg.chat.id, msg.message_id)
+			bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
+			saves_database[msg.from_user.id]=0
 			
 		if seves_id ==  msg.from_user.id:
 			bot.send_chat_action(msg.chat.id, "typing")
