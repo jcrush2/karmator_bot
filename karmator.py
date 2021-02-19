@@ -895,7 +895,7 @@ def croco(msg, text):
 	saves_database[database_time] =a
 	saves_database[change_croco_2] =2
 	saves_database[database_id] =msg.from_user.id
-	saves_database[message_id] =msg.message_id+1
+	saves_database[message_id_del] =msg.message_id+1
 	saves_database[database] = random.choice(config.kroko_words)
 	bot.send_chat_action(msg.chat.id, "typing")
 	markup = telebot.types.InlineKeyboardMarkup()
