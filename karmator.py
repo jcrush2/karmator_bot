@@ -727,9 +727,9 @@ def commands(msg, text):
 		bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 		
 	if msg.text.lower() in ['дата']:
-		t = datetime.datetime.now().strftime("%Y%m%d")
+#		t = datetime.datetime.now().strftime("%Y%m%d")
 		bot.send_chat_action(msg.chat.id, "typing")
-		bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer.png?{t}", caption = "Есть неплохие поводы...")
+		bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png", caption = "Есть неплохие поводы...")
 
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
