@@ -808,7 +808,7 @@ def commands(msg, text):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
 		seves_id = saves_database_id.get(database_id)
-		seves_id_mute = saves_database_id_mute.get(database_id_mute)
+		seves_id_mute = saves_database_id_mute.get(msg.from_user.id)
 		
 		if seves_id_mute ==  msg.from_user.id:
 			bot.reply_to(msg,f"😶 Ограничен на 30 минут за нарушения в Крокодиле.", parse_mode="HTML")
