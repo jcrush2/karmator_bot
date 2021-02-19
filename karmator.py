@@ -72,7 +72,7 @@ def helps(msg):
 	\n/weather - Погода. \
 	\n/no - Для объявлений. \
 	\n/report - Отправить жалобу.\
-	\n\n<b>утра, цитата, превед, фсб, фото, войс, крокодил, !?, !v, vs, save, язаБан</b> - Ответом на сообщение.\
+	\n\n<b>утра, цитата, превед, фсб, фото, дата, войс, крокодил, !?, !v, vs, save, язаБан</b> - Ответом на сообщение.\
 	\n\n<b>Карма:</b>\
 	\n/my - Посмотреть свою карму.\
 	\n/top - Узнать наиболее благодаримых в чате.\
@@ -726,6 +726,10 @@ def commands(msg, text):
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 		
+	if msg.text.lower() in ['дата']:
+		t = datetime.datetime.now().strftime("%Y%m%d")
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer.png{t}", caption = "Есть неплохие поводы...")
 
 	if msg.text.lower() in ['купить']:
 		keyboard = types.InlineKeyboardMarkup()
