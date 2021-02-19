@@ -27,7 +27,7 @@ database_id=0
 message_id_del="111111"
 database_time="3333"
 change_croco_2=2
-database_id_mute=1
+database_id_mute=0
 
 def is_my_message(msg):
 	"""
@@ -806,28 +806,26 @@ def commands(msg, text):
 		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
 	if msg.text.lower() == seves:
 		seves_id = saves_database.get(database_id)
+		
 		seves_id_mute = saves_database.get(msg.from_user.id)
 		
-		if seves_id_mute ==2 or seves_id_mute ==3 or seves_id_mute ==4 or seves_id_mute ==5:
-			saves_database[msg.from_user.id]=seves_id_mute+1
-			seves_id_mute = saves_database.get(msg.from_user.id)
-			if seves_id_mute ==4 or seves_id_mute ==5:
+		if seves_id_mute ==2 or seves_id_mute ==3:
 			
-				bot.delete_message(msg.chat.id, msg.message_id)
-				bot.send_message(msg.chat.id,f'😶 Ответы от <b>{msg.from_user.first_name}</b> не принимаются в Крокодиле.', parse_mode="HTML")
-				
+			bot.delete_message(msg.chat.id, msg.message_id)
+			bot.send_message(msg.chat.id,f'😶 Ответы от <b>{msg.from_user.first_name}</b> не принимаются в Крокодиле.', parse_mode="HTML")
 
-			if seves_id_mute ==  6:
-				bot.delete_message(msg.chat.id, msg.message_id)
-				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+900)
-				bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 15 минут за нарушения в Крокодиле.', parse_mode="HTML")
-				saves_database[msg.from_user.id]=2
-				
+		if seves_id_mute ==  4:
+			bot.delete_message(msg.chat.id, msg.message_id)
+			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+900)
+			bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 15 минут за нарушения в Крокодиле.', parse_mode="HTML")
+			saves_database[msg.from_user.id]=2
+			
 			
 		if seves_id ==  msg.from_user.id:
 			bot.send_chat_action(msg.chat.id, "typing")
 			bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
 			change_karma(msg.from_user, msg.chat, -10)
+			
 					
 		else:
 			bot.send_chat_action(msg.chat.id, "typing")
@@ -837,7 +835,7 @@ def commands(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "croco"
 			saves_database[database_id]=0
-			saves_database[msg.from_user.id]=2
+			saves_database[msg.from_user.id]=seves_id_mute+1
 
 
 #	if msg.text.lower() in ['играть']:
@@ -897,7 +895,7 @@ def croco(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 		except Exception:
 			bot.send_chat_action(msg.chat.id, "typing")
-	saves_database[msg.from_user.id]=1
+	saves_database[msg.from_user.id]=0
 	a=random.randint(1,1000)
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
