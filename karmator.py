@@ -826,7 +826,7 @@ def commands(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 			saves_database[database] = "dse4f"
 			saves_database_id[database_id]=0
-			saves_database_id_mute[database_id_mute]=f"{msg.from_user.id}"
+			saves_database_id_mute[msg.from_user.id]=0
 
 
 #	if msg.text.lower() in ['играть']:
@@ -886,9 +886,9 @@ def croco(msg, text):
 			bot.delete_message(msg.chat.id, seves_id2)
 		except Exception:
 			bot.send_chat_action(msg.chat.id, "typing")
-	seves_id_mute = saves_database_id_mute.get(database_id_mute)
-	if seves_id_mute ==  f"{msg.from_user.id}":
-		saves_database_id_mute[database_id_mute]=0
+	seves_id_mute = saves_database_id_mute.get(msg.from_user.id)
+	if seves_id_mute ==  1:
+		saves_database_id_mute[msg.from_user.id]=0
 	a=random.randint(1,1000)
 	idmy =a+msg.from_user.id
 	idmy2 =idmy+1
