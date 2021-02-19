@@ -808,7 +808,7 @@ def commands(msg, text):
 		seves_id = saves_database.get(database_id)
 		seves_id_mute = saves_database.get(msg.from_user.id)
 		
-		if seves_id_mute <= 2:
+		if seves_id_mute < 2:
 			
 			bot.delete_message(msg.chat.id, msg.message_id)
 			bot.send_message(msg.chat.id,f'😶 Ответы от <b>{msg.from_user.first_name}</b> не принимаются в Крокодиле.', parse_mode="HTML")
