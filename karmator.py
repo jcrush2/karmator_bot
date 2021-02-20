@@ -812,7 +812,9 @@ def commands(msg, text):
 		seves_id_mute = saves_database.get(msg.from_user.id)
 		seves_id_time = saves_database.get(msg.from_user.id+1)
 		if seves_id_mute == 1:
-			if datetime.datetime.today() < seves_id_time+datetime.timedelta(minute=1):
+			a=datetime.datetime.today() 
+			b= seves_id_time+datetime.timedelta(minute=1)
+			if a < b:
 				
 				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
 				bot.delete_message(msg.chat.id, msg.message_id)
@@ -835,7 +837,7 @@ def commands(msg, text):
 			saves_database[database] = "croco"
 			saves_database[database_id]=0
 			saves_database[msg.from_user.id]=1
-			saves_database[msg.from_user.id+1]=datetime.datetime.today()
+			saves_database[msg.from_user.id+1]=1
 			
 
 
