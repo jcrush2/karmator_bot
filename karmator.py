@@ -29,6 +29,7 @@ message_id_del="111111"
 database_time="3333"
 change_croco_2=2
 database_id_mute=2
+database_id_time=0
 
 def is_my_message(msg):
 	"""
@@ -809,12 +810,16 @@ def commands(msg, text):
 	if msg.text.lower() == seves:
 		seves_id = saves_database.get(database_id)
 		seves_id_mute = saves_database.get(msg.from_user.id)
-		
+		seves_id_time = saves_database.get(msg.from_user.id+1)
 		if seves_id_mute == 1:
-			bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
-			bot.delete_message(msg.chat.id, msg.message_id)
-			bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
-			saves_database[msg.from_user.id]=0
+			if datetime.datetime.today() < seves_id_time+datetime.timedelta(minute=1):
+				
+				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
+				bot.delete_message(msg.chat.id, msg.message_id)
+				bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
+				saves_database[msg.from_user.id]=0
+			else:
+				saves_database[msg.from_user.id]=0
 			
 		if seves_id ==  msg.from_user.id:
 			bot.send_chat_action(msg.chat.id, "typing")
@@ -830,6 +835,8 @@ def commands(msg, text):
 			saves_database[database] = "croco"
 			saves_database[database_id]=0
 			saves_database[msg.from_user.id]=1
+			saves_database[msg.from_user.id+1]=datetime.datetime.today()
+			
 
 
 #	if msg.text.lower() in ['играть']:
