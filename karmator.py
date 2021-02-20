@@ -813,13 +813,13 @@ def commands(msg, text):
 		seves_id_time = saves_database.get(msg.from_user.id+1)
 		if seves_id_mute == 1:
 			a=datetime.datetime.today() 
-			b= seves_id_time+datetime.timedelta(minute=1)
+			b= seves_id_time+datetime.timedelta(minutes=1)
 			if a < b:
-				
+				saves_database[msg.from_user.id]=0
 				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
 				bot.delete_message(msg.chat.id, msg.message_id)
 				bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
-				saves_database[msg.from_user.id]=0
+				
 			else:
 				saves_database[msg.from_user.id]=0
 			
