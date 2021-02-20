@@ -837,7 +837,7 @@ def commands(msg, text):
 			saves_database[database] = "croco"
 			saves_database[database_id]=0
 			saves_database[msg.from_user.id]=1
-			saves_database[msg.from_user.id+1]=1
+			saves_database[msg.from_user.id+1]=datetime.datetime.today() 
 			
 
 
