@@ -813,7 +813,7 @@ def commands(msg, text):
 		seves_id_time = saves_database.get(msg.from_user.id+1)
 		if seves_id_mute == 1:
 			a=datetime.datetime.today() 
-			b= seves_id_time+datetime.timedelta(minutes=1)
+			b= seves_id_time+datetime.timedelta(minutes=10)
 			if a < b:
 				saves_database[msg.from_user.id]=0
 				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
