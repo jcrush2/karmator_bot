@@ -818,7 +818,7 @@ def commands(msg, text):
 				saves_database[msg.from_user.id]=0
 				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
 				bot.delete_message(msg.chat.id, msg.message_id)
-				bot.send_message(msg.chat.id,f'😶 {msg.from_user.first_name} Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
+				bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
 				
 			else:
 				saves_database[msg.from_user.id]=0
@@ -838,7 +838,7 @@ def commands(msg, text):
 			saves_database[database_id]=0
 			saves_database[msg.from_user.id]=1
 			saves_database[msg.from_user.id+1]=datetime.datetime.today() 
-			
+			return
 
 
 #	if msg.text.lower() in ['играть']:
