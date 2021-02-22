@@ -26,6 +26,7 @@ saves_database = {}
 database="croco"
 database_id=0
 message_id_del="111111"
+message_id_del2="2"
 database_time="3333"
 change_croco_2=2
 database_id_mute=2
@@ -813,12 +814,13 @@ def commands(msg, text):
 		seves_id_time = saves_database.get(msg.from_user.id+1)
 		if seves_id_mute == 1:
 			a=datetime.datetime.today() 
-			b= seves_id_time+datetime.timedelta(minutes=10)
+			b= seves_id_time+datetime.timedelta(minutes=15)
 			if a < b:
 				saves_database[msg.from_user.id]=0
 				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
 				bot.delete_message(msg.chat.id, msg.message_id)
 				bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
+				change_karma(msg.from_user, msg.chat, -10)
 				
 			else:
 				saves_database[msg.from_user.id]=0
@@ -837,7 +839,8 @@ def commands(msg, text):
 			saves_database[database] = "croco"
 			saves_database[database_id]=0
 			saves_database[msg.from_user.id]=1
-			saves_database[msg.from_user.id+1]=datetime.datetime.today() 
+			saves_database[msg.from_user.id+1]=datetime.datetime.today()
+			saves_database[message_id_del2] =msg.message_id
 			return
 
 
@@ -887,6 +890,8 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
+	seves_id2 = saves_database.get(message_id_del2)
+	bot.delete_message(msg.chat.id, seves_id2)
 	seves_id = saves_database.get(database_id)
 	if seves_id ==  msg.from_user.id:
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} уже загадал слово.', parse_mode="HTML")
