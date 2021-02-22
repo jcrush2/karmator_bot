@@ -912,7 +912,7 @@ def croco(msg, text):
 	saves_database[database_time] =a
 	saves_database[change_croco_2] =2
 	saves_database[database_id] =msg.from_user.id
-	saves_database[message_id_del] =msg.message_id+1
+	
 	saves_database[database] = random.choice(config.kroko_words)
 	bot.send_chat_action(msg.chat.id, "typing")
 	markup = telebot.types.InlineKeyboardMarkup()
@@ -920,7 +920,8 @@ def croco(msg, text):
 	button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy3)
 	button2 = telebot.types.InlineKeyboardButton(text='🔄', callback_data=idmy2)
 	markup.add(button,button2,button3)
-	bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
+	msg_id = bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup).message_id
+	saves_database[message_id_del] =msg_id
 	bot.delete_message(msg.chat.id, msg.message_id)
 	try:
 		seves_id3 = saves_database.get(message_id_del2)
