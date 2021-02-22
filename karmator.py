@@ -890,11 +890,7 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 def croco(msg, text):
-	try:
-		seves_id3 = saves_database.get(message_id_del2)
-		bot.delete_message(msg.chat.id, seves_id3)
-	except Exception:
-		bot.send_chat_action(msg.chat.id, "typing")
+
 	seves_id = saves_database.get(database_id)
 	if seves_id ==  msg.from_user.id:
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} уже загадал слово.', parse_mode="HTML")
@@ -926,7 +922,8 @@ def croco(msg, text):
 	markup.add(button,button2,button3)
 	bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
 	bot.delete_message(msg.chat.id, msg.message_id)
-	
+	seves_id3 = saves_database.get(message_id_del2)
+	bot.delete_message(msg.chat.id, seves_id3)
   
 def reputation(msg, text):
 	""" TODO """
