@@ -891,8 +891,8 @@ def query_handler(call):
 		
 def croco(msg, text):
 	try:
-		seves_id2 = saves_database.get(message_id_del2)
-		bot.delete_message(msg.chat.id, seves_id2)
+		seves_id3 = saves_database.get(message_id_del2)
+		bot.delete_message(msg.chat.id, seves_id3)
 	except Exception:
 		bot.send_chat_action(msg.chat.id, "typing")
 	seves_id = saves_database.get(database_id)
