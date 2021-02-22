@@ -832,7 +832,7 @@ def commands(msg, text):
 					
 		else:
 			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +10 кармы, запустить игру /croco", parse_mode="HTML")
+			msg_id = bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +10 кармы, запустить игру /croco", parse_mode="HTML").message_id
 			change_karma(msg.from_user, msg.chat, 10)
 			seves_id2 = saves_database.get(message_id_del)
 			bot.delete_message(msg.chat.id, seves_id2)
@@ -840,7 +840,7 @@ def commands(msg, text):
 			saves_database[database_id]=0
 			saves_database[msg.from_user.id]=1
 			saves_database[msg.from_user.id+1]=datetime.datetime.today()
-			saves_database[message_id_del2] =msg.message_id+1
+			saves_database[message_id_del2] =msg_id
 			return
 
 
