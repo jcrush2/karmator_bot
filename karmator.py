@@ -922,8 +922,11 @@ def croco(msg, text):
 	markup.add(button,button2,button3)
 	bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал(а) слово в игре Крокодил.', reply_markup=markup)
 	bot.delete_message(msg.chat.id, msg.message_id)
-	seves_id3 = saves_database.get(message_id_del2)
-	bot.delete_message(msg.chat.id, seves_id3)
+	try:
+		seves_id3 = saves_database.get(message_id_del2)
+		bot.delete_message(msg.chat.id, seves_id3)
+	except Exception:
+		ъbot.send_chat_action(msg.chat.id, "typing")
   
 def reputation(msg, text):
 	""" TODO """
