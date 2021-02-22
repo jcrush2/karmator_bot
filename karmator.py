@@ -840,7 +840,7 @@ def commands(msg, text):
 			saves_database[database_id]=0
 			saves_database[msg.from_user.id]=1
 			saves_database[msg.from_user.id+1]=datetime.datetime.today()
-			saves_database[message_id_del2] =msg.message_id
+			saves_database[message_id_del2] =msg.message_id+1
 			return
 
 
