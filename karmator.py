@@ -76,11 +76,12 @@ def helps(msg):
 	\n/weather - Погода. \
 	\n/no - Для объявлений. \
 	\n/report - Отправить жалобу.\
-	\n\n<b>утра, цитата, превед, фсб, фото, дата, войс, крокодил, !?, !v, vs, save, язаБан</b> - Ответом на сообщение.\
+	\n/croco - Игра в Крокодил.\
+	\n\n<b>/citata, /date, /q, /save, превед, фсб, фото, язаБан</b> - Ответом на сообщение.\
 	\n\n<b>Карма:</b>\
 	\n/my - Посмотреть свою карму.\
 	\n/top - Узнать наиболее благодаримых в чате.\
-	\n<b>тиндер</b> - Найти пару.\
+	\n<b>/tinder</b> - Найти пару.\
 	\n<b>🎲🎰🏀🎳⚽️</b> - Рандом кармы.\
 	\n/gift - Подарить +5 карму.\
 	\n/freez - Заморозка кармы.\
@@ -346,76 +347,66 @@ def top_best(msg):
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
 	bot.delete_message(msg.chat.id, msg.message_id)
 	
-	
+@bot.message_handler(commands=["tinder"], func=is_my_message)
 def tinder(msg):
 	"""
 	Функция которая выводит пару дня
 	""" 
-	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-	if user.status == 'creator':
-		change_karma(msg.from_user, msg.chat, +5)
+	if is_game_abuse(msg):
+		return
+	Limitation.create(
+		timer=pw.SQL("current_timestamp"),
+		userid=msg.from_user.id,
+		chatid=msg.chat.id)
+	user = select_user(msg.from_user, msg.chat)
+	if not user:
+		insert_user(msg.from_user, msg.chat)
+	user = select_user(msg.from_user, msg.chat)	
+	if user.is_freezed:
+		bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 	else:
-		change_karma(msg.from_user, msg.chat, -5)
+		if user.karma > 10:
+				
+			user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+			if user.status == 'creator':
+				change_karma(msg.from_user, msg.chat, +5)
+			else:
+				change_karma(msg.from_user, msg.chat, -5)
 	
-	bot.send_chat_action(msg.chat.id, "typing")
-	selected_user = KarmaUser.select()\
-		.where((KarmaUser.karma > 8) & (KarmaUser.chatid == msg.chat.id))\
-		.order_by(KarmaUser.karma.desc())\
-		.limit(100)
-	top_mess = f"🤚"
-	selected_user = random.choices(selected_user)
-	for i, user in enumerate(selected_user):
+			bot.send_chat_action(msg.chat.id, "typing")
+			selected_user = KarmaUser.select()\
+				.where((KarmaUser.karma > 8) & (KarmaUser.chatid == msg.chat.id))\
+				.order_by(KarmaUser.karma.desc())\
+				.limit(100)
+			top_mess = f"🤚"
+			selected_user = random.choices(selected_user)
+			for i, user in enumerate(selected_user):
 			
-		if user.is_freezed:
-			top_mess +=  f"Сегодня ночь самопознания✊"
-		else:
-			nick = user.user_nick.strip()
-			name = user.user_name.strip()
-			try:
-				userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-				if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
-					bot.send_chat_action(msg.chat.id, "typing")
-					change_karma(userstatus.user, msg.chat, random.randint(1, 3))
-					top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random.randint(1, 3)} кармы."
-				if userstatus.status == 'left':
-					top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} (покинул ХабЧат), но можешь <a href='https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat'>позвать обратно</a> через личку."
-			except Exception:
-				top_mess+= f"Сегодня вечер самопознания🤚"
+				if user.is_freezed:
+					top_mess +=  f"Сегодня ночь самопознания✊"
+				else:
+					nick = user.user_nick.strip()
+					name = user.user_name.strip()
+					try:
+						userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+						if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
+							bot.send_chat_action(msg.chat.id, "typing")
+							change_karma(userstatus.user, msg.chat, random.randint(1, 3))
+							top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random.randint(1, 3)} кармы."
+						if userstatus.status == 'left':
+							top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} (покинул ХабЧат), но можешь <a href='https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat'>позвать обратно</a> через личку."
+					except Exception:
+						top_mess+= f"Сегодня вечер самопознания🤚"
 #				change_karma(userstatus.user, msg.chat, -100)
+		else:
+			bot.delete_message(msg.chat.id, msg.message_id)
 
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.reply_to(msg, top_mess, parse_mode="HTML")
 	
 	
-def krasavchik(msg):
-	"""
-	Функция которая красавчика дня
-	"""
-	main_log.info("Starting func 'krasavchik'")
-	bot.send_message(msg.chat.id, "Крутим барабан <b>ХабЧата</b>...", parse_mode="HTML")
-	main_log.info("Starting func 'krasavchik'")
-	bot.send_chat_action(msg.chat.id, "typing")
-	selected_user = KarmaUser.select()\
-		.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
-		.order_by(KarmaUser.karma.desc())\
-		.limit(100)
-	selected_user = random.choices(selected_user)
-	for i, user in enumerate(selected_user):
-		if user.is_freezed:
-			bot.send_message(msg.chat.id, f"🎉 Сегодня Я красавчик дня!", parse_mode="HTML")
-		else:
-			nick = user.user_nick.strip()
-			name = user.user_name.strip()
-	userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-	if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
-		top_mess = f"🎉 Сегодня красавчик дня:\n<b>{name}</b> aka @{nick}. 🎁 +5 кармы."
-		change_karma(userstatus.user, msg.chat, 5)
-	else:
-		return
-	if not selected_user:
-		return
-	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
+
 
 @bot.message_handler(commands=["pop"], func=is_my_message)
 def top_bad(msg):
@@ -497,6 +488,7 @@ def gift_karma(msg):
 	Небольшая функция, которая позволяет создателю бота 
 	добавить подарок
 	"""
+	
 	if is_game_abuse(msg):
 		return
 	if is_karma_freezed(msg):
@@ -575,21 +567,6 @@ def is_karma_changing(text):
 				or text.startswith(word) \
 				or text.endswith(word):
 			result.append(-1)
-	return result
-
-
-def is_karma_changing_mat(text):
-	result = []
-		
-	if len(text)==1:
-		result.append(-1)
-
-			# Обработка текста для анализа
-	text = text.lower()
-	for punc in string.punctuation:
-		text = text.replace(punc, "")
-	for white in string.whitespace[1:]:
-		text = text.replace(white, "")
 		
 	for word in config.mat_words:
 		if word in text \
@@ -605,7 +582,6 @@ def is_karma_changing_mat(text):
 					or text.endswith(word):
 				result.append(1)
 			
-
 	return result
 
 def is_karma_freezed(msg):
@@ -672,184 +648,79 @@ def is_karma_abuse(msg):
 		return True
 	return False
 
-#@bot.poll_answer_handler()
-#def pola(polle):
-#	bot.send_poll(msg.chat.id, 'Это опрос?', ['Да', 'Нет', 'Не знаю'])
-#	bot.send_message(msg, polle, parse_mode="HTML")
-			
-def commands(msg, text):
-	
-	main_log.info("Starting func 'commands'")
 
-	if 'бот ' in msg.text.lower() or ' бот' in msg.text.lower() or 'скуч' in msg.text.lower():
-		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg, f"{random.choice(config.bot_words)}", parse_mode="HTML")
-
-	if 'бот фильм' in msg.text.lower() or ' бот фильм' in msg.text.lower():
-		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg, f"{random.choice(config.bot_film)}", parse_mode="HTML")
-
-	if '!? ' in msg.text.lower():
-		bot.send_chat_action(msg.chat.id, "typing")
-		random_karma = ("Абсолютно точно!","Да.","Нет.","Скорее да, чем нет.","Не уверен...","Однозначно нет!","Если ты не фанат аниме, у тебя все получится!","Можешь быть уверен в этом.","Перспективы не очень хорошие.","А как же иначе?.","Да, но если только ты не смотришь аниме.","Знаки говорят - да.","Не знаю.","Мой ответ - нет.","Весьма сомнительно.","Не могу дать точный ответ.")
-		random_karma2 = random.choice(random_karma)
-		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
-	if '!v ' in msg.text.lower():
-		result = msg.text.lower()
-		result = result.replace(msg.text.split()[0], "")
-		bot.send_poll(msg.chat.id, f'{result}❓', ['Да!', 'Нет.', 'Не знаю.'])
-		
-	if ' vs ' in msg.text.lower():
-		bot.send_chat_action(msg.chat.id, "typing")
-		random_karma = ("2️⃣ Определенно второе","1️⃣ Определенно первое")
-		random_karma2 = random.choice(random_karma)
-		bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
-		
-	if 'love' in msg.text.lower():
-		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
-		bot.reply_to(msg, loves_text, parse_mode="HTML")
-	
+def commands_repley(msg, text):
 	if msg.text.lower() in ['язабан']:
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
 		if user.status == 'administrator' or user.status == 'creator':
 			return
-		if msg.reply_to_message:
-			bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
-			bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
-		else:
-			return
-	
-	if msg.text.lower() in ['!k']:
-		bot.delete_message(msg.chat.id, msg.message_id)
-		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-		if user.status == 'creator':
-			krasavchik(msg)
+		bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
+		bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
+		return
 
-	if msg.text.lower() in ['цитата']:
-		citata = random.choice(config.citata_words)
-		bot.send_chat_action(msg.chat.id, "typing")
-		bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
-		
-	if msg.text.lower() in ['дата']:
-		a = datetime.datetime.today()+datetime.timedelta(hours=10)
-		t = a.strftime("%Y%m%d")
-		bot.send_chat_action(msg.chat.id, "typing")
-		bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = "Есть неплохие поводы...")
-
-	if msg.text.lower() in ['купить']:
-		keyboard = types.InlineKeyboardMarkup()
-		url_button = types.InlineKeyboardButton(text="💰 Купить кармы - 1р.", url="https://khabara.ru/informer.html")
-		keyboard.add(url_button)
-		bot.send_message(msg.chat.id, "Вы можете купить карму, оплатив по кнопке ниже.", reply_markup=keyboard)
-		
-	if ' чат ' in msg.text.lower():
-		keyboard = types.InlineKeyboardMarkup()
-		url_button1 = types.InlineKeyboardButton(text="TG", url="https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
-		url_button2 = types.InlineKeyboardButton(text="WA", url="https://api.whatsapp.com/send?text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
-		url_button3 = types.InlineKeyboardButton(text="ВК", url="https://vk.com/share.php?url=https://t.me/khvchat&title=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
-		
-		url_button4 = types.InlineKeyboardButton(text="ОК", url="https://connect.ok.ru/offer?url=https://t.me/khvchat&title=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat")
-		
-		keyboard.row(url_button1, url_button2, url_button3, url_button4)
-		bot.send_message(msg.chat.id, "💬 Пригласи в ХабЧат друзей из других мессенджеров:", reply_markup=keyboard)
-		
-		
 	if msg.text.lower() in ['утра']:
-		bot.send_chat_action(msg.chat.id, "typing")
-		citata = random.choice(config.citata_words)
 		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
+		return
 
 	if msg.text.lower() in ['превед']:
-		if msg.reply_to_message:
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
-		else:
-			return
-	if msg.text.lower() in ['сохранить','save']:
-		if msg.reply_to_message:
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.forward_message(-1001338159710, msg.chat.id, msg.reply_to_message.message_id)
-			bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранено в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
-		else:
-			return
+		bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
+		return
+
 	if msg.text.lower() in ['фото']:
-		if msg.reply_to_message:
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
-		else:
-			return
+		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
+		return
+
 	if msg.text.lower() in ['фсб']:
-		if msg.reply_to_message:
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> За вами уже выехали!", parse_mode="HTML")
-		else:
-			return
-	if msg.text.lower() in ['войс']:
-		if msg.reply_to_message:
-			bot.reply_to(msg.reply_to_message,f"🔔🔔🔔🔔🔔🔔🔔\n🗣Го в Войс Чат!👂\
-\n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
-		else:
-			bot.send_message(msg.chat.id, f"🔔🔔🔔🔔🔔🔔🔔\n🗣Го в Войс Чат!👂\
-\n🔔🔔🔔🔔🔔🔔🔔", parse_mode="HTML")
-
-	if '!к ' in msg.text.lower():
+		bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> За вами уже выехали!", parse_mode="HTML")
+		return
+			
+def commands(msg, text):
+	
+	main_log.info("Starting func 'commands'")
 		
-		result = msg.text.split()[1].lower()
-		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
-		saves_database[database] = result
-		bot.send_message(-1001110839896,f'🐊 {msg.from_user.first_name} загадал(а) свое слово.', parse_mode="HTML")
-		bot.delete_message(msg.chat.id, msg.message_id)
-
-	if msg.text.lower() in ['крокодил','/croco@khabara_bot','/croco']:
-		croco(msg, text)
+	if 'love' in msg.text.lower():
+		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
+		bot.reply_to(msg, loves_text, parse_mode="HTML")
+		return
 
 	seves = saves_database.get(database)
-	
-
-	if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
-		bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
-	if msg.text.lower() == seves:
-		seves_id = saves_database.get(database_id)
-		seves_id_mute = saves_database.get(msg.from_user.id)
-		seves_id_time = saves_database.get(msg.from_user.id+1)
-		if seves_id_mute == 1:
-			a=datetime.datetime.today() 
-			b= seves_id_time+datetime.timedelta(minutes=15)
-			if a < b:
-				saves_database[msg.from_user.id]=0
-				bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
-				bot.delete_message(msg.chat.id, msg.message_id)
-				bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
-				change_karma(msg.from_user, msg.chat, -10)
+	if msg.text.lower() != "croco":
+		if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
+			bot.reply_to(msg,f"Попытался обойти систему 🗿", parse_mode="HTML")
+		if msg.text.lower() == seves:
+			seves_id = saves_database.get(database_id)
+			seves_id_mute = saves_database.get(msg.from_user.id)
+			seves_id_time = saves_database.get(msg.from_user.id+1)
+			if seves_id_mute == 1:
+				a=datetime.datetime.today() 
+				b= seves_id_time+datetime.timedelta(minutes=15)
+				if a < b:
+					saves_database[msg.from_user.id]=0
+					bot.restrict_chat_member(msg.chat.id, msg.from_user.id, until_date=time.time()+300)
+					bot.delete_message(msg.chat.id, msg.message_id)
+					bot.send_message(msg.chat.id,f'😶 <b>{msg.from_user.first_name}</b> Ограничен на 5 минут за нарушения в Крокодиле.', parse_mode="HTML")
+					change_karma(msg.from_user, msg.chat, -10)
 				
-			else:
-				saves_database[msg.from_user.id]=0
+				else:
+					saves_database[msg.from_user.id]=0
 			
-		if seves_id ==  msg.from_user.id:
-			bot.send_chat_action(msg.chat.id, "typing")
-			bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
-			change_karma(msg.from_user, msg.chat, -10)
+			if seves_id ==  msg.from_user.id:
+				bot.send_chat_action(msg.chat.id, "typing")
+				bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
+				change_karma(msg.from_user, msg.chat, -10)
 					
-		else:
-			bot.send_chat_action(msg.chat.id, "typing")
-			msg_id = bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +10 кармы, запустить игру /croco", parse_mode="HTML").message_id
-			change_karma(msg.from_user, msg.chat, 10)
-			seves_id2 = saves_database.get(message_id_del)
-			bot.delete_message(msg.chat.id, seves_id2)
-			saves_database[database] = "croco"
-			saves_database[database_id]=0
-			saves_database[msg.from_user.id]=1
-			saves_database[msg.from_user.id+1]=datetime.datetime.today()
-			saves_database[message_id_del2] =msg_id
-			return
-
-
-#	if msg.text.lower() in ['играть']:
-
-#		markup = telebot.types.InlineKeyboardMarkup()
-#		button = telebot.types.InlineKeyboardButton(text='играть', callback_data="pravda")
-#		markup.add(button)
-#		bot.send_message(chat_id=msg.chat.id, text=f'🐊 {msg.from_user.first_name} загадал слово.', reply_markup=markup)
+			else:
+				bot.send_chat_action(msg.chat.id, "typing")
+				msg_id = bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +10 кармы, запустить игру /croco", parse_mode="HTML").message_id
+				change_karma(msg.from_user, msg.chat, 10)
+				seves_id2 = saves_database.get(message_id_del)
+				bot.delete_message(msg.chat.id, seves_id2)
+				saves_database[database] = "croco"
+				saves_database[database_id]=0
+				saves_database[msg.from_user.id]=1
+				saves_database[msg.from_user.id+1]=datetime.datetime.today()
+				saves_database[message_id_del2] =msg_id
+				return
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
@@ -889,8 +760,8 @@ def query_handler(call):
 	if  f"{idmy2}" != f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
+@bot.message_handler(commands=["croco"], func=is_my_message)
 def croco(msg, text):
-
 	seves_id = saves_database.get(database_id)
 	if seves_id ==  msg.from_user.id:
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} уже загадал слово.', parse_mode="HTML")
@@ -928,6 +799,42 @@ def croco(msg, text):
 		bot.delete_message(msg.chat.id, seves_id3)
 	except Exception:
 		ъbot.send_chat_action(msg.chat.id, "typing")
+		
+@bot.message_handler(commands=["citata"], func=is_my_message)
+def citata(msg):
+	citata = random.choice(config.citata_words)
+	bot.send_chat_action(msg.chat.id, "typing")
+	bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
+		
+@bot.message_handler(commands=["date"], func=is_my_message)
+def date(msg):
+	a = datetime.datetime.today()+datetime.timedelta(hours=10)
+	t = a.strftime("%Y%m%d")
+	bot.send_chat_action(msg.chat.id, "typing")
+	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = "Есть неплохие поводы...")
+	bot.delete_message(msg.chat.id, msg.message_id)
+	
+@bot.message_handler(commands=["save"], func=is_my_message)
+def save(msg):
+	bot.delete_message(msg.chat.id, msg.message_id)
+	if msg.reply_to_message:
+		bot.send_chat_action(msg.chat.id, "typing")
+		bot.forward_message(-1001338159710, msg.chat.id, msg.reply_to_message.message_id)
+		bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранено в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
+	else:
+		return
+	
+@bot.message_handler(commands=["q"], func=is_my_message)
+def q(msg):
+	bot.delete_message(msg.chat.id, msg.message_id)
+	if len(msg.text.split()) == 1:
+		return
+	bot.send_chat_action(msg.chat.id, "typing")
+	random_karma = ("Абсолютно точно!","Да.","Нет.","Скорее да, чем нет.","Не уверен...","Однозначно нет!","Если ты не фанат аниме, у тебя все получится!","Можешь быть уверен в этом.","Перспективы не очень хорошие.","А как же иначе?.","Да, но если только ты не смотришь аниме.","Знаки говорят - да.","Не знаю.","Мой ответ - нет.","Весьма сомнительно.","Не могу дать точный ответ.")
+	random_karma2 = random.choice(random_karma)
+	bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
+	
   
 def reputation(msg, text):
 	""" TODO """
@@ -1004,7 +911,7 @@ def changing_karma_text(msg):
 	if msg.chat.type == "private":
 		return
 	reputation(msg, msg.text)
-	reputation_mat(msg, msg.text)
+	commands_repley(msg, msg.text)
 	commands(msg, msg.text)
 	
 
@@ -1021,34 +928,10 @@ def channel_post(msg):
 
 @bot.message_handler(content_types=['text'])	
 def karma_game(msg):
-#	if msg.chat.type == "channel":
-#		bot.forward_message(-1001357839727, msg.chat.id, msg.message_id)
-#		return 
 	if msg.chat.type == "private":
 		return
-	reputation_mat(msg, msg.text)
 	commands(msg, msg.text)
-	"""
-	Функция играть в карму.
-	"""
-	if msg.text.lower() in ['тиндер']:
-		if is_game_abuse(msg):
-			return
-		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
-		user = select_user(msg.from_user, msg.chat)
-		if not user:
-			insert_user(msg.from_user, msg.chat)
-		user = select_user(msg.from_user, msg.chat)	
-		if user.is_freezed:
-			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
-		else:
-			if user.karma > 10:
-					tinder(msg)
-			else:
-				bot.delete_message(msg.chat.id, msg.message_id)
+
 				
 				
 @bot.message_handler(content_types=['dice'])
