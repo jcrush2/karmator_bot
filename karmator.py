@@ -844,14 +844,14 @@ def save(msg):
 	
 @bot.message_handler(commands=["q"], func=is_my_message)
 def q(msg):
-	bot.delete_message(msg.chat.id, msg.message_id)
+	
 	if len(msg.text.split()) == 1:
 		return
 	bot.send_chat_action(msg.chat.id, "typing")
 	random_karma = ("Абсолютно точно!","Да.","Нет.","Скорее да, чем нет.","Не уверен...","Однозначно нет!","Если ты не фанат аниме, у тебя все получится!","Можешь быть уверен в этом.","Перспективы не очень хорошие.","А как же иначе?.","Да, но если только ты не смотришь аниме.","Знаки говорят - да.","Не знаю.","Мой ответ - нет.","Весьма сомнительно.","Не могу дать точный ответ.")
 	random_karma2 = random.choice(random_karma)
 	bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
-	
+	bot.delete_message(msg.chat.id, msg.message_id)
   
 def reputation(msg, text):
 	""" TODO """
