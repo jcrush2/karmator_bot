@@ -568,6 +568,22 @@ def is_karma_changing(text):
 				or text.endswith(word):
 			result.append(-1)
 		
+			
+	return result
+	
+def is_karma_changing_mat(text):
+	result = []
+		
+	if len(text)==1:
+		result.append(-1)
+
+			# Обработка текста для анализа
+	text = text.lower()
+	for punc in string.punctuation:
+		text = text.replace(punc, "")
+	for white in string.whitespace[1:]:
+		text = text.replace(white, "")
+		
 	for word in config.mat_words:
 		if word in text \
 				or (" "+word+" " in text) \
@@ -582,6 +598,7 @@ def is_karma_changing(text):
 					or text.endswith(word):
 				result.append(1)
 			
+
 	return result
 
 def is_karma_freezed(msg):
@@ -798,7 +815,7 @@ def croco(msg):
 		seves_id3 = saves_database.get(message_id_del2)
 		bot.delete_message(msg.chat.id, seves_id3)
 	except Exception:
-		ъbot.send_chat_action(msg.chat.id, "typing")
+		bot.send_chat_action(msg.chat.id, "typing")
 		
 @bot.message_handler(commands=["citata"], func=is_my_message)
 def citata(msg):
@@ -911,6 +928,7 @@ def changing_karma_text(msg):
 	if msg.chat.type == "private":
 		return
 	reputation(msg, msg.text)
+	reputation_mat(msg, msg.text)
 	commands_repley(msg, msg.text)
 	commands(msg, msg.text)
 	
