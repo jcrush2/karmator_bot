@@ -761,7 +761,7 @@ def query_handler(call):
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
 @bot.message_handler(commands=["croco"], func=is_my_message)
-def croco(msg, text):
+def croco(msg):
 	seves_id = saves_database.get(database_id)
 	if seves_id ==  msg.from_user.id:
 		bot.send_message(msg.chat.id,f'🐊 {msg.from_user.first_name} уже загадал слово.', parse_mode="HTML")
