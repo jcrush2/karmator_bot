@@ -667,7 +667,7 @@ def is_karma_abuse(msg):
 
 
 @bot.message_handler(commands=["язаБан"], func=is_my_message)
-def zaBan(msg, text):
+def zaBan(msg):
 	if msg.reply_to_message:
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
 		if user.status == 'administrator' or user.status == 'creator':
@@ -676,21 +676,21 @@ def zaBan(msg, text):
 		bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
 
 @bot.message_handler(commands=["утра"], func=is_my_message)
-def utra(msg, text):
+def utra(msg):
 	if msg.reply_to_message:
 		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
 @bot.message_handler(commands=["привет"], func=is_my_message)
-def privet(msg, text):
+def privet(msg):
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
 
 @bot.message_handler(commands=["фото"], func=is_my_message)
-def photo(msg, text):
+def photo(msg):
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
 
 @bot.message_handler(commands=["фсб"], func=is_my_message)
-def fsb(msg, text):
+def fsb(msg):
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> За вами уже выехали!", parse_mode="HTML")
 			
