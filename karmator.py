@@ -683,7 +683,7 @@ def utra(msg):
 @bot.message_handler(commands=["привет"], func=is_my_message)
 def privet(msg):
 
-		bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
+		bot.reply_to(msg.reply_to_message,f"✌<b>{msg.reply_to_message.from_user.first_name}</b> приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
 
 @bot.message_handler(commands=["фото"], func=reply_exist)
 def photo(msg):
