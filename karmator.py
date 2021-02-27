@@ -680,7 +680,7 @@ def zaBan(msg):
 @bot.message_handler(commands=["утра"], func=is_my_message)
 def utra(msg):
 		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
-@bot.message_handler(commands=["привет"], func=is_my_message)
+@bot.message_handler(commands=["привет"], func=reply_exist)
 def privet(msg):
 
 		bot.reply_to(msg.reply_to_message,f"✌<b>{msg.reply_to_message.from_user.first_name}</b> приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
