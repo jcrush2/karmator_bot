@@ -504,7 +504,7 @@ def gift_karma(msg):
 			chatid=msg.chat.id)
 		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 		if user.status == 'administrator' or user.status == 'creator':
-			change_karma(msg.reply_to_message.from_user, msg.chat, 5)
+			change_karma(msg.reply_to_message.from_user, msg.chat, 15)
 			bot.reply_to(msg, "🎁 отсыпал кармы.")
 		else:
 			user = select_user(msg.from_user, msg.chat)
