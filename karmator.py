@@ -666,7 +666,7 @@ def is_karma_abuse(msg):
 	return False
 
 
-@bot.message_handler(commands=["язаБан"], func=is_my_message)
+@bot.message_handler(commands=["язаБан"], func=reply_exist)
 def zaBan(msg):
 	if msg.reply_to_message:
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
@@ -683,12 +683,12 @@ def privet(msg):
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
 
-@bot.message_handler(commands=["фото"], func=is_my_message)
+@bot.message_handler(commands=["фото"], func=reply_exist)
 def photo(msg):
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
 
-@bot.message_handler(commands=["фсб"], func=is_my_message)
+@bot.message_handler(commands=["фсб"], func=reply_exist)
 def fsb(msg):
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> За вами уже выехали!", parse_mode="HTML")
@@ -844,7 +844,7 @@ def save(msg):
 		bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранено в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
 #		bot.delete_message(msg.chat.id, msg.message_id)
 	
-@bot.message_handler(commands=["?!"], func=is_my_message)
+@bot.message_handler(commands=["?!"], func=reply_exist)
 def q(msg):
 	
 	if len(msg.text.split()) == 1:
