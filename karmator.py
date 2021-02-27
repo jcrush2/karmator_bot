@@ -688,12 +688,13 @@ def privet(msg):
 @bot.message_handler(commands=["фото"], func=reply_exist)
 def photo(msg):
 
-		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
+		bot.reply_to(msg.reply_to_message,f"<b>{msg.reply_to_message.from_user.first_name}</b> не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
 
 @bot.message_handler(commands=["фсб"], func=reply_exist)
 def fsb(msg):
 
-		bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> За вами уже выехали!", parse_mode="HTML")
+		bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a><b>{msg.reply_to_message.from_user.first_name}</b> за вами уже выехали!", parse_mode="HTML")
+
 			
 def commands(msg, text):
 	
@@ -827,7 +828,7 @@ def citata(msg):
 	citata = random.choice(config.citata_words)
 	bot.send_chat_action(msg.chat.id, "typing")
 	bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
-	bot.delete_message(msg.chat.id, msg.message_id)
+
 		
 @bot.message_handler(commands=["date", "дата"], func=is_my_message)
 def date(msg):
@@ -835,7 +836,6 @@ def date(msg):
 	t = a.strftime("%Y%m%d")
 	bot.send_chat_action(msg.chat.id, "typing")
 	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = "Есть неплохие поводы...")
-	bot.delete_message(msg.chat.id, msg.message_id)
 	
 @bot.message_handler(commands=["save","сохранить"], func=is_my_message)
 def save(msg):
