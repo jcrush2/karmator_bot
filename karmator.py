@@ -59,7 +59,7 @@ def start(msg):
 	bot.send_message(msg.chat.id, reply_text)
 
 
-@bot.message_handler(commands=["h"], func=is_my_message)
+@bot.message_handler(commands=["h","help"], func=is_my_message)
 def helps(msg):
 	"""
 	Функция для отправки списка общедоступных команд для бота
@@ -77,7 +77,7 @@ def helps(msg):
 	\n/no - Для объявлений. \
 	\n/report - Отправить жалобу.\
 	\n/croco - Игра в Крокодил.\
-	\n\n<b>/citata, /date, /q, /save, превед, фсб, фото, язаБан</b> - Ответом на сообщение.\
+	\n\n<b>/утра /цитата, /дата, /?!, /сохранить, /привет, /фсб, /фото, /язаБан</b> - Ответом на сообщение.\
 	\n\n<b>Карма:</b>\
 	\n/my - Посмотреть свою карму.\
 	\n/top - Узнать наиболее благодаримых в чате.\
@@ -91,7 +91,7 @@ def helps(msg):
 	bot.send_message(msg.chat.id, help_mess, parse_mode="HTML")
 	bot.delete_message(msg.chat.id, msg.message_id)
 
-@bot.message_handler(commands=["weather"], func=is_my_message)
+@bot.message_handler(commands=["weather","погода"], func=is_my_message)
 def weather(msg):
 	"""
 	Функция, которая по запросу возвращает ссылку на гитхаб-репозиторий,
@@ -666,30 +666,33 @@ def is_karma_abuse(msg):
 	return False
 
 
-def commands_repley(msg, text):
-	if msg.text.lower() in ['язабан']:
+@bot.message_handler(commands=["язаБан"], func=is_my_message)
+def zaBan(msg, text):
+	if msg.reply_to_message:
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
 		if user.status == 'administrator' or user.status == 'creator':
 			return
 		bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
 		bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
-		return
 
-	if msg.text.lower() in ['утра']:
+@bot.message_handler(commands=["утра"], func=is_my_message)
+def utra(msg, text):
+	if msg.reply_to_message:
 		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
-		return
-
-	if msg.text.lower() in ['превед']:
+@bot.message_handler(commands=["привет"], func=is_my_message)
+def privet(msg, text):
+	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
-		return
 
-	if msg.text.lower() in ['фото']:
+@bot.message_handler(commands=["фото"], func=is_my_message)
+def photo(msg, text):
+	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
-		return
 
-	if msg.text.lower() in ['фсб']:
+@bot.message_handler(commands=["фсб"], func=is_my_message)
+def fsb(msg, text):
+	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> За вами уже выехали!", parse_mode="HTML")
-		return
 			
 def commands(msg, text):
 	
@@ -777,7 +780,7 @@ def query_handler(call):
 	if  f"{idmy2}" != f"{call.data}":
 		bot.answer_callback_query(callback_query_id=call.id, show_alert=True,  text=f"Слово знает только тот кто стартовал игру.")
 		
-@bot.message_handler(commands=["croco"], func=is_my_message)
+@bot.message_handler(commands=["croco", "крокодил"], func=is_my_message)
 def croco(msg):
 	seves_id = saves_database.get(database_id)
 	if seves_id ==  msg.from_user.id:
@@ -818,14 +821,14 @@ def croco(msg):
 		bot.send_chat_action(msg.chat.id, "typing")
 		
 		
-@bot.message_handler(commands=["citata"], func=is_my_message)
+@bot.message_handler(commands=["citata", "цитата"], func=is_my_message)
 def citata(msg):
 	citata = random.choice(config.citata_words)
 	bot.send_chat_action(msg.chat.id, "typing")
 	bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 	bot.delete_message(msg.chat.id, msg.message_id)
 		
-@bot.message_handler(commands=["date"], func=is_my_message)
+@bot.message_handler(commands=["date", "дата"], func=is_my_message)
 def date(msg):
 	a = datetime.datetime.today()+datetime.timedelta(hours=10)
 	t = a.strftime("%Y%m%d")
@@ -833,18 +836,16 @@ def date(msg):
 	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = "Есть неплохие поводы...")
 	bot.delete_message(msg.chat.id, msg.message_id)
 	
-@bot.message_handler(commands=["save"], func=is_my_message)
+@bot.message_handler(commands=["save","сохранить"], func=is_my_message)
 def save(msg):
 	
 	if msg.reply_to_message:
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.forward_message(-1001338159710, msg.chat.id, msg.reply_to_message.message_id)
 		bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранено в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
-		bot.delete_message(msg.chat.id, msg.message_id)
-	else:
-		return
+#		bot.delete_message(msg.chat.id, msg.message_id)
 	
-@bot.message_handler(commands=["q"], func=is_my_message)
+@bot.message_handler(commands=["?!"], func=is_my_message)
 def q(msg):
 	
 	if len(msg.text.split()) == 1:
@@ -854,7 +855,6 @@ def q(msg):
 	random_karma = ("Абсолютно точно!","Да.","Нет.","Скорее да, чем нет.","Не уверен...","Однозначно нет!","Если ты не фанат аниме, у тебя все получится!","Можешь быть уверен в этом.","Перспективы не очень хорошие.","А как же иначе?.","Да, но если только ты не смотришь аниме.","Знаки говорят - да.","Не знаю.","Мой ответ - нет.","Весьма сомнительно.","Не могу дать точный ответ.")
 	random_karma2 = random.choice(random_karma)
 	bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
-	bot.delete_message(msg.chat.id, msg.message_id)
   
 def reputation(msg, text):
 	""" TODO """
@@ -932,7 +932,6 @@ def changing_karma_text(msg):
 		return
 	reputation(msg, msg.text)
 	reputation_mat(msg, msg.text)
-	commands_repley(msg, msg.text)
 	commands(msg, msg.text)
 	
 
