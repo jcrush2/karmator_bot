@@ -817,7 +817,8 @@ def croco(msg):
 	except Exception:
 		bot.send_chat_action(msg.chat.id, "typing")
 		
-@bot.message_handler(func=lambda msg: msg.text.lower() == "цитата")
+		
+@bot.message_handler(commands=["citata"], func=is_my_message)
 def citata(msg):
 	citata = random.choice(config.citata_words)
 	bot.send_chat_action(msg.chat.id, "typing")
