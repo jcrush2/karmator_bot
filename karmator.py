@@ -668,7 +668,7 @@ def is_karma_abuse(msg):
 
 @bot.message_handler(commands=["язаБан"], func=reply_exist)
 def zaBan(msg):
-	if msg.reply_to_message:
+
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
 		if user.status == 'administrator' or user.status == 'creator':
 			return
@@ -680,17 +680,17 @@ def utra(msg):
 		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
 @bot.message_handler(commands=["привет"], func=is_my_message)
 def privet(msg):
-	if msg.reply_to_message:
+
 		bot.reply_to(msg.reply_to_message,f"✌Приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
 
 @bot.message_handler(commands=["фото"], func=reply_exist)
 def photo(msg):
-	if msg.reply_to_message:
+
 		bot.reply_to(msg.reply_to_message,f"Не соблаговолите ли вы скинуть в чат свою фоточку, нам будет очень приятно вас лицезреть 🙂", parse_mode="HTML")
 
 @bot.message_handler(commands=["фсб"], func=reply_exist)
 def fsb(msg):
-	if msg.reply_to_message:
+
 		bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> За вами уже выехали!", parse_mode="HTML")
 			
 def commands(msg, text):
@@ -838,7 +838,7 @@ def date(msg):
 @bot.message_handler(commands=["save","сохранить"], func=is_my_message)
 def save(msg):
 	
-	if msg.reply_to_message:
+
 		bot.send_chat_action(msg.chat.id, "typing")
 		bot.forward_message(-1001338159710, msg.chat.id, msg.reply_to_message.message_id)
 		bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранено в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
