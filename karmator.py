@@ -682,7 +682,7 @@ def utra(msg):
 @bot.message_handler(commands=["привет"], func=reply_exist)
 def privet(msg):
 
-		bot.reply_to(msg.reply_to_message,f"✌<b>{msg.reply_to_message.from_user.first_name}</b> приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
+		bot.reply_to(msg.reply_to_message,f"✌ <b>{msg.reply_to_message.from_user.first_name}</b> приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
 
 @bot.message_handler(commands=["фото"], func=reply_exist)
 def photo(msg):
@@ -692,7 +692,7 @@ def photo(msg):
 @bot.message_handler(commands=["фсб"], func=reply_exist)
 def fsb(msg):
 
-		bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a><b>{msg.reply_to_message.from_user.first_name}</b> за вами уже выехали!", parse_mode="HTML")
+		bot.reply_to(msg.reply_to_message,f"<a href='https://telegra.ph/file/1a296399c86ac7a19777f.jpg'>😎</a> <b>{msg.reply_to_message.from_user.first_name}</b> за вами уже выехали!", parse_mode="HTML")
 
 			
 def commands(msg, text):
