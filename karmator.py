@@ -43,7 +43,9 @@ def is_my_message(msg):
 		if text[1] != config.bot_name:
 			return False
 	return True
-
+	
+def reply_exist(msg):
+	return msg.reply_to_message
 
 @bot.message_handler(commands=["start"], func=is_my_message)
 def start(msg):
@@ -921,8 +923,7 @@ def reputation_mat(msg, text):
 		change_karma(msg.from_user, msg.chat, result)
 		
 
-def reply_exist(msg):
-	return msg.reply_to_message
+
 
 
 @bot.message_handler(content_types=["text"], func=reply_exist)
