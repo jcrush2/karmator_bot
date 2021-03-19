@@ -388,7 +388,7 @@ def tinder(msg):
 				else:
 					nick = user.user_nick.strip()
 					name = user.user_name.strip()
-					if name.endswith('h'):
+					if name.endswith(['h','1']):
 						gender = 'M'
 					else:
 						gender = 'Ж'
