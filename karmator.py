@@ -376,9 +376,9 @@ def tinder(msg):
 	
 			bot.send_chat_action(msg.chat.id, "typing")
 			selected_user = KarmaUser.select()\
-				.where((KarmaUser.karma > 8) & (KarmaUser.chatid == msg.chat.id))\
+				.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
 				.order_by(KarmaUser.karma.desc())\
-				.limit(100)
+				.limit(200)
 			top_mess = f"🤚"
 			selected_user = random.choices(selected_user)
 			for i, user in enumerate(selected_user):
@@ -388,15 +388,15 @@ def tinder(msg):
 				else:
 					nick = user.user_nick.strip()
 					name = user.user_name.strip()
-					if msg.from_user.first_name.endswith('я') or msg.from_user.first_name.endswith('а') or msg.from_user.first_name.endswith('a'):
-						gey = 'Ж'
-					else:
-						gey = 'М'
+#					if msg.from_user.first_name.endswith('я') or msg.from_user.first_name.endswith('а') or msg.from_user.first_name.endswith('a'):
+#						gey = 'Ж'
+#					else:
+#						gey = 'М'
 					if name.endswith('а') or name.endswith('я') or name.endswith('a'):
 						
-						gender = f'👫 Вы образовали пару с девушкой 💋 ({gey})'
+						gender = f'❤️ Вы образовали пару с девушкой 👩'
 					else:
-						gender = f'👫 Вы образовали пару с парнем 💋 ({gey})'
+						gender = f'❤️ Вы образовали пару с парнем 👱'
 					try:
 						userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 						if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
