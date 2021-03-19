@@ -393,7 +393,10 @@ def tinder(msg):
 						if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 							bot.send_chat_action(msg.chat.id, "typing")
 							change_karma(userstatus.user, msg.chat, random.randint(1, 3))
-							top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random.randint(1, 3)} кармы."
+							if name.my_str.endswith('h'):
+								top_mess = f"👫 M Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random.randint(1, 3)} кармы."
+							else:
+								top_mess = f"👫 Ж Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random.randint(1, 3)} кармы."
 						if userstatus.status == 'left':
 							top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} (покинул ХабЧат), но можешь <a href='https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat'>позвать обратно</a> через личку."
 					except Exception:
