@@ -388,17 +388,20 @@ def tinder(msg):
 				else:
 					nick = user.user_nick.strip()
 					name = user.user_name.strip()
-					if name.endswith(['h','1']):
-						gender = 'M'
+					if msg.from_user.first_name.endswith('h') or msg.from_user.first_name.endswith('1'):
+						gey = 'гей'
+					if name.endswith('h') or name.endswith('1'):
+						
+						gender = '👫 {gey} Вы образовали пару с парнем 💋'
 					else:
-						gender = 'Ж'
+						gender = '👫 Вы образовали пару с девушкой 💋'
 					try:
 						userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 						if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 							bot.send_chat_action(msg.chat.id, "typing")
 							change_karma(userstatus.user, msg.chat, random.randint(1, 3))
 						
-							top_mess = f"👫 {gender} Вы образовали пару с\n<b>{name}</b> aka @{nick} 💋 {random.randint(1, 3)} кармы."
+							top_mess = f"{gender}\n<b>{name}</b> aka @{nick}."
 
 						if userstatus.status == 'left':
 							top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} (покинул ХабЧат), но можешь <a href='https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat'>позвать обратно</a> через личку."
