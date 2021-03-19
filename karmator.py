@@ -388,6 +388,7 @@ def tinder(msg):
 				else:
 					nick = user.user_nick.strip()
 					name = user.user_name.strip()
+					userid = user.userid
 #					if msg.from_user.first_name.endswith('я') or msg.from_user.first_name.endswith('а') or msg.from_user.first_name.endswith('a')== name.endswith('а') or name.endswith('я') or name.endswith('a'):
 #						gey = 'однополую'
 					if name.endswith('а') or name.endswith('я') or name.endswith('a'):
@@ -401,10 +402,10 @@ def tinder(msg):
 							bot.send_chat_action(msg.chat.id, "typing")
 							change_karma(userstatus.user, msg.chat, random.randint(1, 3))
 						
-							top_mess = f"{gender}\n<b>{name}</b> aka @{nick}."
+							top_mess = f"{gender} <b>{name}</b> @{nick} {userid}."
 
 						if userstatus.status == 'left':
-							top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> aka @{nick} (покинул ХабЧат), <a href='https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat'>позвать обратно</a>."
+							top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> @{nick} (покинул ХабЧат), <a href='https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat'>позвать обратно</a>."
 					except Exception:
 						top_mess+= f"Сегодня вечер самопознания🤚"
 #				change_karma(userstatus.user, msg.chat, -100)
