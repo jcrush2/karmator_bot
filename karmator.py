@@ -402,7 +402,7 @@ def tinder(msg):
 							bot.send_chat_action(msg.chat.id, "typing")
 							change_karma(userstatus.user, msg.chat, random.randint(1, 3))
 						
-							top_mess = f"{gender} <b>{name}</b> @{nick} {userid}."
+							top_mess = f"{gender} <a href='tg://user?id={userid}'>{name}</a>."
 
 						if userstatus.status == 'left':
 							top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> @{nick} (покинул ХабЧат), <a href='https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat'>позвать обратно</a>."
