@@ -388,13 +388,13 @@ def tinder(msg):
 				else:
 					nick = user.user_nick.strip()
 					name = user.user_name.strip()
-					if msg.from_user.first_name.endswith('я') or msg.from_user.first_name.endswith('а') or msg.from_user.first_name.endswith('a')== name.endswith('а') or name.endswith('я') or name.endswith('a'):
-						gey = 'однополую'
+#					if msg.from_user.first_name.endswith('я') or msg.from_user.first_name.endswith('а') or msg.from_user.first_name.endswith('a')== name.endswith('а') or name.endswith('я') or name.endswith('a'):
+#						gey = 'однополую'
 					if name.endswith('а') or name.endswith('я') or name.endswith('a'):
 						
-						gender = f'❤️ Вы образовали {gey} пару с девушкой 👩'
+						gender = f'❤️ Вы образовали пару с девушкой 👩'
 					else:
-						gender = f'❤️ Вы образовали пару {gey} с парнем 👱'
+						gender = f'❤️ Вы образовали пару с парнем 👱'
 					try:
 						userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 						if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
