@@ -932,10 +932,10 @@ def channel_post(msg):
 	if 'Доброе утро' in msg.text:
 		bot.forward_message(-1001110839896, msg.chat.id, msg.message_id)
 
-@bot.message_handler(content_types=['text'])	
-def karma_game(msg):
-	if msg.chat.type == "private":
-		return
+#@bot.message_handler(content_types=['text'])	
+#def karma_game(msg):
+#	if msg.chat.type == "private":
+#		return
 				
 				
 @bot.message_handler(content_types=['dice'])
