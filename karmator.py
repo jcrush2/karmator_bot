@@ -53,8 +53,6 @@ def start(msg):
 	Функция для ответа на сообщение-команду для приветствия пользователя.
 	:param msg: Объект сообщения-команды
 	"""
-	main_log.info("Starting func 'start'")
-
 	reply_text = (
 			"Здравствуйте, я бот, который отвечает за " +
 			" подсчет кармы в чате @khvchat.")
@@ -67,9 +65,7 @@ def helps(msg):
 	Функция для отправки списка общедоступных команд для бота
 	:param msg: Объект сообщения-команды
 	"""
-	main_log.info("Starting func 'help'")
 
-	bot.send_chat_action(msg.chat.id, "typing")
 
 	help_mess = "<b>ХабЧат</b> - чат города Хабаровска.\
 	\n\nℹ️ Выражения похвалы и общение в положительном ключе повышают карму, ругательства понижают.\
@@ -99,8 +95,7 @@ def weather(msg):
 	в котором хранится исходный код бота
 	:param msg: Объект сообщения-команды
 	"""
-	main_log.info("Starting func 'source'")
-	bot.send_chat_action(msg.chat.id, "typing")
+	
 	reply_text = "<a href=\"https://t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d\">погода</a>"
 	bot.reply_to(msg, reply_text, parse_mode="HTML")
 	bot.delete_message(msg.chat.id, msg.message_id)
@@ -120,7 +115,6 @@ def nos(msg):
 	"""
 	Функция, для маркета
 	"""
-	main_log.info("Starting func 'nos'") 
 	nos_text = "ℹ️ Здесь Чат общения, для объявлений воспользуйтесь группами: @market27 или @khvjob"
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 	if msg.reply_to_message:
@@ -132,7 +126,11 @@ def nos(msg):
 		bot.reply_to(msg,nos_text)
 		bot.delete_message(msg.chat.id, msg.message_id)
 
-	
+@bot.message_handler(commands=["love"], func=is_my_message)
+def love(msg):
+		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
+		bot.reply_to(msg, loves_text, parse_mode="HTML")
+
 
 def select_user(user, chat):
 	"""
@@ -142,7 +140,6 @@ def select_user(user, chat):
 
 	TODO Хотелось бы избавиться от этой функции
 	"""
-	main_log.info(f"Select user with id:{user.id} and chat:{chat.id}")
 
 	selected_user = KarmaUser.select().where(
 		(KarmaUser.userid == user.id) &
@@ -164,10 +161,6 @@ def insert_user(user, chat):
 	# возвращает 'None', а не пустую строку. С 'user_nick' та же ситуация.
 	user_name = (user.first_name or "") + " " + (user.last_name or "")
 	user_nick = user.username or ""
-
-	main_log.info(f"Inserting new user with name: {user_name} and "
-				f"id:{user.id}, and in chat:{chat.title or ''} and "
-				f"id:{chat.id}")
 
 	new_user = KarmaUser.create(
 				userid=user.id,
@@ -200,9 +193,7 @@ def change_karma(user, chat, result):
 	user_name = (user.first_name or "") + " " + (user.last_name or "")
 	user_nick = user.username or ""
 
-	main_log.info(f"Updating karma for user with name: {user_name} and " +
-				f"id:{user.id}, and in chat:{chat.title or ''} and " +
-				f"id:{chat.id}. Karma changed at result")
+
 
 	update_user = KarmaUser.update(
 							karma=(KarmaUser.karma + result),
@@ -222,7 +213,6 @@ def my_karma(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	
-	main_log.info("Start func 'my_karma'")
 	user = select_user(msg.from_user, msg.chat)
 	if not user:
 		insert_user(msg.from_user, msg.chat)
@@ -280,7 +270,6 @@ def top_best(msg):
 	Функция которая выводит список пользователей с найбольшим значением кармы
 	:param msg: Объект сообщения-команды
 	"""
-	main_log.info("Starting func 'top_best'")
 
 	if len(msg.text.split()) == 1:
 		result=10
@@ -374,7 +363,7 @@ def tinder(msg):
 			else:
 				change_karma(msg.from_user, msg.chat, -5)
 	
-			bot.send_chat_action(msg.chat.id, "typing")
+			
 			selected_user = KarmaUser.select()\
 				.where((KarmaUser.karma > 10) & (KarmaUser.chatid == msg.chat.id))\
 				.order_by(KarmaUser.karma.desc())\
@@ -400,7 +389,7 @@ def tinder(msg):
 					try:
 						userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 						if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
-							bot.send_chat_action(msg.chat.id, "typing")
+							
 							change_karma(userstatus.user, msg.chat, random.randint(1, 3))
 						
 							top_mess = f"{gender} <a href='tg://user?id={userid}'>{name}</a>."
@@ -523,13 +512,13 @@ def gift_karma(msg):
 				insert_user(msg.from_user, msg.chat)
 			user = select_user(msg.from_user, msg.chat)
 			if user.karma > 5:
-				bot.send_chat_action(msg.chat.id, "typing")
+				
 				change_karma(msg.from_user, msg.chat, -5)
 				change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
 				bot.reply_to(msg.reply_to_message, "🎁 Вам подарили карму <b>+5</b>.", parse_mode="HTML")
 				
 			else:
-				bot.send_chat_action(msg.chat.id, "typing")
+				
 				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
 	else:
 		return
@@ -708,13 +697,6 @@ def fsb(msg):
 			
 def commands(msg, text):
 	
-	main_log.info("Starting func 'commands'")
-		
-	if 'love' in msg.text.lower():
-		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
-		bot.reply_to(msg, loves_text, parse_mode="HTML")
-		return
-
 	seves = saves_database.get(database)
 	if msg.text.lower() != "croco":
 		if re.search(r'[а-яА-ЯёЁ]',msg.text.split()[0].lower()) and re.search(r'[A-Za-z]',msg.text.split()[0].lower()):
@@ -737,12 +719,12 @@ def commands(msg, text):
 					saves_database[msg.from_user.id]=0
 			
 			if seves_id ==  msg.from_user.id:
-				bot.send_chat_action(msg.chat.id, "typing")
+				
 				bot.reply_to(msg,f"Мухлевать не красиво: -10 кармы 💩", parse_mode="HTML")
 				change_karma(msg.from_user, msg.chat, -10)
 					
 			else:
-				bot.send_chat_action(msg.chat.id, "typing")
+				
 				msg_id = bot.reply_to(msg,f"🎉 Правильный ответ: <b>{seves}</b> +10 кармы, запустить игру /croco", parse_mode="HTML").message_id
 				change_karma(msg.from_user, msg.chat, 10)
 				seves_id2 = saves_database.get(message_id_del)
@@ -804,7 +786,7 @@ def croco(msg):
 			seves_id2 = saves_database.get(message_id_del)
 			bot.delete_message(msg.chat.id, seves_id2)
 		except Exception:
-			bot.send_chat_action(msg.chat.id, "typing")
+			print("Error!")
 	seves_id_mute = saves_database.get(msg.from_user.id)
 	if seves_id_mute ==  1:
 		saves_database[msg.from_user.id]=0
@@ -817,7 +799,7 @@ def croco(msg):
 	saves_database[database_id] =msg.from_user.id
 	
 	saves_database[database] = random.choice(config.kroko_words)
-	bot.send_chat_action(msg.chat.id, "typing")
+	
 	markup = telebot.types.InlineKeyboardMarkup()
 	button = telebot.types.InlineKeyboardButton(text='👀', callback_data=idmy)
 	button3 = telebot.types.InlineKeyboardButton(text='🐊', callback_data=idmy3)
@@ -830,13 +812,13 @@ def croco(msg):
 		seves_id3 = saves_database.get(message_id_del2)
 		bot.delete_message(msg.chat.id, seves_id3)
 	except Exception:
-		bot.send_chat_action(msg.chat.id, "typing")
+		print("Error!")
 		
 		
 @bot.message_handler(commands=["citata", "цитата"], func=is_my_message)
 def citata(msg):
 	citata = random.choice(config.citata_words)
-	bot.send_chat_action(msg.chat.id, "typing")
+	
 	bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 
 		
@@ -844,14 +826,12 @@ def citata(msg):
 def date(msg):
 	a = datetime.datetime.today()+datetime.timedelta(hours=30)
 	t = a.strftime("%Y%m%d")
-	bot.send_chat_action(msg.chat.id, "typing")
+	
 	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = "Есть неплохие поводы...")
 	
 @bot.message_handler(commands=["save","сохранить"], func=is_my_message)
 def save(msg):
-	
-
-		bot.send_chat_action(msg.chat.id, "typing")
+		
 		bot.forward_message(-1001338159710, msg.chat.id, msg.reply_to_message.message_id)
 		bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранено в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
 #		bot.delete_message(msg.chat.id, msg.message_id)
@@ -862,7 +842,7 @@ def q(msg):
 	if len(msg.text.split()) == 1:
 		bot.delete_message(msg.chat.id, msg.message_id)
 		return
-	bot.send_chat_action(msg.chat.id, "typing")
+	
 	random_karma = ("Абсолютно точно!","Да.","Нет.","Скорее да, чем нет.","Не уверен...","Однозначно нет!","Если ты не фанат аниме, у тебя все получится!","Можешь быть уверен в этом.","Перспективы не очень хорошие.","А как же иначе?.","Да, но если только ты не смотришь аниме.","Знаки говорят - да.","Не знаю.","Мой ответ - нет.","Весьма сомнительно.","Не могу дать точный ответ.")
 	random_karma2 = random.choice(random_karma)
 	bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
@@ -933,9 +913,6 @@ def reputation_mat(msg, text):
 		change_karma(msg.from_user, msg.chat, result)
 		
 
-
-
-
 @bot.message_handler(content_types=["text"], func=reply_exist)
 def changing_karma_text(msg):
 	if msg.chat.type == "private":
@@ -943,7 +920,6 @@ def changing_karma_text(msg):
 	reputation(msg, msg.text)
 	reputation_mat(msg, msg.text)
 	commands(msg, msg.text)
-	
 
 @bot.message_handler(content_types=["sticker"], func=reply_exist)
 def changing_karma_sticker(msg):
@@ -960,8 +936,6 @@ def channel_post(msg):
 def karma_game(msg):
 	if msg.chat.type == "private":
 		return
-	commands(msg, msg.text)
-
 				
 				
 @bot.message_handler(content_types=['dice'])
@@ -985,10 +959,10 @@ def send_dice(msg):
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
 			if user.karma > msg.dice.value:
-				bot.send_chat_action(msg.chat.id, "typing")
+				
 				random_karma = ("-","+")
 				random_karma2 = random.choice(random_karma)
-				bot.send_chat_action(msg.chat.id, "typing")
+				
 				bot.reply_to(msg, f"Сыграл в карму {random_karma2}{msg.dice.value}", parse_mode="HTML")
 				user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 				if user.status == 'creator':
