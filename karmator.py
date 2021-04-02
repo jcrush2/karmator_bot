@@ -383,7 +383,7 @@ def tinder(msg):
 					userid = user.userid
 					gey = ''
 					if msg.from_user.id == userid:
-						gey = 'сам с собой'
+						gey = ' сам с собой'
 					if name.endswith('а') or name.endswith('я') or name.endswith('a'):
 						
 						gender = f'❤️ Вы образовали пару с девушкой 👩{gey}'
