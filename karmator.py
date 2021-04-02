@@ -266,6 +266,7 @@ def my_karma(msg):
 
 @bot.message_handler(commands=["top"], func=is_my_message)
 def top_best(msg):
+	main_log.info("Starting func 'top_best'")
 	"""
 	Функция которая выводит список пользователей с найбольшим значением кармы
 	:param msg: Объект сообщения-команды
