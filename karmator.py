@@ -324,15 +324,15 @@ def top_best(msg):
 				if 1200 <= user.karma < 1500: user_rang = "✝️\n      <code>Бог</code>"
 				if 1500 <= user.karma < 2800: user_rang = "⚡️\n      <code>Верховный Бог</code>"
 				if 1800 <= user.karma < 2000: user_rang = "⚡⚡️️️\n      <code>Пантеон</code>"
-				if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>\n"
+				if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>"
 				if userstatus.status == 'left' or userstatus.status == 'kicked' or userstatus.status == 'restricted':
-					continue
+					user_rang = "💀️️️\n      <code>Выбыл</code>"
 			
 
-				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
+				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n<b>bold</b>,<strong>bold</strong><i>italic</i>,<em>italic</em><u>underline</u>, <ins>underline</ins><s>strikethrough</s>, <strike>strikethrough</strike>, <del>strikethrough</del><b>bold <i>italic bold <s>italic bold strikethrough</s> <u>underline italic bold</u></i> bold</b><code>inline fixed-width code</code><pre>pre-formatted fixed-width code block</pre>"
 
 		except Exception:
-				continue
+				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) 🗑\n      <code>Удаленный</code>\n"
 #				userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 #				change_karma(userstatus.user, msg.chat, -100)
 	if not selected_user:
