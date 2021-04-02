@@ -329,7 +329,7 @@ def top_best(msg):
 					user_rang = "💀️️️\n      <code>Выбыл</code>"
 			
 
-				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n<b>bold</b>,<strong>bold</strong><i>italic</i>,<em>italic</em><u>underline</u>, <ins>underline</ins><s>strikethrough</s>, <strike>strikethrough</strike>, <del>strikethrough</del><b>bold <i>italic bold <s>italic bold strikethrough</s> <u>underline italic bold</u></i> bold</b><code>inline fixed-width code</code><pre>pre-formatted fixed-width code block</pre>"
+				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 
 		except Exception:
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) 🗑\n      <code>Удаленный</code>\n"
