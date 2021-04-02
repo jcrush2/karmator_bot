@@ -397,8 +397,8 @@ def tinder(msg):
 						
 							top_mess = f"{gender} <a href='tg://user?id={userid}'>{name}</a>."
 
-						if userstatus.status == 'left':
-							top_mess = f"👫 Вы образовали пару с\n<b>{name}</b> @{nick} (покинул ХабЧат), <a href='https://t.me/share/url?url=t.me/khvchat&text=Привет! Мы общаемся в Чате Хабаровска в Telegram, заходи к нам: https://t.me/khvchat'>позвать обратно</a>."
+						if userstatus.status == 'left' or userstatus.status == 'kicked' or userstatus.status == 'restricted':
+							top_mess = f"💀️ Вы образовали пару с усопшим <b>{name}</b>"
 					except Exception:
 						top_mess+= f"Сегодня вечер самопознания🤚"
 #				change_karma(userstatus.user, msg.chat, -100)
