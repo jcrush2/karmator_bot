@@ -291,7 +291,7 @@ def top_best(msg):
 		try:
 
 			userstatus = bot.get_chat_member(msg.chat.id,user.userid)
-
+			if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator' 
 				if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
 				if 10 <= user.karma < 20: user_rang = "🤫\n      <code>Тихоня</code>"
 				if 20 <= user.karma < 30: user_rang = "🐛\n      <code>Личинка</code>"
