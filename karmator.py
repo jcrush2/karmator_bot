@@ -291,6 +291,8 @@ def top_best(msg):
 		try:
 
 			userstatus = bot.get_chat_member(msg.chat.id,user.userid)
+			if userstatus.status == 'left' or userstatus.status == 'kicked' or userstatus.status == 'restricted':
+				user_rang = "💀️️️\n      <code>Выбыл</code>"
 			if userstatus.status == 'creator' or userstatus.status == 'member' or userstatus.status == 'administrator':
 				if user.karma <= 9: user_rang = "🤖\n      <code>Бот</code>"
 				if 10 <= user.karma < 20: user_rang = "🤫\n      <code>Тихоня</code>"
@@ -325,8 +327,6 @@ def top_best(msg):
 				if 1500 <= user.karma < 2800: user_rang = "⚡️\n      <code>Верховный Бог</code>"
 				if 1800 <= user.karma < 2000: user_rang = "⚡⚡️️️\n      <code>Пантеон</code>"
 				if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>\n"
-			if userstatus.status == 'left' or userstatus.status == 'kicked' or userstatus.status == 'restricted':
-				user_rang = "💀️️️\n      <code>Выбыл</code>"
 
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 
