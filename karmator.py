@@ -827,10 +827,10 @@ def citata(msg):
 		
 @bot.message_handler(commands=["date", "дата"], func=is_my_message)
 def date(msg):
-	a = datetime.datetime.today()+datetime.timedelta(hours=24)
+	a = datetime.datetime.today()+datetime.timedelta(hours=58)
 	t = a.strftime("%Y%m%d")
 	
-	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = "Есть неплохие поводы...")
+	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = "ХабЧат 💬 есть неплохие поводы...")
 	
 @bot.message_handler(commands=["save","сохранить"], func=is_my_message)
 def save(msg):
