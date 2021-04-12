@@ -829,9 +829,9 @@ def citata(msg):
 def date(msg):
 	a = datetime.datetime.today()+datetime.timedelta(hours=58)
 	t = a.strftime("%Y%m%d")
-	t2 = a.strftime("%Y%m%d %H:%M")
+	t2 = a.strftime("%d.%m.%Y, %H:%M")
 	
-	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = f"<b>ХабЧат</b> 💬 {t2} есть неплохие поводы...")
+	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = f"ХабЧат 💬 {t2} есть неплохие поводы...")
 	
 @bot.message_handler(commands=["save","сохранить"], func=is_my_message)
 def save(msg):
