@@ -137,7 +137,7 @@ def love(msg):
 
 		start = time.time()
 		for img in imgUrls:
-    		if img.endswith(".jpg"):
+			if img.endswith(".jpg"):
 				bot.send_photo(msg.chat.id, f"{img}", caption = f"ХабЧат 💬 есть неплохие поводы...")
 
 
