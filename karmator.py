@@ -7,6 +7,7 @@ import os
 import random
 import requests
 import re
+import urllib2
 
 
 from flask import Flask, request
@@ -130,6 +131,14 @@ def nos(msg):
 def love(msg):
 		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
 		bot.reply_to(msg, loves_text, parse_mode="HTML")
+		url = "https://t.me/jcrush/"
+		content = urllib2.urlopen(url).read()
+		imgUrls = re.findall('img .*?src="(.*?)"', сontent)
+
+		start = time.time()
+		for img in imgUrls:
+    		if img.endswith(".jpg"):
+				bot.send_photo(msg.chat.id, f"{img}", caption = f"ХабЧат 💬 есть неплохие поводы...")
 
 
 def select_user(user, chat):
@@ -829,9 +838,9 @@ def citata(msg):
 def date(msg):
 	a = datetime.datetime.today()+datetime.timedelta(hours=58)
 	t = a.strftime("%Y%m%d")
-	t2 = a.strftime("%d.%m.%Y, %H:%M")
+#	t2 = a.strftime("%d.%m.%Y, %H:%M")
 	
-	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = f"ХабЧат 💬 {t2} есть неплохие поводы...")
+	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = f"ХабЧат 💬 есть неплохие поводы...")
 	
 @bot.message_handler(commands=["save","сохранить"], func=is_my_message)
 def save(msg):
