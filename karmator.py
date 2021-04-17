@@ -7,7 +7,7 @@ import os
 import random
 import requests
 import re
-import urllib2
+
 
 
 from flask import Flask, request
@@ -129,17 +129,11 @@ def nos(msg):
 
 @bot.message_handler(commands=["love"], func=is_my_message)
 def love(msg):
+		if len(msg.text.split()) == 1:
+			return
 		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
 		bot.reply_to(msg, loves_text, parse_mode="HTML")
-		url = "https://t.me/jcrush/"
-		content = urllib2.urlopen(url).read()
-		imgUrls = re.findall('img .*?src="(.*?)"', сontent)
-
-		start = time.time()
-		for img in imgUrls:
-			if img.endswith(".jpg"):
-				bot.send_photo(msg.chat.id, f"{img}", caption = f"ХабЧат 💬 есть неплохие поводы...")
-
+		
 
 def select_user(user, chat):
 	"""
@@ -883,6 +877,7 @@ def reputation(msg, text):
 
 	if is_karma_freezed(msg):
 		return
+		
 	# Если значение кармы все же можно изменить: изменяем
 	result = sum(how_much_changed)
 	if result != 0:
