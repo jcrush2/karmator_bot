@@ -130,8 +130,9 @@ def nos(msg):
 @bot.message_handler(commands=["love"], func=is_my_message)
 def love(msg):
 		if len(msg.text.split()) == 1:
+			bot.delete_message(msg.chat.id, msg.message_id)
 			return
-		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Ваше объявление будет размещено в Знакомствах: @love_khv"
+		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Условия публикации в Знакомствах: @love_khv"
 		bot.reply_to(msg, loves_text, parse_mode="HTML")
 		
 
@@ -330,12 +331,14 @@ def top_best(msg):
 				if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>"
 				if userstatus.status == 'left' or userstatus.status == 'kicked' or userstatus.status == 'restricted':
 					user_rang = "💀️️️\n      <code>Выбыл</code>"
+					change_karma(msg.reply_to_message.from_user, msg.chat, -user.karma)
 			
 
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 
 		except Exception:
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) 🗑\n      <code>Удаленный</code>\n"
+				change_karma(msg.reply_to_message.from_user, msg.chat, -user.karma)
 #				userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 #				change_karma(userstatus.user, msg.chat, -100)
 	if not selected_user:
@@ -955,18 +958,18 @@ def send_dice(msg):
 	else:
 		if is_game_abuse(msg):
 			return
-		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
 			insert_user(msg.from_user, msg.chat)
-		user = select_user(msg.from_user, msg.chat)	
+			bot.delete_message(msg.chat.id, msg.message_id)
 		if user.is_freezed:
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
 			if user.karma > msg.dice.value:
+				Limitation.create(
+					timer=pw.SQL("current_timestamp"),
+					userid=msg.from_user.id,
+					chatid=msg.chat.id)
 				
 				random_karma = ("-","+")
 				random_karma2 = random.choice(random_karma)
