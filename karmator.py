@@ -338,7 +338,7 @@ def top_best(msg):
 							user_nick=user.user_nick.strip()
 						).where(
 							(KarmaUser.userid == user.userid) &
-							(KarmaUser.chatid == msg.chat))
+							(KarmaUser.chatid == msg.chat.id))
 					update_user.execute()
 			
 
@@ -352,7 +352,7 @@ def top_best(msg):
 							user_nick=user.user_nick.strip()
 						).where(
 							(KarmaUser.userid == user.userid) &
-							(KarmaUser.chatid == msg.chat))
+							(KarmaUser.chatid == msg.chat.id))
 				update_user.execute()
 #				change_karma(user, msg.chat, -user.karma)
 
