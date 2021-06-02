@@ -331,14 +331,14 @@ def top_best(msg):
 				if user.karma > 2000: user_rang = "👤\n      <code>Сломал систему</code>"
 				if userstatus.status == 'left' or userstatus.status == 'kicked' or userstatus.status == 'restricted':
 					user_rang = "💀️️️\n      <code>Выбыл</code>"
-					change_karma(msg.chat.id,user.userid, msg.chat, -user.karma)
+					change_karma(msg.chat.id,user, msg.chat, -user.karma)
 			
 
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) {user_rang}\n"
 
 		except Exception:
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) 🗑\n      <code>Удаленный</code>\n"
-				change_karma(msg.chat.id,user.userid, msg.chat, -user.karma)
+				change_karma(msg.chat.id,user, msg.chat, -user.karma)
 #				userstatus = bot.get_chat_member(msg.chat.id,user.userid)
 #				change_karma(userstatus.user, msg.chat, -100)
 	if not selected_user:
