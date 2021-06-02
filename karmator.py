@@ -334,10 +334,10 @@ def top_best(msg):
 #					change_karma(user, msg.chat, -user.karma)
 					update_user = KarmaUser.update(
 							karma=(0),
-							user_name=user_name,
-							user_nick=user_nick
+							user_name=user.user_name.strip(),
+							user_nick=user.user_nick.strip()
 						).where(
-							(KarmaUser.userid == user.id) &
+							(KarmaUser.userid == user.userid) &
 							(KarmaUser.chatid == chat.id))
 					update_user.execute()
 			
@@ -348,10 +348,10 @@ def top_best(msg):
 				top_mess += f"{i+1}. <b>{name}</b> ({user.karma}) 🗑\n      <code>Удаленный</code>\n"
 				update_user = KarmaUser.update(
 							karma=(0),
-							user_name=user_name,
-							user_nick=user_nick
+							user_name=user.user_name.strip(),
+							user_nick=user.user_nick.strip()
 						).where(
-							(KarmaUser.userid == user.id) &
+							(KarmaUser.userid == user.userid) &
 							(KarmaUser.chatid == chat.id))
 				update_user.execute()
 #				change_karma(user, msg.chat, -user.karma)
