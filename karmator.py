@@ -973,10 +973,15 @@ def send_dice(msg):
 	if msg.forward_from != None:
 		bot.delete_message(msg.chat.id, msg.message_id)
 	else:
-		user = select_user(msg.from_user, msg.chat)
-		if not user:
+		try:
+			user = select_user(msg.from_user, msg.chat)
+			if not user:
+				insert_user(msg.from_user, msg.chat)
+				bot.delete_message(msg.chat.id, msg.message_id)
+		except Exception:
 			insert_user(msg.from_user, msg.chat)
 			bot.delete_message(msg.chat.id, msg.message_id)
+			
 		user = select_user(msg.from_user, msg.chat)
 		if is_game_abuse(msg):
 			return
