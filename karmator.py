@@ -973,12 +973,13 @@ def send_dice(msg):
 	if msg.forward_from != None:
 		bot.delete_message(msg.chat.id, msg.message_id)
 	else:
-		if is_game_abuse(msg):
-			return
 		user = select_user(msg.from_user, msg.chat)
 		if not user:
 			insert_user(msg.from_user, msg.chat)
 			bot.delete_message(msg.chat.id, msg.message_id)
+		user = select_user(msg.from_user, msg.chat)
+		if is_game_abuse(msg):
+			return
 		if user.is_freezed:
 			bot.reply_to(msg, f"Разморозьте карму чтобы играть!", parse_mode="HTML")
 		else:
