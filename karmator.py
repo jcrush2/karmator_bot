@@ -363,6 +363,11 @@ def top_best(msg):
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
 	bot.delete_message(msg.chat.id, msg.message_id)
 	
+@bot.message_handler(commands!=["дата"])
+def delcommand(msg):
+	bot.delete_message(msg.chat.id, msg.message_id)
+	return
+	
 @bot.message_handler(commands=["tinder", "тиндер"], func=is_my_message)
 def tinder(msg):
 	"""
@@ -873,6 +878,8 @@ def q(msg):
 	random_karma = ("Абсолютно точно!","Да.","Нет.","Скорее да, чем нет.","Не уверен...","Однозначно нет!","Если ты не фанат аниме, у тебя все получится!","Можешь быть уверен в этом.","Перспективы не очень хорошие.","А как же иначе?.","Да, но если только ты не смотришь аниме.","Знаки говорят - да.","Не знаю.","Мой ответ - нет.","Весьма сомнительно.","Не могу дать точный ответ.")
 	random_karma2 = random.choice(random_karma)
 	bot.reply_to(msg, f"🔮 {random_karma2}", parse_mode="HTML")
+	
+	
   
 def reputation(msg, text):
 	""" TODO """
