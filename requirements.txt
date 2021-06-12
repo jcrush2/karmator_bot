@@ -2,3 +2,4 @@ flask
 peewee
 psycopg2
 pytelegrambotapi
+bs4
