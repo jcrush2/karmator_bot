@@ -363,7 +363,7 @@ def top_best(msg):
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
 	bot.delete_message(msg.chat.id, msg.message_id)
 	
-@bot.message_handler(commands!=["дата"])
+@bot.message_handler(regexp = 'прив(ет)?|здоров|зравствуй|приветствую|ку')
 def delcommand(msg):
 	bot.delete_message(msg.chat.id, msg.message_id)
 	return
