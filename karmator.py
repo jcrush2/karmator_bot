@@ -133,9 +133,6 @@ def love(msg):
 		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Условия публикации в Знакомствах: @love_khv"
 		bot.reply_to(msg, loves_text, parse_mode="HTML")
 		
-@bot.message_handler(commands=["кот"], func=is_my_message)
-def kot(msg):
-	return msg.reply.photo('http://thecatapi.com/api/images/get');
 
 		
 
@@ -859,6 +856,11 @@ def date(msg):
 #	t2 = a.strftime("%d.%m.%Y, %H:%M")
 	
 	bot.send_photo(msg.chat.id, f"https://www.calend.ru/img/export/informer_names.png?{t}", caption = f"ХабЧат 💬 есть неплохие поводы...")
+	
+@bot.message_handler(commands=["кот"], func=is_my_message)
+def kot(msg):
+
+	bot.send_photo(msg.chat.id, f"http://thecatapi.com/api/images/get", caption = f"ХабЧат 🐈 котик")
 	
 @bot.message_handler(commands=["save","сохранить"], func=is_my_message)
 def save(msg):
