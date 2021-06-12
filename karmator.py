@@ -133,6 +133,11 @@ def love(msg):
 		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Условия публикации в Знакомствах: @love_khv"
 		bot.reply_to(msg, loves_text, parse_mode="HTML")
 		
+@bot.message_handler(commands=["кот"], func=is_my_message)
+def kot(msg):
+	return msg.reply.photo('http://thecatapi.com/api/images/get');
+
+		
 
 def select_user(user, chat):
 	"""
