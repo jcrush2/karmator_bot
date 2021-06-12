@@ -7,9 +7,6 @@ import os
 import random
 import requests
 import re
-import bs4
-
-
 
 from flask import Flask, request
 import peewee as pw
