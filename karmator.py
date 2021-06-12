@@ -859,8 +859,8 @@ def date(msg):
 	
 @bot.message_handler(commands=["кот"], func=is_my_message)
 def kot(msg):
-
-	bot.send_photo(msg.chat.id, f"http://thecatapi.com/api/images/get", caption = f"ХабЧат 🐈 котик")
+	a = datetime.datetime.today()
+	bot.send_photo(msg.chat.id, f"http://thecatapi.com/api/images/get?{a}", caption = f"ХабЧат 🐈 котик")
 	
 @bot.message_handler(commands=["save","сохранить"], func=is_my_message)
 def save(msg):
