@@ -87,7 +87,6 @@ def helps(msg):
 	\n<b>🎲🎰🏀🎳⚽️</b> - Рандом кармы"
 	
 	bot.send_message(msg.chat.id, help_mess, parse_mode="HTML")
-	bot.delete_message(msg.chat.id, msg.message_id)
 
 @bot.message_handler(commands=["weather","погода"], func=is_my_message)
 def weather(msg):
@@ -99,7 +98,7 @@ def weather(msg):
 	
 	reply_text = "<a href=\"https://t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d\">погода</a>"
 	bot.reply_to(msg, reply_text, parse_mode="HTML")
-	bot.delete_message(msg.chat.id, msg.message_id)
+
 	
 @bot.message_handler(commands=["report"], func=is_my_message)
 def report(msg):
@@ -109,7 +108,6 @@ def report(msg):
 	report_text = "⚠️ Жалоба получена! \
 	\nУведомление админов: " + config.adminschat
 	bot.reply_to(msg, report_text)
-	bot.delete_message(msg.chat.id, msg.message_id)
 	
 @bot.message_handler(commands=["no"], func=is_my_message)
 def nos(msg):
@@ -120,12 +118,12 @@ def nos(msg):
 	user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
 	if msg.reply_to_message:
 		bot.reply_to(msg.reply_to_message,nos_text)
-		bot.delete_message(msg.chat.id, msg.message_id)
 		if user.status == 'administrator' or user.status == 'creator':
 			bot.delete_message(msg.chat.id, msg.reply_to_message.message_id)
+
 	else:
 		bot.reply_to(msg,nos_text)
-		bot.delete_message(msg.chat.id, msg.message_id)
+
 
 @bot.message_handler(commands=["love"], func=is_my_message)
 def love(msg):
@@ -266,7 +264,7 @@ def my_karma(msg):
 
 	now_karma = f"Карма у {name}: <b>{user.karma}</b> {user_rang}."
 	bot.reply_to(msg, now_karma, parse_mode="HTML")
-	bot.delete_message(msg.chat.id, msg.message_id)
+
 
 @bot.message_handler(commands=["top"], func=is_my_message)
 def top_best(msg):
@@ -361,12 +359,8 @@ def top_best(msg):
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
-	bot.delete_message(msg.chat.id, msg.message_id)
+
 	
-@bot.message_handler(regexp = '/[A-Za-z]')
-def delcommand(msg):
-	bot.delete_message(msg.chat.id, msg.message_id)
-	return
 	
 @bot.message_handler(commands=["tinder", "тиндер"], func=is_my_message)
 def tinder(msg):
@@ -468,7 +462,7 @@ def top_bad(msg):
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
-	bot.delete_message(msg.chat.id, msg.message_id)
+
 
 
 @bot.message_handler(commands=["freez", "unfreez"], func=is_my_message)
@@ -710,7 +704,7 @@ def zaBan(msg):
 @bot.message_handler(commands=["утра"], func=is_my_message)
 def utra(msg):
 		bot.reply_to(msg, f"С добрым утром, Хабаровск! ☀️ Вам отличного и позитивного настроения!!!", parse_mode="HTML")
-@bot.message_handler(commands=["привет"], func=reply_exist)
+@bot.message_handler(commands=["привет","hi"], func=reply_exist)
 def privet(msg):
 
 		bot.reply_to(msg.reply_to_message,f"✌ <b>{msg.reply_to_message.from_user.first_name}</b> приветствуем тебя в <b>ХабЧате</b>! По доброй традиции, желательно представиться и рассказать немного о себе.", parse_mode="HTML")
@@ -866,7 +860,6 @@ def save(msg):
 		
 		bot.forward_message(-1001338159710, msg.chat.id, msg.reply_to_message.message_id)
 		bot.reply_to(msg.reply_to_message,f"💾 Сообщение сохранено в <a href='https://t.me/joinchat/T8KyXgxSk1o4s7Hk'>Цитатник ХабЧата</a>.", parse_mode="HTML")
-#		bot.delete_message(msg.chat.id, msg.message_id)
 	
 @bot.message_handler(commands=["?"], func=is_my_message)
 def q(msg):
@@ -1012,6 +1005,11 @@ def send_dice(msg):
 					change_karma(msg.from_user, msg.chat, f"{random_karma2}{msg.dice.value}")
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
+				
+@bot.message_handler(regexp = '/[A-Za-z]')
+def delcommand(msg):
+	bot.delete_message(msg.chat.id, msg.message_id)
+	return
 
 # bot.polling(none_stop=True)
 
