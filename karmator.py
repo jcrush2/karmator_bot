@@ -851,11 +851,11 @@ def citata(msg):
 	data = res.json()
 	quote = data['quoteText']
 	author = data['quoteAuthor']
-	bot.reply_to(msg, f"📍 Цитата: {quote} {author}", parse_mode="HTML")
+	bot.reply_to(msg, f"📍 <i>{quote}</i> ©️ <b>{author}</b>", parse_mode="HTML")
 
-	citata = random.choice(config.citata_words)
+#	citata = random.choice(config.citata_words)
 	
-	bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
+#	bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
 
 		
 @bot.message_handler(commands=["date", "дата"], func=is_my_message)
