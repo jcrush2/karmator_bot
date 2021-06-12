@@ -844,6 +844,15 @@ def croco(msg):
 		
 @bot.message_handler(commands=["citata", "цитата"], func=is_my_message)
 def citata(msg):
+
+	url = 'http://api.forismatic.com/api/1.0/'
+	payload  = {'method': 'getQuote', 'format': 'json', 'lang': 'ru'}
+	res = requests.get(url, params=payload)
+	data = res.json()
+	quote = data['quoteText']
+	author = data['quoteAuthor']
+	bot.reply_to(msg, f"📍 Цитата: {quote} {author}", parse_mode="HTML")
+
 	citata = random.choice(config.citata_words)
 	
 	bot.reply_to(msg, f"📍 Цитата: {citata}", parse_mode="HTML")
