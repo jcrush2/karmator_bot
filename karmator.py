@@ -7,6 +7,7 @@ import os
 import random
 import requests
 import re
+import bs4
 
 from flask import Flask, request
 import peewee as pw
@@ -839,6 +840,20 @@ def croco(msg):
 	except Exception:
 		print("Error!")
 		
+def getanekdot():
+	z=''
+	s=requests.get('http://anekdotme.ru/random')
+	b=bs4.BeautifulSoup(s.text, "html.parser")
+	p=b.select('.anekdot_text')
+	for x in p:        
+		s=(x.getText().strip())
+		z=z+s+'\n\n'
+	return s
+    
+@bot.message_handler(commands=["анекдот"], func=is_my_message)
+def anekdot(msg):
+
+	bot.reply_to(msg, f"📍 <i>{getanekdot()}</i>", parse_mode="HTML")
 	
 @bot.message_handler(commands=["citata", "цитата"], func=is_my_message)
 def citata(msg):
