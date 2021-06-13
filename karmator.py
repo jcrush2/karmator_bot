@@ -1035,7 +1035,7 @@ def send_dice(msg):
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 				
-@bot.message_handler(regexp = '/[A-Za-z]')
+@bot.message_handler(regexp = '^/[A-Za-z]')
 def delcommand(msg):
 	bot.delete_message(msg.chat.id, msg.message_id)
 	return
