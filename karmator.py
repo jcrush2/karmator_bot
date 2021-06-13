@@ -94,8 +94,8 @@ def weather(msg):
 	в котором хранится исходный код бота
 	:param msg: Объект сообщения-команды
 	"""
-	
-	reply_text = "<a href=\"https://t.me/iv?url=https://khabara.ru/weather.php&rhash=c036525856601d\">погода</a>"
+	a = datetime.datetime.today()
+	reply_text = f"<a href='https://khabara.ru/weather.html?{a}'>🌡</a>"
 	bot.reply_to(msg, reply_text, parse_mode="HTML")
 
 	
