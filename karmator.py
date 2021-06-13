@@ -266,7 +266,13 @@ def my_karma(msg):
 	now_karma = f"Карма у {name}: <b>{user.karma}</b> {user_rang}"
 	bot.reply_to(msg, now_karma, parse_mode="HTML")
 
-
+@bot.message_handler(commands=['myphoto'], func=is_my_message)
+def send_welcome(message):
+	number = bot.get_user_profile_photos(message.from_user.id)
+	njson = json.loads(number)
+	nlist = njson['photos']
+	bot.reply_to(message, nlist[0].file_size)
+    
 @bot.message_handler(commands=["top"], func=is_my_message)
 def top_best(msg):
 	main_log.info("Starting func 'top_best'")
