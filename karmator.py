@@ -271,7 +271,7 @@ def send_welcome(msg):
 	number = bot.get_user_profile_photos(msg.from_user.id)
 	njson = json.loads(number)
 	nlist = njson['photos']
-	bot.reply_to(msg, nlist[0][0].file_size)
+	bot.send_photo(msg.chat.id, nlist[0].file_size, caption = f"ХабЧат 🐈 котик")
     
 @bot.message_handler(commands=["top"], func=is_my_message)
 def top_best(msg):
