@@ -127,7 +127,7 @@ def nos(msg):
 @bot.message_handler(commands=["love"], func=is_my_message)
 def love(msg):
 	if msg.reply_to_message:
-		bot.reply_to(msg, "<a href='tg://user?id=55910350'>❤</a>️ Знакомства в Хабаровске: @love_khv", parse_mode="HTML")
+		bot.reply_to(msg.reply_to_message, "<a href='tg://user?id=55910350'>❤</a>️ Знакомства в Хабаровске: @love_khv", parse_mode="HTML")
 		return
 	if len(msg.text.split()) == 1:
 		bot.delete_message(msg.chat.id, msg.message_id)
