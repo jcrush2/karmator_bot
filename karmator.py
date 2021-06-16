@@ -126,11 +126,13 @@ def nos(msg):
 
 @bot.message_handler(commands=["love"], func=is_my_message)
 def love(msg):
-		if len(msg.text.split()) == 1:
-			bot.delete_message(msg.chat.id, msg.message_id)
-			return
-		loves_text = "<a href='tg://user?id=55910350'>❤</a>️ Условия публикации в Знакомствах: @love_khv"
-		bot.reply_to(msg, loves_text, parse_mode="HTML")
+	if msg.reply_to_message:
+		bot.reply_to(msg, "<a href='tg://user?id=55910350'>❤</a>️ Знакомства в Хабаровске: @love_khv", parse_mode="HTML")
+	if len(msg.text.split()) == 1:
+		bot.delete_message(msg.chat.id, msg.message_id)
+		return
+	bot.reply_to(msg, "<a href='tg://user?id=55910350'>❤</a>️ Условия публикации в Знакомствах: @love_khv", parse_mode="HTML")
+		
 		
 
 		
