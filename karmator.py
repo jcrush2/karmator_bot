@@ -518,38 +518,41 @@ def gift_karma(msg):
 	Небольшая функция, которая позволяет создателю бота 
 	добавить подарок
 	"""
-	
-	if is_game_abuse(msg):
-		return
-	if is_karma_freezed(msg):
-		return
 	if msg.reply_to_message:
-		if msg.from_user.id == msg.reply_to_message.from_user.id:
-			bot.send_message(msg.chat.id, "Нельзя изменять карму самому себе.")
+		if is_game_abuse(msg):
 			return
-		Limitation.create(
-			timer=pw.SQL("current_timestamp"),
-			userid=msg.from_user.id,
-			chatid=msg.chat.id)
-		user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
-		if user.status == 'administrator' or user.status == 'creator':
-			change_karma(msg.reply_to_message.from_user, msg.chat, 15)
-			bot.reply_to(msg, "🎁 отсыпал кармы.")
-		else:
-			user = select_user(msg.from_user, msg.chat)
-			if not user:
-				insert_user(msg.from_user, msg.chat)
-			user = select_user(msg.from_user, msg.chat)
-			if user.karma > 5:
-				
-				change_karma(msg.from_user, msg.chat, -5)
-				change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
-				bot.reply_to(msg.reply_to_message, "🎁 Вам подарили карму <b>+5</b>.", parse_mode="HTML")
-				
+		if is_karma_freezed(msg):
+			return
+		if msg.reply_to_message:
+			if msg.from_user.id == msg.reply_to_message.from_user.id:
+				bot.send_message(msg.chat.id, "Нельзя изменять карму самому себе.")
+				return
+			Limitation.create(
+				timer=pw.SQL("current_timestamp"),
+				userid=msg.from_user.id,
+				chatid=msg.chat.id)
+			user = bot.get_chat_member(msg.chat.id, msg.from_user.id)
+			if user.status == 'administrator' or user.status == 'creator':
+				change_karma(msg.reply_to_message.from_user, msg.chat, 15)
+				bot.reply_to(msg, "🎁 отсыпал кармы.")
 			else:
+				user = select_user(msg.from_user, msg.chat)
+				if not user:
+					insert_user(msg.from_user, msg.chat)
+				user = select_user(msg.from_user, msg.chat)
+				if user.karma > 5:
 				
-				bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
+					change_karma(msg.from_user, msg.chat, -5)
+					change_karma(msg.reply_to_message.from_user, msg.chat, 5) 
+					bot.reply_to(msg.reply_to_message, "🎁 Вам подарили карму <b>+5</b>.", parse_mode="HTML")
+				
+				else:
+				
+					bot.reply_to(msg, "🎁 Нехватает кармы для подарка.", parse_mode="HTML")
+		else:
+			return
 	else:
+		bot.delete_message(msg.chat.id, msg.message_id)
 		return
 
 @bot.message_handler(commands=["unmute"], func=is_my_message)
