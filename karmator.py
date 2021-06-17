@@ -38,6 +38,8 @@ def is_my_message(msg):
 	Для того, чтобы не реагировать на команды для других ботов.
 	:param msg: Объект сообщения, для которого проводится проверка.
 	"""
+	if msg.chat.type == "private":
+		return
 	text = msg.text.split()[0].split("@")
 	if len(text) > 1:
 		if text[1] != config.bot_name:
@@ -494,7 +496,7 @@ def freeze_me(msg):
 	bot.reply_to(msg, result)
 
 
-@bot.message_handler(commands=["god"])
+@bot.message_handler(commands=["god"], func=is_my_message)
 def gods(msg):
 	"""
 	Небольшая функция, которая позволяет создателю бота 
@@ -512,7 +514,7 @@ def gods(msg):
 	change_karma(msg.reply_to_message.from_user, msg.chat, result)
 	bot.delete_message(msg.chat.id, msg.message_id)
 
-@bot.message_handler(commands=["gift"])
+@bot.message_handler(commands=["gift"], func=is_my_message)
 def gift_karma(msg):
 	"""
 	Небольшая функция, которая позволяет создателю бота 
@@ -1041,7 +1043,7 @@ def send_dice(msg):
 			else:
 				bot.delete_message(msg.chat.id, msg.message_id)
 				
-@bot.message_handler(regexp = '^/[A-Za-z]')
+@bot.message_handler(regexp = '^/[A-Za-z]', func=is_my_message)
 def delcommand(msg):
 	bot.delete_message(msg.chat.id, msg.message_id)
 	return
