@@ -1003,8 +1003,10 @@ def channel_post(msg):
 #		return
 				
 				
-@bot.message_handler(content_types=['dice'], func=reply_exist)
+@bot.message_handler(content_types=['dice'])
 def send_dice(msg):
+	if msg.chat.type == "private":
+		return
 	if msg.forward_from != None:
 		bot.delete_message(msg.chat.id, msg.message_id)
 	else:
