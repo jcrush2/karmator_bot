@@ -100,6 +100,17 @@ def weather(msg):
 	reply_text = f"<a href='https://khabara.ru/weather.html?{a}'>🌡</a>"
 	bot.reply_to(msg, reply_text, parse_mode="HTML")
 	
+@bot.message_handler(commands=["weathers","погодаф"], func=is_my_message)
+def weather(msg):
+	"""
+	Функция, которая по запросу возвращает ссылку на гитхаб-репозиторий,
+	в котором хранится исходный код бота
+	:param msg: Объект сообщения-команды
+	"""
+	a = datetime.datetime.today()
+	reply_text = f"<a href='https://khabara.ru/weather.html?{a}'>🌡</a>"
+	bot.reply_to(msg, reply_text, parse_mode="HTML")
+	
 @bot.message_handler(commands=["news","новости"], func=is_my_message)
 def news(msg):
 	a = datetime.datetime.today()
