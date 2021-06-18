@@ -88,6 +88,7 @@ def helps(msg):
 	\n<b>🎲🎰🏀🎳⚽️</b> - Рандом кармы"
 	
 	bot.send_message(msg.chat.id, help_mess, parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 
 @bot.message_handler(commands=["weather","погода"], func=is_my_message)
 def weather(msg):
@@ -98,25 +99,29 @@ def weather(msg):
 	"""
 	a = datetime.datetime.today()
 	bot.reply_to(msg, f"<a href='https://khabara.ru/weather.html?{a}'>🌡</a>", parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 	
 	
 @bot.message_handler(commands=["news"], func=is_my_message)
 def news_khv(msg):
 	a = datetime.datetime.today()
 	bot.reply_to(msg, f"<a href='https://khabara.ru/rss.html?{a}'>📰</a>", parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 	
 @bot.message_handler(commands=["tg"], func=is_my_message)
 def tg_group(msg):
 	bot.reply_to(msg, "<a href='https://t.me/khv_news/6203'>🔗</a>", parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 	
 @bot.message_handler(commands=["report"], func=is_my_message)
 def report(msg):
 	"""
 	Функция, для жалоб админам
 	"""    
-	report_text = "⚠️ Жалоба получена! \
+	report_text = "⚠️ Жалоба от <b>{msg.from_user.first_name}</b> получена! \
 	\nУведомление админов: " + config.adminschat
 	bot.reply_to(msg, report_text)
+	bot.delete_message(msg.chat.id, msg.message_id)
 	
 @bot.message_handler(commands=["no"], func=is_my_message)
 def nos(msg):
@@ -132,6 +137,7 @@ def nos(msg):
 
 	else:
 		bot.reply_to(msg,nos_text)
+	bot.delete_message(msg.chat.id, msg.message_id)
 
 
 @bot.message_handler(commands=["love"], func=is_my_message)
@@ -278,6 +284,7 @@ def my_karma(msg):
 
 	now_karma = f"Карма у {name}: <b>{user.karma}</b> {user_rang}"
 	bot.reply_to(msg, now_karma, parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 
     
 @bot.message_handler(commands=["top"], func=is_my_message)
@@ -373,6 +380,7 @@ def top_best(msg):
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="HTML")
+	bot.delete_message(msg.chat.id, msg.message_id)
 
 	
 	
@@ -476,6 +484,7 @@ def top_bad(msg):
 	if not selected_user:
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
+	bot.delete_message(msg.chat.id, msg.message_id)
 
 
 
@@ -709,7 +718,7 @@ def is_karma_abuse(msg):
 	return False
 
 
-@bot.message_handler(commands=["язаБан"], func=reply_exist)
+@bot.message_handler(commands=["бан"], func=reply_exist)
 def zaBan(msg):
 
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
