@@ -118,7 +118,7 @@ def report(msg):
 	"""
 	Функция, для жалоб админам
 	"""    
-	report_text = "⚠️ Жалоба от <b>{msg.from_user.first_name}</b> получена! \
+	report_text = f"⚠️ Жалоба от <b>{msg.from_user.first_name}</b> получена! \
 	\nУведомление админов: " + config.adminschat
 	bot.reply_to(msg, report_text)
 	bot.delete_message(msg.chat.id, msg.message_id)
