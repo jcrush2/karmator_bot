@@ -102,27 +102,14 @@ def weather(msg):
 	
 @bot.message_handler(commands=["news","новости"], func=is_my_message)
 def news(msg):
-	"""
-	Функция, которая по запросу возвращает ссылку на гитхаб-репозиторий,
-	в котором хранится исходный код бота
-	:param msg: Объект сообщения-команды
-	"""
 	a = datetime.datetime.today()
 	reply_text = f"https://khabara.ru/rss.html?{a}'>📰</a>"
 	bot.reply_to(msg, reply_text, parse_mode="HTML")
 	
-
 @bot.message_handler(commands=["tg","тг"], func=is_my_message)
 def tg(msg):
-	"""
-	Функция, которая по запросу возвращает ссылку на гитхаб-репозиторий,
-	в котором хранится исходный код бота
-	:param msg: Объект сообщения-команды
-	"""
 	reply_text = f"https://t.me/khv_news/6203'>🔗</a>"
 	bot.reply_to(msg, reply_text, parse_mode="HTML")
-
-
 	
 @bot.message_handler(commands=["report"], func=is_my_message)
 def report(msg):
