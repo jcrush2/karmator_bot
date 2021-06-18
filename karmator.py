@@ -100,14 +100,14 @@ def weather(msg):
 	bot.reply_to(msg, f"<a href='https://khabara.ru/weather.html?{a}'>🌡</a>", parse_mode="HTML")
 	
 	
-@bot.message_handler(commands=["news","новости"], func=is_my_message)
+@bot.message_handler(commands=["news"], func=is_my_message)
 def news_khv(msg):
 	a = datetime.datetime.today()
-	bot.reply_to(msg, f"https://khabara.ru/rss.html?{a}'>📰</a>", parse_mode="HTML")
+	bot.reply_to(msg, f"<a href='https://khabara.ru/rss.html?{a}'>📰</a>", parse_mode="HTML")
 	
-@bot.message_handler(commands=["tg","тг"], func=is_my_message)
+@bot.message_handler(commands=["tg"], func=is_my_message)
 def tg_group(msg):
-	bot.reply_to(msg, f"https://t.me/khv_news/6203'>🔗</a>", parse_mode="HTML")
+	bot.reply_to(msg, "<a href='https://t.me/khv_news/6203'>🔗</a>", parse_mode="HTML")
 	
 @bot.message_handler(commands=["report"], func=is_my_message)
 def report(msg):
