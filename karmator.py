@@ -97,30 +97,17 @@ def weather(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	a = datetime.datetime.today()
-	reply_text = f"<a href='https://khabara.ru/weather.html?{a}'>🌡</a>"
-	bot.reply_to(msg, reply_text, parse_mode="HTML")
+	bot.reply_to(msg, f"<a href='https://khabara.ru/weather.html?{a}'>🌡</a>", parse_mode="HTML")
 	
-@bot.message_handler(commands=["weathers","погодаф"], func=is_my_message)
-def weather(msg):
-	"""
-	Функция, которая по запросу возвращает ссылку на гитхаб-репозиторий,
-	в котором хранится исходный код бота
-	:param msg: Объект сообщения-команды
-	"""
-	a = datetime.datetime.today()
-	reply_text = f"<a href='https://khabara.ru/weather.html?{a}'>🌡</a>"
-	bot.reply_to(msg, reply_text, parse_mode="HTML")
 	
 @bot.message_handler(commands=["news","новости"], func=is_my_message)
-def news(msg):
+def news_khv(msg):
 	a = datetime.datetime.today()
-	reply_text = f"https://khabara.ru/rss.html?{a}'>📰</a>"
-	bot.reply_to(msg, reply_text, parse_mode="HTML")
+	bot.reply_to(msg, f"https://khabara.ru/rss.html?{a}'>📰</a>", parse_mode="HTML")
 	
 @bot.message_handler(commands=["tg","тг"], func=is_my_message)
-def tg(msg):
-	reply_text = f"https://t.me/khv_news/6203'>🔗</a>"
-	bot.reply_to(msg, reply_text, parse_mode="HTML")
+def tg_group(msg):
+	bot.reply_to(msg, f"https://t.me/khv_news/6203'>🔗</a>", parse_mode="HTML")
 	
 @bot.message_handler(commands=["report"], func=is_my_message)
 def report(msg):
