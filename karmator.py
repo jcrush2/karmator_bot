@@ -120,7 +120,7 @@ def report(msg):
 	"""    
 	report_text = f"⚠️ Жалоба от <b>{msg.from_user.first_name}</b> получена! \
 	\nУведомление админов: " + config.adminschat
-	bot.reply_to(msg, report_text)
+	bot.reply_to(msg, report_text, parse_mode="HTML")
 	bot.delete_message(msg.chat.id, msg.message_id)
 	
 @bot.message_handler(commands=["no"], func=is_my_message)
