@@ -718,7 +718,7 @@ def is_karma_abuse(msg):
 	return False
 
 
-@bot.message_handler(commands=["бан"], func=reply_exist)
+@bot.message_handler(commands=["zaban","бан"], func=reply_exist)
 def zaBan(msg):
 
 		user = bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
@@ -726,6 +726,7 @@ def zaBan(msg):
 			return
 		bot.send_message(msg.chat.id, f"<a href='tg://user?id=55910350'>🔫</a> <b>{msg.from_user.first_name}</b> предлагает выгнать <b>{msg.reply_to_message.from_user.first_name}</b> из Хабчата!", parse_mode="HTML")
 		bot.send_poll(msg.chat.id, f'Согласны выгнать {msg.reply_to_message.from_user.first_name} из Чата?', ['Да', 'Нет', 'Не знаю'],is_anonymous=False)
+		bot.delete_message(msg.chat.id, msg.message_id)
 
 @bot.message_handler(commands=["утра"], func=is_my_message)
 def utra(msg):
