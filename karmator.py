@@ -77,7 +77,7 @@ def helps(msg):
 	\n/no - Для объявлений\
 	\n/report - Отправить жалобу\
 	\n/croco - Игра в Крокодил\
-	\n\n<b>/утра /цитата /дата /погода /кот /шутка /? /сохранить /привет /фсб /фото /баг</b> - Ответом на сообщение\
+	\n\n<b>/утра /цитата /дата /погода /кот /шутка /? /сохранить /привет /фсб /фото /бан</b> - Ответом на сообщение\
 	\n\n<b>Карма:</b>\
 	\n/my - Посмотреть свою карму\
 	\n/top - Узнать наиболее благодаримых в чате\
@@ -485,7 +485,25 @@ def top_bad(msg):
 		top_mess = "Никто еще не заслужил быть в этом списке."
 	bot.send_message(msg.chat.id, top_mess, parse_mode="Markdown")
 	bot.delete_message(msg.chat.id, msg.message_id)
+	
+	
+@bot.message_handler(commands=["send"], func=is_my_message)
+def send(msg):
+	"""
+	Функция которая выводит список пользователей с найменьшим значением кармы
+	:param msg: Объект сообщения-команды
+	"""
+	selected_user = KarmaUser.select() \
+		.limit(10)
 
+	for i, user in enumerate(selected_user):
+		try:
+			if i % 20 == 0:
+				time.sleep(1)
+			bot.send_message(user.userid, "Тест рассылки от @khvchat", parse_mode="HTML" )
+		except:
+			continue
+	
 
 
 @bot.message_handler(commands=["freez", "unfreez"], func=is_my_message)
