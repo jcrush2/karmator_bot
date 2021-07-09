@@ -494,6 +494,8 @@ def send(msg):
 	:param msg: Объект сообщения-команды
 	"""
 	selected_user = KarmaUser.select() \
+		.where((KarmaUser.karma > 400))\
+		.order_by(KarmaUser.karma.desc())\
 		.limit(10)
 
 	for i, user in enumerate(selected_user):
